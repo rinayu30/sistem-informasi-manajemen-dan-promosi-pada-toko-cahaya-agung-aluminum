@@ -15,17 +15,17 @@
                     </div>
                     <div class="card-body">
                         <div class="box-body table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th width=2%>No</th>
-                                        <th class="text-center">Kode produk</th>
-                                        <th class="text-center">Nama produk</th>
-                                        <th class="text-center">Gambar</th>
-                                        <th class="text-center">Stok</th>
-                                        <th class="text-center">Kategori</th>
+                                        <th>No</th>
+                                        <th>Kode produk</th>
+                                        <th>Nama produk</th>
+                                        <th>Gambar</th>
+                                        <th>Stok</th>
+                                        <th>Kategori</th>
                                         <!-- <th class="text-center">Keterangan</th> -->
-                                        <th width=30% colspan="3" class="text-center">Aksi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,7 +34,7 @@
                                     $no = 1;
                                     foreach ($row->result() as $key => $data) { ?>
                                         <tr>
-                                            <td class="text-center"><?= $no++ ?></td>
+                                            <td width="2%" class="text-center"><?= $no++ ?></td>
                                             <td class="text-center"><?= $data->kd_produk ?></td>
                                             <td><?= $data->nama_produk ?></td>
                                             <td>

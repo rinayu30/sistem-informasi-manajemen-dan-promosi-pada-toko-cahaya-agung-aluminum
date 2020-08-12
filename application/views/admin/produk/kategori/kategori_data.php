@@ -15,12 +15,12 @@
                     </div>
                     <div class="card-body">
                         <div class="box-body table-responsive">
-                            <table class="table table-bordered table-striped" id="table1">
+                            <table class="table table-bordered table-striped" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th width=2%>No</th>
-                                        <th width=50% class="text-center">Nama kategori</th>
-                                        <th class="text-center" width=30%>Aksi</th>
+                                        <th>No</th>
+                                        <th>Nama kategori</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,9 +29,9 @@
                                     $no = 1;
                                     foreach ($row->result() as $key => $data) { ?>
                                         <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $data->nama_kategori ?></td>
-                                            <td class="text-center">
+                                            <td width=2%><?= $no++ ?></td>
+                                            <td width=40% class="text-center"><?= $data->nama_kategori ?></td>
+                                            <td class="text-center" width=20%>
                                                 <a href="<?= site_url('admin/kategori/edit/' . $data->id_kategori) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Edit</a>
                                                 <a href="<?= site_url('admin/kategori/delete/' . $data->id_kategori) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
