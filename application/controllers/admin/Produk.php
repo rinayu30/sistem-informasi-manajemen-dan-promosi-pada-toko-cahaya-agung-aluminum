@@ -20,6 +20,13 @@ class Produk extends CI_Controller
         $this->load->view('admin/produk/daftar_produk', $data);
         $this->load->view('templates_adm/footer');
     }
+    public function add_harga()
+    {
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/kalkulasi/kalkulasi_data');
+        $this->load->view('templates_adm/footer');
+    }
 
 
     public function add()
