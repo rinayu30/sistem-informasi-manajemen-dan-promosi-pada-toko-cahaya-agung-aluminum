@@ -55,4 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route['admin/dashboard'] = 'admin/dashboard_admin';
 $route['home'] = 'dashboard';
 $route['home/kontak'] = 'dashboard/kontak';
+$route['home/produk'] = 'dashboard/produk';
+$route['home/detail/(:num)'] = 'dashboard/detail/$.';
 $route['admin'] = 'admin/overview';

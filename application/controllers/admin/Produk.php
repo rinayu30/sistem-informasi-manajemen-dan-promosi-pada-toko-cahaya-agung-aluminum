@@ -114,4 +114,9 @@ class Produk extends CI_Controller
         }
         redirect('admin/produk');
     }
+    //untuk website
+    public function getProduk()
+    {
+        return $this->db->get('produk');
+    }
 }

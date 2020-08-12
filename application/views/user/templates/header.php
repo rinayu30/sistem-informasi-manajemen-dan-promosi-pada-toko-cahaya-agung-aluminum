@@ -95,7 +95,7 @@
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Produk <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="page-full-width.htm">Semua produk</a></li>
+								<li><a href="<?= site_url('home/produk') ?>">Semua produk</a></li>
 								<li><a href="page-right-sidebar.htm">Lemari</a></li>
 								<li><a href="page-left-sidebar.htm">Meja</a></li>
 								<li><a href="page-left-sidebar.htm">Steling Jualan</a></li>
