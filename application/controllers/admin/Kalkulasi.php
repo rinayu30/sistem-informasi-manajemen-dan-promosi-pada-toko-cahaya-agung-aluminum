@@ -7,7 +7,7 @@ class Kalkulasi extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['kalkulasi_model', 'produk_model']);
+        $this->load->model(['kalkulasi_model', 'produk_model', 'item_model']);
         $this->load->library('form_validation');
     }
 

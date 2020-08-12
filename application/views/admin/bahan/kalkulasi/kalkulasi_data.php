@@ -47,88 +47,96 @@
                                     <div class="box-body table-responsive">
                                         <form action="<?= site_url('admin/kalkulasi/proses') ?>" method="post">
                                             <div class="form-group ">
-                                                <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label>
-                                                <input type="text" name="nama" class="form-control" required>
+                                                <label for="jenis">Jenis *</label>
+                                                <?php echo form_dropdown(
+                                                    'jenis',
+                                                    $jenis,
+                                                    $selectedjenis,
+                                                    ['class' => 'form-control', 'required' => 'required']
+                                                ); ?>
                                             </div>
-                                            <div class="form-group ">
-                                                <label for="nama" class="m-0 font-weight-bold text-primary">Nama Bahan*</label>
-                                                <input type="text" name="nama" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group text-right">
-                                                <button type="submit" name="" class="btn btn-success btn-sm"><i class="fas fa-plus fa-sm"></i></button>
-                                            </div>
-                                        </form>
+                                            <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label>
+                                            <input type="text" name="nama" class="form-control" required> -->
                                     </div>
+                                    <div class="form-group ">
+                                        <label for="nama" class="m-0 font-weight-bold text-primary">Nama Bahan*</label>
+                                        <input type="text" name="nama" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group text-right">
+                                        <button type="submit" name="" class="btn btn-success btn-sm"><i class="fas fa-plus fa-sm"></i></button>
+                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-lg-4 justify-content-right">
-                            <div class="card shadow mb-4 card-header py-3">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Modal Produk </label></h6>
-                                </div>
-                                <div class="">
-                                    <div class="card-body">
-                                        <div class="box-body table-responsive">
-                                            <div class="form-group ">
-                                                <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
-                                                <input type="text" name="nama" class="form-control" readonly>
-                                            </div>
+                    <div class="col-lg-4 justify-content-right">
+                        <div class="card shadow mb-4 card-header py-3">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Modal Produk </label></h6>
+                            </div>
+                            <div class="">
+                                <div class="card-body">
+                                    <div class="box-body table-responsive">
+                                        <div class="form-group ">
+                                            <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
+                                            <input type="text" name="nama" class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Harga Bahan dari Produk</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="box-body table-responsive">
-                                <table class="table table-bordered table-striped" id="table1">
-                                    <thead>
-                                        <tr>
-                                            <th width=2%>No</th>
-                                            <th class="text-center">Nama Bahan</th>
-                                            <th class="text-center">Banyak</th>
-                                            <th class="text-center">Ukuran Aluminium</th>
-                                            <th class="text-center">Ukuran Panjang</th>
-                                            <th class="text-center">Ukuran Lebar</th>
-                                            <th class="text-center">Jumlah Bahan</th>
-                                            <th class="text-center">Harga/satuan</th>
-                                            <th class="text-center">Jumlah Harga</th>
-                                            <th class="text-center" width=30%>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td width=2%>1</td>
-                                        <td class="text-center">Nama Bahan</td>
-                                        <td class="text-center">Banyak</td>
-                                        <td class="text-center">Ukuran Aluminium</td>
-                                        <td class="text-center">Ukuran Panjang</td>
-                                        <td class="text-center">Ukuran Lebar</td>
-                                        <td class="text-center">Jumlah Bahan</td>
-                                        <td class="text-center">Harga/satuan</td>
-                                        <td class="text-center">Jumlah Harga</td>
-                                        <td class="text-center" width=30%>
-                                            <a href="" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-edit"></i> Edit</a>
-                                            <a href="" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i> Hapus</a>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Data Harga Bahan dari Produk</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="box-body table-responsive">
+                            <table class="table table-bordered table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th width=2%>No</th>
+                                        <th class="text-center">Nama Bahan</th>
+                                        <th class="text-center">Banyak</th>
+                                        <th class="text-center">Ukuran Aluminium</th>
+                                        <th class="text-center">Ukuran Panjang</th>
+                                        <th class="text-center">Ukuran Lebar</th>
+                                        <th class="text-center">Jumlah Bahan</th>
+                                        <th class="text-center">Harga/satuan</th>
+                                        <th class="text-center">Jumlah Harga</th>
+                                        <th class="text-center" width=30%>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td width=2%>1</td>
+                                    <td class="text-center">Nama Bahan</td>
+                                    <td class="text-center">Banyak</td>
+                                    <td class="text-center">Ukuran Aluminium</td>
+                                    <td class="text-center">Ukuran Panjang</td>
+                                    <td class="text-center">Ukuran Lebar</td>
+                                    <td class="text-center">Jumlah Bahan</td>
+                                    <td class="text-center">Harga/satuan</td>
+                                    <td class="text-center">Jumlah Harga</td>
+                                    <td class="text-center" width=30%>
+                                        <a href="" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i> Edit</a>
+                                        <a href="" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i> Hapus</a>
 
-                                        </td>
+                                    </td>
 
 
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
 
             </section>
             <!-- /.container-fluid -->

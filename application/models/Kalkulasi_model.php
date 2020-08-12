@@ -1,28 +1,32 @@
 
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Kalkulasi_model extends CI_Model
 {
 
-    public function get($id = null){
+    public function get($id = null)
+    {
         $this->db->from('kalkulasi');
         $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
-        if($id != null){
+
+        if ($id != null) {
             $this->db->where('id_kalkulasi', $id);
         }
         $query = $this->db->get();
         return $query;
     }
-    
+
     public function add($post)
     {
         $params = [
             'kd_produk' => $post['kode'],
-           
+            'id_jenis' => $post['jenis'],
+            'id_item' => $post['item'],
+
         ];
         $this->db->insert('kalkulasi', $params);
     }
-//fungsi dibawah diabaikan dulu 
+    //fungsi dibawah diabaikan dulu 
     public function edit($post)
     {
         $params = [
@@ -40,5 +44,4 @@ class Kalkulasi_model extends CI_Model
         $this->db->where('id_jenis', $id);
         $this->db->delete('jenis_bahan');
     }
-    
 }
