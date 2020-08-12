@@ -21,6 +21,7 @@ class Produk extends CI_Controller
         $this->load->view('templates_adm/footer');
     }
 
+
     public function add()
     {
         $produk = new stdClass();
@@ -90,13 +91,12 @@ class Produk extends CI_Controller
 
     public function detail($id)
     {
-        $result = $this->db->where('kd_produk', $id)->get('produk');
-        if ($result->num_rows() > 0) {
-            return $result->result();
-        } else {
-            return false;
-        }
-        return $this->db->delete($this->_table, array("kd_produk" => $id));
+
+        $data['row'] = $this->produk_model->get($id);
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/produk/detail', $data);
+        $this->load->view('templates_adm/footer');
     }
 
     public function delete($id)

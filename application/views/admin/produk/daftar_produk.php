@@ -46,7 +46,7 @@
                                             <td class="text-center"><?= $data->nama_kategori ?></td>
                                             <!-- <td><?= $data->detail ?></td> -->
                                             <td class="text-center">
-                                                <a href="#" id="set_dtl" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-detail" data-kdproduk="<?= $data->kd_produk ?>" data-nama_produk="<?= $data->nama_produk ?>" data-gambar="<?= $data->gambar ?>" data-stok="<?= $data->stok ?>" data-kategori="<?= $data->nama_kategori ?>" data-detail="<?= $data->detail ?>">
+                                                <a href="<?= site_url('admin/produk/detail/' . $data->kd_produk) ?>" class="btn btn-success btn-sm">
                                                     <i class="fas fa-search-plus"></i> Detail</a>
                                                 <a href="<?= site_url('admin/produk/edit/' . $data->kd_produk) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Edit</a>
@@ -66,7 +66,7 @@
             </section>
             <!-- /.container-fluid -->
 
-            <div class="modal fade" id="modal-detail">
+            <!-- <div class="modal fade" id="modal-detail">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -122,7 +122,7 @@
                     })
 
                 })
-            </script>
+            </script> -->
 
 
 
