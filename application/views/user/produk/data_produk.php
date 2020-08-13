@@ -5,16 +5,23 @@
             <ul class="gallery-post-grid holder">
                 <!-- Gallery Item 1 -->
                 <?php foreach ($row->result() as $key => $data) : ?>
-                    <li class="span3 gallery-item " data-type="illustration">
+                    <li class="span3 gallery-item">
                         <span class="gallery-hover-4col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
-                                <a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>" class="item-details-link"></a>
+                                <div class="progress progress-warning ">
+                                    <div class="bar" style="width: 100%"> Rp.1.300.000</div>
+
+                                </div>
                             </span>
                         </span>
                         <?php if ($data->gambar != null) { ?>
-                            <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" alt="Gallery" height="70%">
+                            <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" style="height: 220px; width :min-content">
                         <?php } ?>
-                        <span>
+                        <span class="project-details" style="width :initial">
+                            <a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>" class="btn btn-normal btn-sm lead">
+                                <?= $data->nama_produk ?></a>
+                            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" class="btn btn-normal btn-sm lead">
+                                Tambah ke Keranjang</a>
                         </span>
                     </li>
                 <?php endforeach; ?>
