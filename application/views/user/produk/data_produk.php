@@ -1,25 +1,26 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <?php foreach ($row->result() as $key => $data) : ?>
-            <div class="row clearfix">
-                <ul class="gallery-post-grid holder">
-                    <!-- Gallery Item 1 -->
+<div class="container">
+    <div class="row">
+
+        <div class="row clearfix">
+            <ul class="gallery-post-grid holder">
+                <!-- Gallery Item 1 -->
+                <?php foreach ($row->result() as $key => $data) : ?>
                     <li class="span3 gallery-item " data-type="illustration">
                         <span class="gallery-hover-4col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
-                                <!-- <a href="img/gallery/gallery-img-1-full.jpg" class="item-zoom-link lightbox" title="Custom Illustration" data-rel="prettyPhoto"></a> -->
                                 <a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>" class="item-details-link"></a>
                             </span>
                         </span>
                         <?php if ($data->gambar != null) { ?>
                             <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" alt="Gallery" height="70%">
                         <?php } ?>
-                        <span class="project-details text-center"><?= $data->nama_produk ?><br>
-                            <?= $data->detail ?></span>
+                        <span>
+                        </span>
                     </li>
-                </ul>
-            </div>
-        <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
 
     </div>
 </div>
