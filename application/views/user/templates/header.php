@@ -89,8 +89,17 @@
 				<div class="navbar hidden-phone">
 
 					<ul class="nav">
+						<li>
+							<?php
+							$keranjang = 'Keranjang saya : ' . $this->cart->total_items() . ' item'
+							?>
+
+							<a class="dropdown-toggle">
+								<?php echo  $keranjang ?></a></li>
+						<li>
+						</li>
 						<li class="active">
-							<a class="dropdown-toggle" href="<?= site_url('home') ?>">Home</a>
+							<a class="dropdown-toggle" href="<?= site_url('home') ?>"> Home</a>
 						</li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Produk <b class="caret"></b></a>
@@ -103,7 +112,7 @@
 								<li><a href="page-double-sidebar.htm">Dan lain-lain</a></li>
 							</ul>
 						</li>
-						<li><a href="page-contact.htm">Keranjang</a></li>
+
 						<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
 						<li><a href="page-contact.htm">Masuk</a></li>
 					</ul>

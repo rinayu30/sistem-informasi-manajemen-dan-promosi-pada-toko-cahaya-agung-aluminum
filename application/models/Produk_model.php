@@ -126,4 +126,16 @@ class Produk_model extends CI_Model
         $this->db->where('kd_produk', $id);
         $this->db->delete('produk');
     }
+    //untuk website
+    public function find($id)
+    {
+        $result = $this->db->where('kd_produk', $id)
+            ->limit(1)
+            ->get('produk');
+        if ($result->num_rows > 0) {
+            return $result->row();
+        } else {
+            return array();
+        }
+    }
 }
