@@ -132,7 +132,7 @@ class Produk_model extends CI_Model
         $result = $this->db->where('kd_produk', $id)
             ->limit(1)
             ->get('produk');
-        if ($result->num_rows > 0) {
+        if ($result->num_rows() > 0) {
             return $result->row();
         } else {
             return array();

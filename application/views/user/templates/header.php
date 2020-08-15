@@ -127,7 +127,7 @@
 							<option value="">Navigate...</option>
 							<option value="index.htm">Home</option>
 							<option value="page-full-width.htm">Produk</option>
-							<option value="page-full-width.htm">- Semua produk</option>
+							<option value="<?= site_url('home/produk') ?>">- Semua produk</option>
 							<option value="page-right-sidebar.htm">- Lemari</option>
 							<option value="page-right-sidebar.htm">- Meja</option>
 							<option value="page-right-sidebar.htm">- Steling Jualan</option>

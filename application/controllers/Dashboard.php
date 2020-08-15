@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller
         $data = array(
             'id'      => $produk->kd_produk,
             'qty'     => 1,
-            'price'   => 1.300, //atur nnti sepertidiatas
+            'price'   => 1.30, //atur nnti sepertidiatas
             'name'    =>  $produk->nama_produk,
         );
 

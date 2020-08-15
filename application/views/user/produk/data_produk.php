@@ -20,7 +20,7 @@
                         <span class="project-details" style="width :initial">
                             <a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>" class="btn btn-normal btn-sm lead">
                                 <?= $data->nama_produk ?></a>
-                            <a href="<?= site_url('dashboard/tambah_keranjang/' . $produk->kd_produk) ?>" class="btn btn-normal btn-sm lead">
+                            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" class="btn btn-normal btn-sm lead">
                                 Tambah ke Keranjang</a>
                         </span>
                     </li>
