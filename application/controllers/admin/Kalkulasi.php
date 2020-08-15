@@ -7,7 +7,7 @@ class Kalkulasi extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['kalkulasi_model', 'produk_model', 'item_model']);
+        $this->load->model(['kalkulasi_model', 'produk_model', 'item_model', 'jenis_model']);
         $this->load->library('form_validation');
     }
 
@@ -27,16 +27,15 @@ class Kalkulasi extends CI_Controller
         $kalkulasi = new stdClass();
         $kalkulasi->id_kalkulasi = null; //field sesuai dengan database
 
-        // $query_produk = $this->produk_model->get();
-        // $kode[null] = '--Pilih--';
-        // foreach($query_produk->result() as $kd){
-        //     $kode[$kd->kd_produk] = $kd->nama_produk;
-        // }
-        // //isi $data nya tidak terdefinisi semua, kenapa?
+        $query_jenis = $this->jenis_model->get();
+        $jenis[null] = '--Pilih--';
+        foreach ($query_jenis->result() as $jns) {
+            $jenis[$jns->id_jenis] = $jns->nama_jenis;
+        }
         $data = array(
             'page' => 'tambah',
             'row' => $kalkulasi,
-            // 'kode' =>$kode,'selectedkode'=>null,
+            'jenis' => $jenis, 'selectedjenis' => null,
         );
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
     }

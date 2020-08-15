@@ -18,7 +18,7 @@
                         <div class="col-lg-4 justify-content-left">
                             <div class="card shadow mb-4 card-header py-3">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Kode Produk*</label></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kd_produk">Kode Produk*</label></h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="box-body table-responsive">
@@ -31,47 +31,54 @@
                                                 foreach ($db->result() as $rw) {
                                                 ?>
                                                     <option value="<?php echo $rw->kd_produk; ?>">
-                                                        <?php echo $rw->kd_produk; ?> <?php echo $rw->nama_produk; ?>
+                                                        <?php echo $rw->nama_produk; ?>
                                                     </option>
                                                 <?php } ?>
-                                            </select>
+                                            </select><br>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 justify-content-right">
+                        <div class="col-lg-4 justify-content-center">
                             <div class="card shadow mb-4 card-header py-3">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><label for="id_jenis">Jenis Bahan*</label></h6>
+                                </div>
                                 <div class="card-body">
                                     <div class="box-body table-responsive">
                                         <form action="<?= site_url('admin/kalkulasi/proses') ?>" method="post">
-                                            <div class="form-group ">
-                                                <label for="jenis">Jenis *</label>
-                                                <?php echo form_dropdown(
-                                                    'jenis',
-                                                    $jenis,
-                                                    $selectedjenis,
-                                                    ['class' => 'form-control', 'required' => 'required']
-                                                ); ?>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-9">
+                                                    <select id="id_jenis" class="form-control" name="id_jenis" required>
+                                                        <option value="" selected hidden>---Pilih---</option>
+                                                        <?php
+                                                        $db = $this->db->get('jenis_bahan');
+                                                        foreach ($db->result() as $rw) {
+                                                        ?>
+                                                            <option value="<?php echo $rw->id_jenis; ?>">
+                                                                <?php echo $rw->nama_jenis; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select> </div>
+                                                <div class="form-group  col-md-3 text-right">
+                                                    <button type="submit" name="tambah_bahan" class="btn btn-success btn-sm"><i class="fas fa-plus fa-sm"></i></button>
+                                                </div>
                                             </div>
-                                            <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label>
-                                            <input type="text" name="nama" class="form-control" required> -->
                                     </div>
-                                    <div class="form-group ">
+                                    <!-- <div class="form-group ">
                                         <label for="nama" class="m-0 font-weight-bold text-primary">Nama Bahan*</label>
                                         <input type="text" name="nama" class="form-control" required>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="form-group text-right">
-                                        <button type="submit" name="" class="btn btn-success btn-sm"><i class="fas fa-plus fa-sm"></i></button>
-                                    </div>
+
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4 justify-content-right">
                         <div class="card shadow mb-4 card-header py-3">
                             <div class="card-header py-3">
