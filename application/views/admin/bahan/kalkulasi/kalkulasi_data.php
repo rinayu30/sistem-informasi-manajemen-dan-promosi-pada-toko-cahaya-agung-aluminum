@@ -31,6 +31,7 @@
                                                 foreach ($db->result() as $rw) {
                                                 ?>
                                                     <option value="<?php echo $rw->kd_produk; ?>">
+                                                        <?php echo $rw->kd_produk; ?> &emsp;
                                                         <?php echo $rw->nama_produk; ?>
                                                     </option>
                                                 <?php } ?>
