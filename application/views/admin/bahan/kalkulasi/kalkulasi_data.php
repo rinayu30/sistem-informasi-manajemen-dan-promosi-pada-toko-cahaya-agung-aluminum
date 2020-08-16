@@ -20,7 +20,7 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><label for="kd_produk">Kode Produk*</label></h6>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" style="height: 110px;">
                                     <div class="box-body table-responsive">
                                         <div class="form-group ">
 
@@ -79,24 +79,25 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 justify-content-right">
-                        <div class="card shadow mb-4 card-header py-3">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Modal Produk </label></h6>
-                            </div>
-                            <div class="">
-                                <div class="card-body">
-                                    <div class="box-body table-responsive">
-                                        <div class="form-group ">
-                                            <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
-                                            <input type="text" name="nama" class="form-control" readonly>
+                        <div class="col-lg-4 justify-content-right">
+                            <div class="card shadow mb-4 card-header py-3">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Modal Produk </label></h6>
+                                </div>
+                                <div class="">
+                                    <div class="card-body" style="height: 110px;">
+                                        <div class="box-body table-responsive">
+                                            <div class="form-group ">
+                                                <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
+                                                <input type="text" name="nama" class="form-control" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="card shadow mb-4">
