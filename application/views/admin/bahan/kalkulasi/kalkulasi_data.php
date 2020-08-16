@@ -82,7 +82,7 @@
                         <div class="col-lg-4 justify-content-right">
                             <div class="card shadow mb-4 card-header py-3">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Modal Produk </label></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><label for="kode">Harga Jual Produk </label></h6>
                                 </div>
                                 <div class="">
                                     <div class="card-body" style="height: 110px;">

@@ -27,10 +27,16 @@ class item extends CI_Controller
         $item = new stdClass();
         $item->id_item = null; //field sesuai dengan database
         $item->nama_item = null;
+        $query_jenis = $this->jenis_model->get();
+        $jenis[null] = '--Pilih--';
+        foreach ($query_jenis->result() as $jns) {
+            $jenis[$jns->id_jenis] = $jns->nama_jenis;
+        }
 
         $data = array(
             'page' => 'tambah',
             'row' => $item,
+            'jenis' => $jenis, 'selectedjenis' => null,
 
         );
         $this->load->view('admin/bahan/item/item_form', $data);
