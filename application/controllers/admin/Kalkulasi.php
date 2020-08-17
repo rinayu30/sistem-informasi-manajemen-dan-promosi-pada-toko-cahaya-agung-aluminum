@@ -14,10 +14,28 @@ class Kalkulasi extends CI_Controller
     public function index()
     {
 
-        $data['row'] = $this->kalkulasi_model->get();
+        // $data['row'] = $this->kalkulasi_model->get();
+        $data['kd_produk'] = $this->produk_model->get();
+        if (isset($_POST['submit'])) {
+        }
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
+        $this->load->view('templates_adm/footer');
+    }
+    public function add_bahan()
+    {
+        $kalkulasi = new stdClass();
+        $kalkulasi->id_kalkulasi = null;
+        $kalkulasi->kd_produk = null;
+        // $data = array(
+        //     'page' => 'tambah',
+        //     'row' => $kalkulasi,
+        //     // 'jenis' => $jenis, 'selectedjenis' => null,
+        // );
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/kalkulasi/form_kalkulasi');
         $this->load->view('templates_adm/footer');
     }
 
@@ -27,15 +45,15 @@ class Kalkulasi extends CI_Controller
         $kalkulasi = new stdClass();
         $kalkulasi->id_kalkulasi = null; //field sesuai dengan database
 
-        $query_jenis = $this->jenis_model->get();
-        $jenis[null] = '--Pilih--';
-        foreach ($query_jenis->result() as $jns) {
-            $jenis[$jns->id_jenis] = $jns->nama_jenis;
+        $query_item = $this->item_model->get();
+        $item[null] = '--Pilih--';
+        foreach ($query_item->result() as $itm) {
+            $item[$itm->id_item] = $itm->nama_item;
         }
         $data = array(
             'page' => 'tambah',
             'row' => $kalkulasi,
-            'jenis' => $jenis, 'selectedjenis' => null,
+            'item' => $item, 'selecteditem' => null,
         );
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
     }
@@ -58,6 +76,19 @@ class Kalkulasi extends CI_Controller
         }
     }
 
+    public function proses_bahan()
+    {
+        $post = $this->input->post(null, TRUE);
+        if (isset($_POST['tambah'])) {
+            $this->kalkulasi_model->add_bahan($post);
+        }
+
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', ' Data berhasil disimpan');
+        }
+        redirect('admin/kalkulasi');
+    }
+
     public function proses()
     {
         $post = $this->input->post(null, TRUE);
@@ -72,6 +103,7 @@ class Kalkulasi extends CI_Controller
         }
         redirect('admin/kalkulasi');
     }
+
 
     public function delete($id)
     {

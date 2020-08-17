@@ -1,14 +1,24 @@
 <?php
 
-Class Fungsi {
+class Fungsi
+{
     protected $ci;
 
-    function __construct(){
-        $this->ci =& get_instance();
+    function __construct()
+    {
+        $this->ci = &get_instance();
     }
 
-    function user_login(){
+    function user_login()
+    {
         $this->ci->load->model('auth_model');
+        $user_id = $this->ci->session->userdata('userid');
+        $user_data = $this->ci->auth_model->get($user_id)->row();
+        return $user_data;
+    }
+    function kalkulasi()
+    {
+        $this->ci->load->model(['kalkulasi_model', 'jenis_model']);
         $user_id = $this->ci->session->userdata('userid');
         $user_data = $this->ci->auth_model->get($user_id)->row();
         return $user_data;

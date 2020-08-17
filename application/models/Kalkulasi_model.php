@@ -15,6 +15,14 @@ class Kalkulasi_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+    public function add_bahan($post)
+    {
+        $params = [
+            'kd_produk' => $post['kode'],
+            'id_jenis' => $post['jenis'],
+        ];
+        $this->db->insert('kalkulasi', $params);
+    }
 
     public function add($post)
     {
