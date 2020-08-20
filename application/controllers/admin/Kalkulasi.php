@@ -17,12 +17,20 @@ class Kalkulasi extends CI_Controller
         echo json_encode($data);
     }
 
+    function get_item(){
+        $id=$this->input->post('id');
+        $data=$this->kalkulasi_model->get_item($id);
+        echo json_encode($data);
+    }
+   
     public function index()
     {
 
         // $data['row'] = $this->kalkulasi_model->get();
         $data['kd_produk'] = $this->produk_model->get();
         // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
+        $data['data']=$this->kalkulasi_model->get_jenisbahan();
+
         if (isset($_POST['submit'])) {
         }
         $this->load->view('templates_adm/header');
@@ -120,4 +128,6 @@ class Kalkulasi extends CI_Controller
         }
         redirect('admin/kalkulasi');
     }
+
+    
 }
