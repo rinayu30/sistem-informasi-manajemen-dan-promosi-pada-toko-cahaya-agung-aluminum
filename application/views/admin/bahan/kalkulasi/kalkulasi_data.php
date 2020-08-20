@@ -24,7 +24,7 @@
                                     <div class="box-body table-responsive">
                                         <div class="form-group ">
                                             <form action="<?php echo base_url('admin/kalkulasi/hitung_harga') ?>" method='post' onsubmit="return validasi_selesai(this)">
-                                                <script>
+                                                <!-- <script>
                                                     $(document).ready(function() {
                                                         var sportslist = [
                                                             ""
@@ -33,7 +33,7 @@
                                                             data: sportslist
                                                         });
                                                     });
-                                                </script>
+                                                </script> -->
 
                                                 <select id="kd_produk" class="form-control" name="kd_produk" required>
                                                     <option value="" selected hidden>---Pilih---</option>
@@ -69,10 +69,10 @@
                                                         <option value="" selected hidden>---Pilih---</option>
                                                         <?php
                                                         $db = $this->db->get('jenis_bahan');
-                                                        foreach ($db->result() as $data) {
+                                                        foreach ($db->result() as $row) {
                                                         ?>
-                                                            <option value="<?php echo $data->id_jenis; ?>">
-                                                                <?php echo $data->nama_jenis; ?>
+                                                            <option value="<?php echo $row->id_jenis; ?>">
+                                                                <?php echo $row->nama_jenis; ?>
                                                             </option>
                                                         <?php } ?>
                                                     </select> </div>
@@ -119,15 +119,45 @@
                                     <label for="id_item">Nama Bahan *</label>
                                     <select id="id_item" class="form-control" name="id_item" required>
                                         <option value="" selected hidden>---Pilih---</option>
-                                        <?php
-                                        $db = $this->db->get('item');
-                                        foreach ($db->result() as $rw) {
-                                        ?>
+                                        <!-- <?php
+                                                $db = $this->db->get('item');
+                                                foreach ($db->result() as $rw) {
+                                                ?>
                                             <option value="<?php echo $rw->id_item; ?>">
                                                 <?php echo $rw->nama_item; ?>
                                             </option>
-                                        <?php } ?>
-                                    </select> </div>
+                                        <?php } ?> -->
+                                    </select>
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('#jenis').change(function() {
+                                                var id = $(this).val();
+                                                // var id = {
+                                                //     id_jenis: $("#id_jenis").val()
+                                                // };
+                                                $.ajax({
+                                                    method: "POST",
+                                                    url: "<?= base_url(); ?>admin/kalkulasi/get_item_byjenis",
+
+                                                    data: {
+                                                        id: id
+                                                    },
+                                                    async: false,
+                                                    dataType: 'json',
+                                                    success: function(array) {
+                                                        var html = '';
+                                                        // var i;
+                                                        for (let index = 0; index < array.length; index++) {
+                                                            html += '<option value=' + array[index].id_item + '>' + array[index].nama_item + '</option>';
+                                                        }
+                                                        $('.item').html(html);
+
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>

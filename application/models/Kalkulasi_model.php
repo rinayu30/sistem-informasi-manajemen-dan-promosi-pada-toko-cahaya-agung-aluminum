@@ -15,6 +15,8 @@ class Kalkulasi_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+
     public function add_bahan($post)
     {
         $params = [

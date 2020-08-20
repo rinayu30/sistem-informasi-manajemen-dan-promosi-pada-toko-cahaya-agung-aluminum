@@ -10,12 +10,19 @@ class Kalkulasi extends CI_Controller
         $this->load->model(['kalkulasi_model', 'produk_model', 'item_model', 'jenis_model']);
         $this->load->library('form_validation');
     }
+    function get_item_byjenis()
+    {
+        $id = $this->input->post('id_jenis');
+        $data = $this->item_model->get_item_byjenis($id);
+        echo json_encode($data);
+    }
 
     public function index()
     {
 
         // $data['row'] = $this->kalkulasi_model->get();
         $data['kd_produk'] = $this->produk_model->get();
+        // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
         if (isset($_POST['submit'])) {
         }
         $this->load->view('templates_adm/header');
