@@ -17,13 +17,13 @@ class Kalkulasi_model extends CI_Model
     }
 
 
-    public function add_bahan($post)
+    public function tambah_bahan($post)
     {
         $params = [
             'kd_produk' => $post['kode'],
             'id_jenis' => $post['jenis'],
         ];
-        $this->db->insert('kalkulasi', $params);
+        $this->db->insert('item', $params);
     }
 
     public function add($post)
@@ -55,13 +55,32 @@ class Kalkulasi_model extends CI_Model
         $this->db->delete('jenis_bahan');
     }
 
-    function get_jenisbahan(){
-        $hasil=$this->db->query("SELECT * FROM jenis_bahan");
+    function get_jenisbahan()
+    {
+        $hasil = $this->db->query("SELECT * FROM jenis_bahan");
         return $hasil;
     }
- 
-    function get_item($id){
-        $hasil=$this->db->query("SELECT * FROM item WHERE id_jenis='$id'");
+
+    function get_item($id)
+    {
+        $hasil = $this->db->query("SELECT * FROM item WHERE id_jenis='$id'");
         return $hasil->result();
+    }
+
+    public function kode_kalkulasi()
+    {
+        $this->db->select('Right(kalkulasi.id_kalkulasi,3) as kode ', false);
+        $this->db->order_by('id_kalkulasi', 'desc');
+        $this->db->limit(1);
+        $query = $this->db->get('kalkulasi');
+        if ($query->num_rows() <> 0) {
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            $kode = 1;
+        }
+        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kodejadi  = "KH" . $kodemax;
+        return $kodejadi;
     }
 }

@@ -10,26 +10,22 @@ class Kalkulasi extends CI_Controller
         $this->load->model(['kalkulasi_model', 'produk_model', 'item_model', 'jenis_model']);
         $this->load->library('form_validation');
     }
-    function get_item_byjenis()
+
+
+    function get_item()
     {
-        $id = $this->input->post('id_jenis');
-        $data = $this->item_model->get_item_byjenis($id);
+        $id = $this->input->post('id');
+        $data = $this->kalkulasi_model->get_item($id);
         echo json_encode($data);
     }
 
-    function get_item(){
-        $id=$this->input->post('id');
-        $data=$this->kalkulasi_model->get_item($id);
-        echo json_encode($data);
-    }
-   
     public function index()
     {
 
         // $data['row'] = $this->kalkulasi_model->get();
         $data['kd_produk'] = $this->produk_model->get();
         // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
-        $data['data']=$this->kalkulasi_model->get_jenisbahan();
+        $data['data'] = $this->kalkulasi_model->get_jenisbahan();
 
         if (isset($_POST['submit'])) {
         }
@@ -38,19 +34,13 @@ class Kalkulasi extends CI_Controller
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
         $this->load->view('templates_adm/footer');
     }
-    public function add_bahan()
+    public function tambah_bahan()
     {
-        $kalkulasi = new stdClass();
-        $kalkulasi->id_kalkulasi = null;
-        $kalkulasi->kd_produk = null;
-        // $data = array(
-        //     'page' => 'tambah',
-        //     'row' => $kalkulasi,
-        //     // 'jenis' => $jenis, 'selectedjenis' => null,
-        // );
+        $post = $this->input->post(null, TRUE);
+        $data['row'] =  $this->kalkulasi_model->tambah_bahan($post);
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
-        $this->load->view('admin/bahan/kalkulasi/form_kalkulasi');
+        $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
         $this->load->view('templates_adm/footer');
     }
 
@@ -128,6 +118,4 @@ class Kalkulasi extends CI_Controller
         }
         redirect('admin/kalkulasi');
     }
-
-    
 }
