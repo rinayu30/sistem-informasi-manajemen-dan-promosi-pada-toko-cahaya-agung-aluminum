@@ -1,3 +1,28 @@
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Jenis Bahan</label>
+                    <div class="col-md-8">
+                        <select name="jenis_bahan" id="jenis_bahan" class="form-control">
+                            <option value="0">-PILIH-</option>
+                            <?php foreach($data->result() as $row):?>
+                                <option value="<?php echo $row->id_jenis;?>"><?php echo $row->nama_jenis;?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Item</label>
+                    <div class="col-md-8">
+                        <select name="item" class="item form-control">
+                            <option value="0">-PILIH-</option>
+                        </select>
+                    </div>
+                     
+                </div>
+
+
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -10,10 +35,13 @@
             <section class="content">
                 <?php $this->view('messages') ?>
                 <div class="container">
+                
                     <div class="card-header py-3">
+                    
                         <!-- <h6 class="m-0 font-weight-bold text-primary">Form <?= ucfirst($page) ?> Hitung</h6> -->
                     </div>
                     <!-- Outer Row -->
+                    
                     <div class="row justify-content-left">
                         <div class="col-lg-4 justify-content-left">
                             <div class="card shadow mb-4 card-header py-3">
@@ -54,13 +82,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+                        
                         <div class="col-lg-4 justify-content-center">
+                        
                             <div class="card shadow mb-4 card-header py-3">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><label for="id_jenis">Jenis Bahan*</label></h6>
                                 </div>
                                 <div class="card-body" style="height: 100px;">
                                     <div class="box-body table-responsive">
+                                        
                                         <form action="<?= site_url('admin/kalkulasi/proses') ?>" method="post">
 
                                             <div class="row">
@@ -281,3 +314,30 @@ return (true);
     }
  
 </script> -->
+
+<script  src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js')?>"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#jenis_bahan').change(function(){
+            var id=$(this).val();
+            $.ajax({
+                // url : "<?= base_url(); ?>admin/kalkulasi/get_item",
+                url : "<?php echo base_url();?>admin/kalkulasi/get_item",
+                method : "POST",
+                data : {id: id},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<option>'+data[i].nama_item+'</option>';
+                    }
+                    $('.item').html(html);
+                     
+                }
+            });
+        });
+    });
+</script>

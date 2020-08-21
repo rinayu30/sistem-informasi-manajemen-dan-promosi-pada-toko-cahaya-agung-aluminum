@@ -54,4 +54,14 @@ class Kalkulasi_model extends CI_Model
         $this->db->where('id_jenis', $id);
         $this->db->delete('jenis_bahan');
     }
+
+    function get_jenisbahan(){
+        $hasil=$this->db->query("SELECT * FROM jenis_bahan");
+        return $hasil;
+    }
+ 
+    function get_item($id){
+        $hasil=$this->db->query("SELECT * FROM item WHERE id_jenis='$id'");
+        return $hasil->result();
+    }
 }
