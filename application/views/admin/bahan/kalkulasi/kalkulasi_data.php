@@ -9,7 +9,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="box-body table-responsive">
-                <form action="<?php base_url('admin/kalkulasi/tambah_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
+                <form action="<?php base_url('admin/kalkulasi/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
 
                     <div class="row">
                         <div class="form-group col-md-5">
@@ -306,7 +306,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= site_url('admin/kalkulasi/tambah_bahan') ?>" method="post">
+                <form action="<?= site_url('admin/kalkulasi/proses_bahan') ?>" method="post">
                     <div class="form-group">
                         <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
                         <input type="number" min="1" name="ukuran" class="form-control">

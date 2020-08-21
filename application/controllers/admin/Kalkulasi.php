@@ -27,8 +27,8 @@ class Kalkulasi extends CI_Controller
         // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
         $data['data'] = $this->kalkulasi_model->get_jenisbahan();
 
-        if (isset($_POST['submit'])) {
-        }
+        // if (isset($_POST['submit'])) {
+        // }
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
@@ -36,8 +36,22 @@ class Kalkulasi extends CI_Controller
     }
     public function tambah_bahan()
     {
-        $post = $this->input->post(null, TRUE);
-        $data['row'] =  $this->kalkulasi_model->tambah_bahan($post);
+        // // $post = $this->input->post(null, TRUE);
+        // $data['kode'] =  $this->produk_model->DataProduk();
+        // if (isset($_POST['submit'])) {
+        //     $nama = str_replace(",", "", $this->input->post('item'));
+        //     $ukuran = str_replace(",", "", $this->input->post('ukuran'));
+        //     $ukuran_p = str_replace(",", "", $this->input->post('ukuran_p'));
+        //     $ukuran_l = str_replace(",", "", $this->input->post('ukuran_l'));
+        //     $banyak = str_replace(",", "", $this->input->post('banyak'));
+        //     $harga = str_replace(",", "", $this->input->post('harga'));
+        //     // $kd_barang = str_replace(",", "", $this->input->post('kd_barang'));
+
+        //     // $harga_brg = $this->barang_model->getAll();
+        //     // $stok = $this->barang_model->getAll();
+        //     }
+        // }
+        $data['row'] =  $this->kalkulasi_model->tambah_bahan();
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
@@ -85,7 +99,7 @@ class Kalkulasi extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah'])) {
-            $this->kalkulasi_model->add_bahan($post);
+            $this->kalkulasi_model->tambah_bahan($post);
         }
 
         if ($this->db->affected_rows() > 0) {
