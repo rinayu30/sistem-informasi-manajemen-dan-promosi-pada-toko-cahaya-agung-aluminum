@@ -98,22 +98,27 @@
 								<?php echo  $keranjang ?></a></li>
 						<li>
 						</li>
-						<li class="active">
-							<a class="dropdown-toggle" href="<?= site_url('home') ?>"> Home</a>
+						<li class="<?= $this->uri->segment(1) == 'home' ||  $this->uri->segment(1) == '' ? 'active' : '' ?>">
+							<a href="<?= site_url('home') ?>"> Home</a>
 						</li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Produk <b class="caret"></b></a>
+						<li class="<?= $this->uri->segment(1) == 'produk' ||  $this->uri->segment(1) == '' ? 'active' : '' ?>">
+							<a href="<?= site_url('home/produk') ?>">Produk </a>
+							<!-- <b class="caret"></b> -->
 							<ul class="dropdown-menu">
-								<li><a href="<?= site_url('home/produk') ?>">Semua produk</a></li>
-								<li><a href="page-right-sidebar.htm">Lemari</a></li>
-								<li><a href="page-left-sidebar.htm">Meja</a></li>
-								<li><a href="page-left-sidebar.htm">Steling Jualan</a></li>
-								<li><a href="page-left-sidebar.htm">Booth</a></li>
-								<li><a href="page-double-sidebar.htm">Dan lain-lain</a></li>
+								<li <?= $this->uri->segment(1) == 'produk' ? 'class="active"' : '' ?>><a href="<?= site_url('home/produk') ?>">Semua produk</a></li>
+								<!-- <li><a href="<?= site_url('home/get_produk') ?>">Lemari</a></li>
+								<li><a href="<?= site_url('home/get_produk') ?>">Meja</a>
+								</li>
+								<li><a href="<?= site_url('home/get_produk') ?>">Steling Jualan</a>
+								</li>
+								<li><a href="<?= site_url('home/get_produk') ?>">Booth</a>
+								</li>
+								<li><a href="<?= site_url('home/get_produk') ?>">Dan lain-lain</a>
+								</li> -->
 							</ul>
 						</li>
 
-						<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
+						<li class="<?= $this->uri->segment(1) == 'kontak' ? 'active' : '' ?>"><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
 						<li><a href="page-contact.htm">Masuk</a></li>
 					</ul>
 

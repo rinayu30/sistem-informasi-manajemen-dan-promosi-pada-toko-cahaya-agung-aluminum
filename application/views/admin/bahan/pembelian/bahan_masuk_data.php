@@ -18,7 +18,7 @@
                             <table class="table table-bordered table-striped" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th width=2%>No</th>
+                                        <!-- <th width=2%>No</th> -->
                                         <th class="text-center">Kode Pembelian</th>
                                         <th class="text-center">Tanggal Beli</th>
                                         <th class="text-center">Pemasok</th>
@@ -36,16 +36,16 @@
                                     $no = 1;
                                     foreach ($row->result() as $key => $data) { ?>
                                         <tr>
-                                            <td><?= $no++ ?></td>
+                                            <!-- <td><?= $no++ ?></td> -->
                                             <td class="text-center"><?= $data->id_bmasuk ?></td>
-                                            <td class="text-center"><?= $data->created ?></td>
-                                            <td class="text-center"><?= $data->nama_pemasok ?></td>
+                                            <td class="text-center" width="13%"><?= $data->created ?></td>
+                                            <td class="text-center" width="13%"><?= $data->nama_pemasok ?></td>
                                             <td class="text-center"><?= $data->nama_item ?></td>
                                             <td class="text-center"><?= $data->jumlah ?></td>
                                             <td class="text-center"><?= $data->satuan ?></td>
                                             <td class="text-center"><?= $data->harga_satuan ?></td>
                                             <td class="text-center"><?= $data->total_harga ?></td>
-                                            <td class="text-center">
+                                            <td class="text-center" width="20%">
                                                 <a href="<?= site_url('admin/bahan_masuk/edit/' . $data->id_bmasuk) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Edit</a>
                                                 <a href="<?= site_url('admin/bahan_masuk/delete/' . $data->id_bmasuk) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">

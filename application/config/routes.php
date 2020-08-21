@@ -56,5 +56,6 @@ $route['admin/dashboard'] = 'admin/dashboard_admin';
 $route['home'] = 'dashboard';
 $route['home/kontak'] = 'dashboard/kontak';
 $route['home/produk'] = 'dashboard/produk';
+$route['home/produks'] = 'dashboard/get_produk';
 $route['home/detail/(:num)'] = 'dashboard/detail/$1';
 $route['admin'] = 'admin/overview';

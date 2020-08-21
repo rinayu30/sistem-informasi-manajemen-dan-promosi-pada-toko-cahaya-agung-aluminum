@@ -14,6 +14,21 @@ class Produk_model extends CI_Model
         return $query;
     }
 
+    public function get_produk($id = null)
+    {
+        $this->db->from('produk');
+        $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
+        if ($id != null) {
+            $this->db->where('kd_produk');
+            $this->db->group_by('produk.id_kategori', $id);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() <> 0) {
+            $data = $query->row();
+        }
+        return $data;
+    }
+
     public function _uploadImage()
     {
         $config['upload_path']          = './uploads/produk/';

@@ -30,6 +30,7 @@
       <!-- Heading -->
       <div class="sidebar-heading">
         <h6>MENU</h6>
+        <hr>
       </div>
       <!-- Nav Item - Pages Collapse Menu -->
       <!-- Divider -->
@@ -74,10 +75,13 @@
           <span>Laporan</span></a>
       </li>
       <?php if ($this->fungsi->user_login()->level == 1) { ?>
-        <br />
+
         <div class="sidebar-heading">
+          <hr>
           <h6>PENGATURAN</h6>
+          <hr>
         </div>
+
         <li class="nav-item">
           <a class="nav-link" href="<?= site_url('admin/pengguna') ?>">
             <i class="fas fa-fw fa-users"></i>
