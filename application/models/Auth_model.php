@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth_model extends CI_Model
 {
@@ -8,20 +8,22 @@ class Auth_model extends CI_Model
         $this->db->from('user');
         $this->db->where('username', $post['username']);
         $this->db->where('password', sha1($post['password']));
-        $query=$this->db->get();
+        $query = $this->db->get();
         return $query;
     }
 
-    public function get($id = null){
+    public function get($id = null)
+    {
         $this->db->from('user');
-        if($id != null){
+        if ($id != null) {
             $this->db->where('id_user', $id);
         }
         $query = $this->db->get();
         return $query;
     }
 
-    public function add($post){
+    public function add($post)
+    {
         $params['nama_user'] = $post['nama'];
         $params['username'] = $post['username'];
         $params['password'] = sha1($post['pass']);
@@ -29,7 +31,7 @@ class Auth_model extends CI_Model
         $params['no_telp'] = $post['kontak'];
         $params['level'] = $post['level'];
         //params field yang di database, post yang di form
-        $this->db->insert('user',$params);
+        $this->db->insert('user', $params);
     }
 
     public function hapus_data($id)
@@ -38,17 +40,17 @@ class Auth_model extends CI_Model
         $this->db->delete('user');
     }
 
-    public function edit($post){
+    public function edit($post)
+    {
         $params['nama_user'] = $post['nama'];
         $params['username'] = $post['username'];
-        if(!empty($post['password'])){
+        if (!empty($post['password'])) {
             $params['password'] = sha1($post['pass']);
         }
         $params['email'] = $post['email'];
         $params['no_telp'] = $post['kontak'];
         $params['level'] = $post['level'];
         $this->db->where('id_user', $post['id_user']);
-        $this->db->update('user',$params);
+        $this->db->update('user', $params);
     }
-
 }
