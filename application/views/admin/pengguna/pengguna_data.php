@@ -21,6 +21,7 @@
                         <th>Nama</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Kontak</th>
                         <th>Level</th>
                         <th>Aksi</th>
                       </tr>
@@ -34,6 +35,7 @@
                           <td class="text-center"><?= $data->nama_user ?></td>
                           <td class="text-center"><?= $data->username ?></td>
                           <td class="text-center"><?= $data->email ?></td>
+                          <td class="text-center"><?= $data->no_telp ?></td>
                           <td class="text-center"><?= $data->level == 1 ? "Admin" : "Karyawan" ?></td>
                           <td colspan="3" class="text-center">
                             <form action="<?= site_url('admin/pengguna/delete') ?>" method="post">

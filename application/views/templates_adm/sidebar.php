@@ -41,19 +41,11 @@
           <span>Produk</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Bahan Perabot</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?= site_url('admin/jenis') ?>">Jenis Bahan</a>
-            <a class="collapse-item" href="<?= site_url('admin/item') ?>">Item Bahan</a>
-            <a class="collapse-item" href="<?= site_url('admin/bahan_masuk') ?>">Pembelian</a>
-            <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>">Kalkulasi Harga</a>
-          </div>
-        </div>
+        <a class="nav-link" href="<?= site_url('admin/kalkulasi') ?>">
+          <i class="fas fa-fw fa-inbox"></i>
+          <span>Pembelian</span></a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('admin/penjualan') ?>">
           <i class="fas fa-fw fa-hand-holding-usd"></i>
@@ -88,8 +80,21 @@
             <span>Pengguna</span></a>
         </li>
         <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Bahan Perabot</span>
+          </a>
+          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="<?= site_url('admin/jenis') ?>">Jenis Bahan</a>
+              <a class="collapse-item" href="<?= site_url('admin/item') ?>">Item Bahan</a>
+              <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>">Kalkulasi Harga</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="<?= site_url('admin/kategori') ?>">
-            <i class="fas fa-fw fa-users"></i>
+            <i class="fas fa-fw fa-inbox"></i>
             <span>Kategori Produk</span></a>
         </li>
       <?php } ?>
