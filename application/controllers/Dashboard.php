@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller
         $data = array(
             'id'      => $produk->kd_produk,
             'qty'     => 1,
-            'price'   => 1.30, //atur nnti sepertidiatas
+            'price'   => 10000, //atur nnti sepertidiatas
             'name'    =>  $produk->nama_produk,
         );
 
@@ -56,5 +56,24 @@ class Dashboard extends CI_Controller
         // $this->load->view('user/templates/header');
         // $this->load->view('user/produk/data_produk', $produk);
         // $this->load->view('user/templates/footer');
+    }
+    public function detail_keranjang()
+    {
+        $this->load->view('user/templates/header');
+        $this->load->view('user/templates/sidebar');
+        $this->load->view('user/keranjang');
+        $this->load->view('user/templates/footer');
+    }
+    public function hapus_keranjang()
+    {
+        $this->cart->destroy();
+        redirect('dashboard/produk');
+    }
+    public function pembayaran()
+    {
+        $this->load->view('user/templates/header');
+        $this->load->view('user/templates/sidebar');
+        $this->load->view('user/pembayaran');
+        $this->load->view('user/templates/footer');
     }
 }

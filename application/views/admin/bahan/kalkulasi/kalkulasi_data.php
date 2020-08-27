@@ -8,7 +8,7 @@
     </div>
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="box-body table-responsive">
+            <div class="box-body table-responsive justify-content-center">
                 <form action="<?php base_url('admin/kalkulasi/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
                     <div class="row">
                         <div class="form-group col-md-5">
@@ -23,7 +23,22 @@
                                     });
                                 });
                             </script>
-                            <select name="jenis_bahan" id="jenis_bahan" class="form-control" required>
+                            <script>
+                                document.onload = disable_enable();
+
+                                function disable_enable(pilihan) {
+
+                                    if (pilihan == "aluminium" || document.forms[0].jenis_bahan.value == "aluminium") {
+                                        document.forms[0].ukuran_p.disabled = true;
+                                        document.forms[0].ukuran_l.disabled = true;
+
+                                    } else if (pilihan == "plat" || pilihan == "kaca" || document.forms[0].jenis_bahan.value == "plat" || document.forms[0].jenis_bahan.value == "kaca") {
+                                        document.forms[0].ukuran.disabled = true;
+                                    }
+
+                                }
+                            </script>
+                            <select name="jenis_bahan" id="jenis_bahan" class="form-control" onchange="" disable_enable(this.value) required>
                                 <option value="0">--Pilih--</option>
                                 <?php foreach ($data->result() as $row) : ?>
                                     <option value="<?php echo $row->id_jenis; ?>"><?php echo $row->nama_jenis; ?></option>
@@ -51,6 +66,7 @@
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
                             <input type="number" min="1" name="ukuran" class="form-control">
                         </div>
+
                         <div class="form-group col-md-5">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
                             <input type="number" min="-1" name="ukuran_p" class="form-control">
@@ -64,7 +80,7 @@
                             <input type="number" min="1" name="banyak" class="form-control" required>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="harga_s">Harga/Satuan *</label>
+                            <label for="harga_s">Harga/Satuan *<small>(Jika ada bahan yang sama, harga harus sama)</small></label>
                             <input type="number" min="1" name="harga_s" class="form-control" required>
                         </div>
                 </form><br>
@@ -91,81 +107,6 @@
 <section class="content">
     <?php $this->view('messages') ?>
 
-    <!-- <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Form Bahan Produk</h6>
-            </div>
-            <div class="card-body">
-                <div class="box-body table-responsive">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="id_item">Nama Bahan *</label>
-                            <select id="id_item" class="form-control" name="id_item" required>
-                                <option value="" selected hidden>---Pilih---</option>
-                             <?php
-                                $db = $this->db->get('item');
-                                foreach ($db->result() as $rw) {
-                                ?>
-                                            <option value="<?php echo $rw->id_item; ?>">
-                                                <?php echo $rw->nama_item; ?>
-                                            </option>
-                                        <?php } ?> -->
-    <!-- </select> -->
-    <!-- <script type="text/javascript"> 
-            $(document).ready(function() {
-                $('#jenis').change(function() {
-                    var id = $(this).val();
-                    // var id = {
-                    //     id_jenis: $("#id_jenis").val()
-                    // };
-                    $.ajax({
-                        method: "POST",
-                        url: "<?= base_url(); ?>admin/kalkulasi/get_item_byjenis",
-
-                        data: {
-                            id: id
-                        },
-                        async: false,
-                        dataType: 'json',
-                        success: function(array) {
-                            var html = '';
-                            // var i;
-                            for (let index = 0; index < array.length; index++) {
-                                html += '<option value=' + array[index].id_item + '>' + array[index].nama_item + '</option>';
-                            }
-                            $('.item').html(html);
-
-                        }
-                    });
-                });
-            });
-         </script> -->
-    <!-- </div> -->
-
-    <!-- <div class="form-group col-md-6">
-    <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
-    <input type="number" min="1" name="ukuran" class="form-control">
-</div>
-<div class="form-group col-md-6">
-    <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-    <input type="number" min="-1" name="ukuran_p" class="form-control">
-</div>
-<div class="form-group col-md-6">
-    <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-    <input type="number" min="-1" name="ukuran_l" class="form-control">
-</div>
-<div class="form-group col-md-6">
-    <label for="banyak">Banyak *</label>
-    <input type="number" min="1" name="banyak" class="form-control" required>
-</div>
-<div class="form-group col-md-6 justify-content-right">
-    <label for="harga_s">Harga/Satuan *</label>
-    <input type="number" min="1" name="harga_s" class="form-control" required>
-</div> -->
-
-    </div>
-
-    </div>
 
 
     <!-- </div>

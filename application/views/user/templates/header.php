@@ -87,17 +87,19 @@
         ================================================== -->
 			<div class="span7 navigation">
 				<div class="navbar hidden-phone">
+					<ul class="nav">
+						<?php
+						$keranjang = '<h6>Keranjang saya : ' . $this->cart->total_items() . ' item</h6>'
+						?>
+						<a class="dropdown-toggle">
+							<?php echo  anchor('dashboard/detail_keranjang', $keranjang) ?></a></ul>
+					</ul>
+				</div>
+				<div class="navbar hidden-phone">
 
 					<ul class="nav">
-						<li>
-							<?php
-							$keranjang = 'Keranjang saya : ' . $this->cart->total_items() . ' item'
-							?>
 
-							<a class="dropdown-toggle">
-								<?php echo  $keranjang ?></a></li>
-						<li>
-						</li>
+
 						<li class="<?= $this->uri->segment(1) == 'home' ||  $this->uri->segment(1) == '' ? 'active' : '' ?>">
 							<a href="<?= site_url('home') ?>"> Home</a>
 						</li>
