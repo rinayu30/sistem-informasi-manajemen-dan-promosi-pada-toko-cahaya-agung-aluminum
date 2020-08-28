@@ -16,6 +16,13 @@ class Bahan_perabot_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    function get_bahan()
+    {
+        $hasil = $this->db->query("SELECT bahan_perabot.*,item.* FROM bahan_perabot LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item");
+        return $hasil->result();
+    }
+
     public function kode_kalkulasi()
     {
         $this->db->select('Right(kalkulasi.id_kalkulasi,3) as kode ', false);

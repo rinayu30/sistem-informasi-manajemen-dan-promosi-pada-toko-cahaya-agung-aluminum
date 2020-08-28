@@ -120,7 +120,7 @@
                         </tr>
 
                         <tr>
-                            <td>x</td>
+                            <!-- <td>x</td>
                             <td class="text-center">x<x</td> <td class="text-center">x</td>
                             <td class="text-center">x</td>
                             <td class="text-center">x</td>
@@ -128,7 +128,7 @@
                             <td class="text-center">x</td>
                             <td class="text-center">x</td>
                             <td class="text-center">x</td>
-                            <td class="text-center">x</td>
+                            <td class="text-center">x</td> -->
                             <!-- <td class="text-center" width=20%>
                                 <a href="" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i> Edit</a>
@@ -137,25 +137,25 @@
 
                             </td> -->
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th colspan="8" class="text-center">Total/bahan</th>
                             <th class="text-center" width=15%>Rp. Sub Total</th>
                             <th class="text-center" width=20%></th>
-                        </tr>
+                        </tr> -->
                     </thead>
                     <tbody>
                         <?php
                         $no = 1;
                         $total = 0;
-                        foreach ($data->result() as $key => $data) { ?>
+                        foreach ($bahanperabot as $data) { ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
+                                <td class="text-center" ><?= $data->nama_item ?></td>
                                 <td class="text-center"><?= $data->banyak ?></td>
                                 <td class="text-center"><?= $data->ukuran ?></td>
                                 <td class="text-center"><?= $data->uk_panjang ?></td>
                                 <td class="text-center"><?= $data->uk_lebar ?></td>
-                                <td class="text-center"><?= $data->Jumlah ?></td>
+                                <td class="text-center"><?= $data->jumlah ?></td>
                                 <td class="text-center"><?= $data->harga_satuan ?></td>
                                 <td class="text-center"><?= $data->jumlah_harga ?></td>
                                 <td class="text-center" width=20%>
@@ -169,7 +169,8 @@
                         <?php } ?>
                         <tr class="gradeA">
                             <td colspan="8" align="center">T O T A L</td>
-                            <td>Rp. <?php echo number_format($total, 2); ?></td>
+                            <td>Rp. <?php 
+                            echo number_format($total, 2); ?></td>
                             <td></td>
                         </tr>
                     </tbody>

@@ -23,6 +23,7 @@ class Kalkulasi extends CI_Controller
     {
 
         $data['row'] = $this->bahan_perabot_model->get();
+        $data['bahanperabot'] = $this->bahan_perabot_model->get_bahan();
         // $data['kd_produk'] = $this->produk_model->get();
         $data['item'] = $this->item_model->get_item_byjenis('id_jenis');
         $data['data'] = $this->kalkulasi_model->get_jenisbahan();
