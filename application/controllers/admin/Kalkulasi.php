@@ -23,27 +23,27 @@ class Kalkulasi extends CI_Controller
     {
 
         $data['row'] = $this->bahan_perabot_model->get();
-        $data['kd_produk'] = $this->produk_model->get();
-        // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
+        // $data['kd_produk'] = $this->produk_model->get();
+        $data['item'] = $this->item_model->get_item_byjenis('id_jenis');
         $data['data'] = $this->kalkulasi_model->get_jenisbahan();
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
         $this->load->view('templates_adm/footer');
     }
-    public function tambah_bahan()
-    {
-        $post = $this->input->post(null, TRUE);
-        $this->bahan_perabot_model->add_bahan($post);
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Bahan yang dibutuhkan berhasil ditambahkan');
-        }
-        $data['row'] =  $this->kalkulasi_model->tambah_bahan();
-        $this->load->view('templates_adm/header');
-        $this->load->view('templates_adm/sidebar');
-        $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
-        $this->load->view('templates_adm/footer');
-    }
+    // public function tambah_bahan()
+    // {
+    //     $post = $this->input->post(null, TRUE);
+    //     $this->bahan_perabot_model->add_bahan($post);
+    //     if ($this->db->affected_rows() > 0) {
+    //         $this->session->set_flashdata('success', ' Bahan yang dibutuhkan berhasil ditambahkan');
+    //     }
+    //     $data['row'] =  $this->kalkulasi_model->tambah_bahan();
+    //     $this->load->view('templates_adm/header');
+    //     $this->load->view('templates_adm/sidebar');
+    //     $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
+    //     $this->load->view('templates_adm/footer');
+    // }
 
     public function add()
     {

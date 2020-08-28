@@ -6,6 +6,7 @@ class Bahan_perabot_model extends CI_Model
 
     public function get($id = null)
     {
+        $this->db->select('*');
         $this->db->from('bahan_perabot');
         $this->db->join('item', 'item.id_item = bahan_perabot.id_item');
 
@@ -38,10 +39,10 @@ class Bahan_perabot_model extends CI_Model
         $total = $jumlah * $harga;
         return $total;
     }
-    public function add_bahan($post)
+    public function tambah_bahan($post)
     {
         $params = [
-            'id_bahan_perabot' => $this->kode_kalkulasi(),
+            'id_bahan' => $this->kode_kalkulasi(),
             'id_item' => $post['item'],
             'banyak' => $post['banyak'],
             'ukuran' => $post['ukuran'],
@@ -49,7 +50,7 @@ class Bahan_perabot_model extends CI_Model
             'uk_lebar' => $post['ukuran_p'],
             'jumlah' => $post['jumlah'],
             'harga_satuan' => $post['harga'],
-            'jumlah_harga' => $this->get_subharga($post),
+            'jumlah_harga' => $this->get_subharga(),
         ];
         $this->db->insert('bahan_perabot', $params);
     }

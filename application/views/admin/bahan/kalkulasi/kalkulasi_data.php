@@ -9,7 +9,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="box-body table-responsive justify-content-center">
-                <form action="<?php base_url('admin/kalkulasi/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
+                <form action="<?php base_url('admin/bahan_perabot/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Jenis Bahan*</label>
@@ -50,24 +50,24 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
-                            <input type="number" min="1" name="ukuran" class="form-control">
+                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_p" class="form-control">
+                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_l" class="form-control">
+                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
-                            <input type="number" min="1" name="banyak" class="form-control" required>
+                            <input type="number" min="1" name="banyak" value="<?= set_value('banyak') ?>" class="form-control" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="harga_s">Harga/Satuan *<small>(Jika ada bahan yang sama, harga harus sama)</small></label>
-                            <input type="number" min="1" name="harga_s" class="form-control" required>
+                            <input type="number" min="1" name="harga_s" value="<?= set_value('harga_s') ?>" class="form-control" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label"><br></label>
@@ -144,36 +144,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <?php
-                                $no = 1;
-                                $total = 0;
-                                foreach ($bahan as $b) { ?> -->
-                        <tr>
-                            <td><?php echo $no ?></td>
-                            <td class="text-center">x<x</td> <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center" width=20%>
-                                <a href="" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit"></i> Edit</a>
-                                <a href="<?= site_url('admin/kalkulasi/delete/' . $b->id_bahan) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Batal</a>
+                        <?php
+                        $no = 1;
+                        $total = 0;
+                        foreach ($data->result() as $key => $data) { ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
+                                <td class="text-center"><?= $data->banyak ?></td>
+                                <td class="text-center"><?= $data->ukuran ?></td>
+                                <td class="text-center"><?= $data->uk_panjang ?></td>
+                                <td class="text-center"><?= $data->uk_lebar ?></td>
+                                <td class="text-center"><?= $data->Jumlah ?></td>
+                                <td class="text-center"><?= $data->harga_satuan ?></td>
+                                <td class="text-center"><?= $data->jumlah_harga ?></td>
+                                <td class="text-center" width=20%>
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i> Edit</a>
+                                    <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Batal</a>
 
-                            </td>
-                        </tr>
-                        <!-- <?php $total = $total + ($r->jumlah_jual * $r->harga_jual);
-                                    $no++;
-                                } ?> -->
+                                </td>
+                            </tr>
+                        <?php } ?>
                         <tr class="gradeA">
                             <td colspan="8" align="center">T O T A L</td>
                             <td>Rp. <?php echo number_format($total, 2); ?></td>
                             <td></td>
                         </tr>
                     </tbody>
+
                 </table>
             </div>
         </div>

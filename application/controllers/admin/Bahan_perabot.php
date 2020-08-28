@@ -37,15 +37,23 @@ class Bahan_perabot extends CI_Controller
     // }
     public function tambah_bahan()
     {
-        $post = $this->input->post(null, TRUE);
-        $data['row'] =  $this->bahan_perabot_model->add_bahan($post);
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Bahan yang dibutuhkan berhasil ditambahkan');
-        }
-        $this->load->view('templates_adm/header');
-        $this->load->view('templates_adm/sidebar');
+        $bahan = new stdClass();
+        $bahan->id_bahan = null;
+        $bahan->id_kalkulasi = $this->bahan_perabot_model->kode_kalkulasi();
+        $bahan->id_item = null;
+        $bahan->banyak = null;
+        $bahan->id_item = null;
+        $bahan->ukuran = null;
+        $bahan->uk_panjang = null;
+        $bahan->uk_lebar = null;
+        $bahan->jumlah = null;
+        $bahan->harga_satuan = null;
+        $bahan->jumlah_harga = $this->bahan_perabot_model->get_subharga();
+
+        $data['row'] =  $bahan;
+
+
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
-        $this->load->view('templates_adm/footer');
     }
 
     public function add()
@@ -88,14 +96,14 @@ class Bahan_perabot extends CI_Controller
     public function proses_bahan()
     {
         $post = $this->input->post(null, TRUE);
-        if (isset($_POST['tambah'])) {
+        if (isset($_POST['tambah_bahan'])) {
             $this->bahan_perabot_model->tambah_bahan($post);
         }
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
-        redirect('admin/bahan_perabot');
+        redirect('admin/kalkulasi');
     }
 
     public function proses()

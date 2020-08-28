@@ -39,13 +39,9 @@
                                                 <a href="<?= site_url('admin/item/delete/' . $data->id_item) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
                                                     <i class="fas fa-trash"></i> Hapus</a>
 
-                                                <!-- <input type="hidden" name="id_item" value="<?= $data->id_item ?>">
-                                    <button onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash"></i> Hapus
-                                    </button> -->
 
-                                                <!-- <td onclick="javascript : return confirm('Anda yakin menghapus data?')"><?php echo anchor('admin/pengguna/delete/' . $data->id_user) ?>,'<div class ="btn btn-danger btn-sm" ><i class="fa fa-trash"></i></div></td> -->
-                                                <!-- <a href="#modalDel" data-toggle="modal" onclick="$('#modalDel #formDel').attr('action','<?= site_url('admin/pengguna/delete/' . $data->id_user) ?>')" class ="btn btn-danger btn-sm" ><i class="fa fa-trash"></a></i> -->
+
+
                                             </td>
                                         </tr>
                                     <?php } ?>
