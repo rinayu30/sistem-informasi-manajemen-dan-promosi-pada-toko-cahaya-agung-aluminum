@@ -9,44 +9,14 @@ class Kalkulasi_model extends CI_Model
         $this->db->from('kalkulasi');
         $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
 
+
         if ($id != null) {
             $this->db->where('id_kalkulasi', $id);
         }
         $query = $this->db->get();
         return $query;
     }
-    public function kode_kalkulasi()
-    {
-        $this->db->select('Right(kalkulasi.id_kalkulasi,3) as kode ', false);
-        $this->db->order_by('id_kalkulasi', 'desc');
-        $this->db->limit(1);
-        $query = $this->db->get('kalkulasi');
-        if ($query->num_rows() <> 0) {
-            $data = $query->row();
-            $kode = intval($data->kode) + 1;
-        } else {
-            $kode = 1;
-        }
-        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
-        $kodejadi  = "KH" . $kodemax;
-        return $kodejadi;
-    }
 
-    public function tambah_bahan($post)
-    {
-        $params = [
-            'id_kalkulasi' => $this->kode_kalkulasi(),
-            'id_item' => $post['item'],
-            'banyak' => $post['banyak'],
-            'ukuran' => $post['ukuran'],
-            'uk_panjang' => $post['ukuran_p'],
-            'uk_lebar' => $post['ukuran_p'],
-            'jumlah' => $post['jumlah'],
-            'harga_satuan' => $post['harga'],
-            'jumlah_harga' => $post['ukuran'],
-        ];
-        $this->db->insert('bahan_perabot', $params);
-    }
 
     public function add($post)
     {

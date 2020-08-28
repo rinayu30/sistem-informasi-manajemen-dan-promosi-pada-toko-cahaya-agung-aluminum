@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kalkulasi extends CI_Controller
+class Bahan_perabot extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['bahan_perabot_model', 'kalkulasi_model', 'produk_model', 'item_model', 'jenis_model']);
+        $this->load->model(['bahan_perabot_model', 'item_model', 'jenis_model', 'kalkulasi_model']);
         $this->load->library('form_validation');
     }
 
@@ -15,30 +15,33 @@ class Kalkulasi extends CI_Controller
     function get_item()
     {
         $id = $this->input->post('id');
-        $data = $this->kalkulasi_model->get_item($id);
+        $data = $this->bahan_perabot_model->get_item($id);
         echo json_encode($data);
     }
 
-    public function index()
-    {
+    // public function index()
+    // {
 
-        $data['row'] = $this->bahan_perabot_model->get();
-        $data['kd_produk'] = $this->produk_model->get();
-        // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
-        $data['data'] = $this->kalkulasi_model->get_jenisbahan();
-        $this->load->view('templates_adm/header');
-        $this->load->view('templates_adm/sidebar');
-        $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
-        $this->load->view('templates_adm/footer');
-    }
+    //     // $data['row'] = $this->bahan_perabot_model->get();
+    //     $data['kd_produk'] = $this->produk_model->get();
+    //     // $data['id_item'] = $this->item_model->get_item_byjenis('id_jenis');
+    //     $data['data'] = $this->bahan_perabot_model->get_jenisbahan();
+    //     $data['id_bahan'] =  $this->bahan_perabot_model->add_bahan();
+
+    //     // if (isset($_POST['submit'])) {
+    //     // }
+    //     $this->load->view('templates_adm/header');
+    //     $this->load->view('templates_adm/sidebar');
+    //     $this->load->view('admin/bahan/bahan_perabot/bahan_perabot_data', $data);
+    //     $this->load->view('templates_adm/footer');
+    // }
     public function tambah_bahan()
     {
         $post = $this->input->post(null, TRUE);
-        $this->bahan_perabot_model->add_bahan($post);
+        $data['row'] =  $this->bahan_perabot_model->add_bahan($post);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Bahan yang dibutuhkan berhasil ditambahkan');
         }
-        $data['row'] =  $this->kalkulasi_model->tambah_bahan();
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
@@ -48,8 +51,8 @@ class Kalkulasi extends CI_Controller
     public function add()
     {
 
-        $kalkulasi = new stdClass();
-        $kalkulasi->id_kalkulasi = null; //field sesuai dengan database
+        $bahan_perabot = new stdClass();
+        $bahan_perabot->id_bahan_perabot = null; //field sesuai dengan database
 
         $query_item = $this->item_model->get();
         $item[null] = '--Pilih--';
@@ -58,65 +61,65 @@ class Kalkulasi extends CI_Controller
         }
         $data = array(
             'page' => 'tambah',
-            'row' => $kalkulasi,
+            'row' => $bahan_perabot,
             'item' => $item, 'selecteditem' => null,
         );
-        $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
+        $this->load->view('admin/bahan/bahan_perabot/bahan_perabot_data', $data);
     }
 
 
     public function edit($id)
     {
-        $query = $this->kalkulasi_model->get($id);
+        $query = $this->bahan_perabot_model->get($id);
         if ($query->num_rows() > 0) {
-            $kalkulasi = $query->row();
+            $bahan_perabot = $query->row();
             $data = array(
                 'page' => 'edit',
-                'row' => $kalkulasi,
+                'row' => $bahan_perabot,
                 // 'kode' =>$kode,'selectedkode'=>$kode->kd_produk,
             );
-            $this->load->view("admin/kalkulasi/kalkulasi_data", $data);
+            $this->load->view("admin/bahan_perabot/bahan_perabot_data", $data);
         } else {
             echo "<script>alert('Data tidak dapat ditemukan');";
-            echo "window.location='" . site_url('admin/kalkulasi') . "';</script>";
+            echo "window.location='" . site_url('admin/bahan_perabot') . "';</script>";
         }
     }
 
     public function proses_bahan()
     {
         $post = $this->input->post(null, TRUE);
-        if (isset($_POST['tambah_bahan'])) {
-            $this->bahan_perabot_model->add_bahan($post);
+        if (isset($_POST['tambah'])) {
+            $this->bahan_perabot_model->tambah_bahan($post);
         }
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
-        redirect('admin/kalkulasi');
+        redirect('admin/bahan_perabot');
     }
 
     public function proses()
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah'])) {
-            $this->kalkulasi_model->add($post);
+            $this->bahan_perabot_model->add($post);
         } else if (isset($_POST['edit'])) {
-            $this->kalkulasi_model->edit($post);
+            $this->bahan_perabot_model->edit($post);
         }
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
-        redirect('admin/kalkulasi');
+        redirect('admin/bahan_perabot');
     }
 
 
     public function delete($id)
     {
-        $this->kalkulasi_model->hapus_data($id);
+        $this->bahan_perabot_model->hapus_data($id);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
         }
-        redirect('admin/kalkulasi');
+        redirect('admin/bahan_perabot');
     }
 }

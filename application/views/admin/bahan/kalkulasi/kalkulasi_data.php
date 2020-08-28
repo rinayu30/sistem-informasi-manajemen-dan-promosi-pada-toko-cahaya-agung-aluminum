@@ -11,7 +11,7 @@
             <div class="box-body table-responsive justify-content-center">
                 <form action="<?php base_url('admin/kalkulasi/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
                     <div class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label class="control-label">Jenis Bahan*</label>
                             <script>
                                 $(document).ready(function() {
@@ -23,22 +23,8 @@
                                     });
                                 });
                             </script>
-                            <script>
-                                document.onload = disable_enable();
 
-                                function disable_enable(pilihan) {
-
-                                    if (pilihan == "aluminium" || document.forms[0].jenis_bahan.value == "aluminium") {
-                                        document.forms[0].ukuran_p.disabled = true;
-                                        document.forms[0].ukuran_l.disabled = true;
-
-                                    } else if (pilihan == "plat" || pilihan == "kaca" || document.forms[0].jenis_bahan.value == "plat" || document.forms[0].jenis_bahan.value == "kaca") {
-                                        document.forms[0].ukuran.disabled = true;
-                                    }
-
-                                }
-                            </script>
-                            <select name="jenis_bahan" id="jenis_bahan" class="form-control" onchange="" disable_enable(this.value) required>
+                            <select name="jenis_bahan" id="jenis_bahan" class="form-control" required>
                                 <option value="0">--Pilih--</option>
                                 <?php foreach ($data->result() as $row) : ?>
                                     <option value="<?php echo $row->id_jenis; ?>"><?php echo $row->nama_jenis; ?></option>
@@ -46,7 +32,7 @@
                             </select>
 
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label class="control-label">Nama Bahan*</label>
                             <script>
                                 $(document).ready(function() {
@@ -62,39 +48,39 @@
                                 <option value="0">--Pilih--</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
                             <input type="number" min="1" name="ukuran" class="form-control">
                         </div>
 
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
                             <input type="number" min="-1" name="ukuran_p" class="form-control">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
                             <input type="number" min="-1" name="ukuran_l" class="form-control">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
                             <input type="number" min="1" name="banyak" class="form-control" required>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label for="harga_s">Harga/Satuan *<small>(Jika ada bahan yang sama, harga harus sama)</small></label>
                             <input type="number" min="1" name="harga_s" class="form-control" required>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label"><br></label>
+                            <div class="form-group">
+                                <button type="submit" name="tambah_bahan" class="btn btn-success btn-sm">
+                                    <i class="fa fa-plus fa-sm">
+                                    </i> Tambahkan
+                                </button>
+                                </button>
+                            </div>
+                        </div>
                 </form><br>
-                <div class="form-group ">
-                    <label class="control-label"><br></label>
-                    <div class="form-group">
-                        <button type="submit" name="tambah_bahan" class="btn btn-success btn-sm"> Tambah Bahan yang Sama </button>
-                        </button>
-                    </div>
-                    <div class="form-group pull-right">
-                        <button type="submit" name="tambah_harga" class="btn btn-warning btn-sm"> Hitung Harga Bahan yang Sama</button>
-                        </button>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -349,5 +335,19 @@ $('#deleteModal').modal();
             return (false);
         }
         return (true);
+    }
+</script>
+<script type="text/javascript">
+    document.onload = disable_enable();
+
+    function disable_enable(pilihan) {
+
+        if (pilihan == "aluminium" || pilihan == "karet" || document.forms[0].jenis_bahan.nama_jenis == "aluminium" || document.forms[0].jenis_bahan.nama_jenis == "karet") {
+            document.forms[0].ukuran_p.enabled = true;
+            document.forms[0].ukuran_l.enabled = true;
+
+        } else if (pilihan == "plat" || pilihan == "kaca" || document.forms[0].jenis_bahan.nama_jenis == "plat" || document.forms[0].jenis_bahan.nama_jenis == "kaca") {
+            document.forms[0].ukuran.enabled = true;
+        }
     }
 </script>

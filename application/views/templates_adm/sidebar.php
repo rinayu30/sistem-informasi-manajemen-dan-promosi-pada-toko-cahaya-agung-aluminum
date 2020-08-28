@@ -41,7 +41,7 @@
           <span>Produk</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/kalkulasi') ?>">
+        <a class="nav-link" href="<?= site_url('admin/bahan_masuk') ?>">
           <i class="fas fa-fw fa-inbox"></i>
           <span>Pembelian</span></a>
       </li>

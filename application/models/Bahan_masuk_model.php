@@ -1,42 +1,45 @@
 
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Bahan_masuk_model extends CI_Model
 {
-    public function get($id = null){
+    public function get($id = null)
+    {
         $this->db->from('bahan_masuk');
         $this->db->join('pemasok', 'pemasok.id_pemasok = bahan_masuk.id_pemasok');
         $this->db->join('item', 'item.id_item = bahan_masuk.id_item');
-        if($id != null){
+        if ($id != null) {
             $this->db->where('id_bmasuk', $id);
         }
         $query = $this->db->get();
         return $query;
     }
 
-    public function buat_kode(){
-        $this->db->select('Right(bahan_masuk.id_bmasuk,3) as kode ',false);
+    public function buat_kode()
+    {
+        $this->db->select('Right(bahan_masuk.id_bmasuk,3) as kode ', false);
         $this->db->order_by('id_bmasuk', 'desc');
         $this->db->limit(1);
         $query = $this->db->get('bahan_masuk');
-        if($query->num_rows()<>0){
+        if ($query->num_rows() <> 0) {
             $data = $query->row();
-            $kode = intval($data->kode)+1;
-        }else{
+            $kode = intval($data->kode) + 1;
+        } else {
             $kode = 1;
         }
-        $kodemax = str_pad($kode,3,"0",STR_PAD_LEFT);
-        $kodejadi  = "BMK".$kodemax;
+        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kodejadi  = "BMK" . $kodemax;
         return $kodejadi;
     }
 
-    public function get_harga($post){
-        $jumlah = $this->input->post('jumlah'); 
+    public function get_harga()
+    {
+        $jumlah = $this->input->post('jumlah');
         $harga = $this->input->post('harga');
-        $total = $jumlah*$harga;
-        return $total; 
+        $total = $jumlah * $harga;
+        return $total;
     }
-    
+
     public function add($post)
     {
         $params = [
@@ -51,10 +54,10 @@ class Bahan_masuk_model extends CI_Model
         ];
         $this->db->insert('bahan_masuk', $params);
     }
-   
+
     public function edit($post)
     {
-       
+
         $params = [
             'id_bmasuk' => $post['kode'],
             'id_pemasok' => $post['pemasok'],
@@ -76,5 +79,4 @@ class Bahan_masuk_model extends CI_Model
         $this->db->where('id_bmasuk', $id);
         $this->db->delete('bahan_masuk');
     }
-    
 }
