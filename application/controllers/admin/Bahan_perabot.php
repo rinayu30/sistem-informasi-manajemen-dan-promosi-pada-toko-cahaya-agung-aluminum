@@ -56,42 +56,42 @@ class Bahan_perabot extends CI_Controller
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
     }
 
-    public function add()
-    {
+    // public function add()
+    // {
 
-        $bahan_perabot = new stdClass();
-        $bahan_perabot->id_bahan_perabot = null; //field sesuai dengan database
+    //     $bahan_perabot = new stdClass();
+    //     $bahan_perabot->id_bahan_perabot = null; //field sesuai dengan database
 
-        $query_item = $this->item_model->get();
-        $item[null] = '--Pilih--';
-        foreach ($query_item->result() as $itm) {
-            $item[$itm->id_item] = $itm->nama_item;
-        }
-        $data = array(
-            'page' => 'tambah',
-            'row' => $bahan_perabot,
-            'item' => $item, 'selecteditem' => null,
-        );
-        $this->load->view('admin/bahan/bahan_perabot/bahan_perabot_data', $data);
-    }
+    //     $query_item = $this->item_model->get();
+    //     $item[null] = '--Pilih--';
+    //     foreach ($query_item->result() as $itm) {
+    //         $item[$itm->id_item] = $itm->nama_item;
+    //     }
+    //     $data = array(
+    //         'page' => 'tambah',
+    //         'row' => $bahan_perabot,
+    //         'item' => $item, 'selecteditem' => null,
+    //     );
+    //     $this->load->view('admin/bahan/bahan_perabot/bahan_perabot_data', $data);
+    // }
 
 
-    public function edit($id)
-    {
-        $query = $this->bahan_perabot_model->get($id);
-        if ($query->num_rows() > 0) {
-            $bahan_perabot = $query->row();
-            $data = array(
-                'page' => 'edit',
-                'row' => $bahan_perabot,
-                // 'kode' =>$kode,'selectedkode'=>$kode->kd_produk,
-            );
-            $this->load->view("admin/bahan_perabot/bahan_perabot_data", $data);
-        } else {
-            echo "<script>alert('Data tidak dapat ditemukan');";
-            echo "window.location='" . site_url('admin/bahan_perabot') . "';</script>";
-        }
-    }
+    // public function edit($id)
+    // {
+    //     $query = $this->bahan_perabot_model->get($id);
+    //     if ($query->num_rows() > 0) {
+    //         $bahan_perabot = $query->row();
+    //         $data = array(
+    //             'page' => 'edit',
+    //             'row' => $bahan_perabot,
+    //             // 'kode' =>$kode,'selectedkode'=>$kode->kd_produk,
+    //         );
+    //         $this->load->view("admin/bahan_perabot/bahan_perabot_data", $data);
+    //     } else {
+    //         echo "<script>alert('Data tidak dapat ditemukan');";
+    //         echo "window.location='" . site_url('admin/bahan_perabot') . "';</script>";
+    //     }
+    // }
 
     public function proses_bahan()
     {

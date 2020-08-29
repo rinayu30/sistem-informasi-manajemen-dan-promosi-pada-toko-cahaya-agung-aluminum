@@ -230,15 +230,15 @@
                     </div>
                     <div class="card-body" style="height: 100px;">
                         <div class="box-body table-responsive">
-                            <form action="<?= site_url('admin/kalkulasi/proses') ?>" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-5">
-                                        <input type="number" min="1" name="persentase" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-5">
-                                        <input type="submit" value="Hitung Harga" class="btn btn-success btn-sm">
-                                    </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <input type="number" min="1" name="persentase" class="form-control">
                                 </div>
+                                <div class="form-group col-md-5">
+                                    <input type="submit" value="Hitung Harga" class="btn btn-success btn-sm">
+                                </div>
+                            </div>
 
                         </div>
 
@@ -343,7 +343,7 @@ $('#deleteModal').modal();
         return (true);
     }
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     document.onload = disable_enable();
 
     function disable_enable(pilihan) {
@@ -356,4 +356,4 @@ $('#deleteModal').modal();
             document.forms[0].ukuran.enabled = true;
         }
     }
-</script>
+</script> -->

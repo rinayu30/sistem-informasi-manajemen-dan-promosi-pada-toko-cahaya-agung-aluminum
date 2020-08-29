@@ -37,27 +37,64 @@ class Bahan_perabot_model extends CI_Model
         $kodejadi  = "KH" . $kodemax;
         return $kodejadi;
     }
-    public function get_subharga()
-    {
 
-        $jumlah = $this->input->post('banyak');
-        $harga = $this->input->post('harga_s');
-        $total = $jumlah * $harga;
-        return $total;
-    }
     function get_nilai_satuan()
     {
-        $id_item = $this->input->post('item');
-        $satuan = $this->db->query("SELECT jenis_bahan.nilai_satuan FROM jenis_bahan RIGHT OUTER JOIN item ON item.id_jenis = jenis_bahan.id_jenis WHERE item.id_item=$id_item");
-        return $satuan;
+        $id = $this->input->post('item', true);
+        $satuan = $this->db->query("SELECT jenis_bahan.nilai_satuan FROM jenis_bahan left outer join item ON  item.id_jenis = jenis_bahan.id_jenis WHERE item.id_item=$id ");
+        // $satuan = $this->db->query("SELECT jenis_bahan.nilai_satuan FROM jenis_bahan RIGHT OUTER JOIN item ON item.id_jenis = jenis_bahan.id_jenis WHERE item.id_item=$id_item");
+        // $query = $this->db->get();
+        if ($satuan->num_rows() > 0) {
+            return $satuan->row()->nilai_satuan;
+        }
+        return false;
+        // return $satuan;
     }
     public function get_jumlah()
     {
         $byk = $this->input->post('banyak');
+
         $uk = $this->input->post('ukuran');
-        $satuan = $this->get_nilai_satuan();
-        $total = (($byk * $uk) / $satuan);
+        $ukp = $this->input->post('ukuran_p');
+        $ukl = $this->input->post('ukuran_l');
+        $sat = $this->get_nilai_satuan();
+        if ($uk == TRUE) {
+            $total = $byk * $uk / $sat;
+        } elseif ($ukp == TRUE && $ukl == TRUE) {
+            $total = ($ukp * $sat) * ($ukl * $sat) * $byk;
+        } else {
+            $total = $byk * 1;
+        }
         return $total;
+    }
+    public function get_subharga()
+    {
+        $jumlah = $this->get_jumlah();
+        $harga = $this->input->post('harga_s');
+        $sub = $jumlah * $harga;
+        return $sub;
+    }
+    public function get_hargaJual()
+    {
+        $jumlah = $this->get_subharga();
+        $diskon = $this->input->post('persentase');
+        $sub = $diskon / 100 * $jumlah;
+        return $sub;
+    }
+    public function tambahKalkulasi($post)
+    {
+        $params = [
+            'id_kalkulasi' => $this->kode_kalkulasi(),
+            'kd_produk' => $post['kd_produk'],
+            'harga_modal' => $this->get_subharga(),
+            'harga_jual' => $this->get_hargaJual(),
+
+        ];
+        $this->db->insert('kalkulasi', $params);
+        // $this->db->select('jumlah_harga')->from('bahan_perabot')->where('id_kalkulasi', $subharga);
+        // $query = $this->db->get();
+        // return $query;
+
     }
     public function tambah_bahan($post)
     {
@@ -67,7 +104,7 @@ class Bahan_perabot_model extends CI_Model
             'banyak' => $post['banyak'],
             'ukuran' => $post['ukuran'],
             'uk_panjang' => $post['ukuran_p'],
-            'uk_lebar' => $post['ukuran_p'],
+            'uk_lebar' => $post['ukuran_l'],
             'jumlah' => $this->get_jumlah(),
             'harga_satuan' => $post['harga_s'],
             'jumlah_harga' => $this->get_subharga(),

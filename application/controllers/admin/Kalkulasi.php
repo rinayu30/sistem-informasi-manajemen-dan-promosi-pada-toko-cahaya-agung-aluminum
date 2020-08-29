@@ -18,12 +18,37 @@ class Kalkulasi extends CI_Controller
         $data = $this->kalkulasi_model->get_item($id);
         echo json_encode($data);
     }
+    public function hitung_harga()
+    {
+        $kd_produk    =  $this->input->post('kd_produk');
+        $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+        $data = array(
+            'id_kalkulasi' => $data['id_kalkulasi'],
+            'kd_produk' => $kd_produk['kd_produk'],
+            'tgl_penjualan' => $tanggal,
+            'nama_pelanggan' => $pelanggan
+
+        );
+
+        $this->penjualan_model->selesai_belanja($data);
+        $this->session->set_flashdata('selesai_respon', 'Data belanja tersimpan !!');
+        redirect('admin/penjualan');
+        // $post = $this->input->post(null, TRUE);
+        // if (isset($_POST['submit'])) {
+        //     $this->bahan_perabot_model->tambahKalkulasi($post);
+        // }
+        // if ($this->db->affected_rows() > 0) {
+        //     $this->session->set_flashdata('success', ' Data berhasil disimpan');
+        // }
+        // redirect('admin/kalkulasi');
+    }
 
     public function index()
     {
 
         // $data['row'] = $this->bahan_perabot_model->get();
         $data['bahanperabot'] = $this->bahan_perabot_model->get_bahan();
+        // $data['jumlah'] = $this->bahan_perabot_model->get_nilai_satuan();
         // $data['kd_produk'] = $this->produk_model->get();
         $data['item'] = $this->item_model->get_item_byjenis('id_jenis');
         $data['data'] = $this->kalkulasi_model->get_jenisbahan();
@@ -45,6 +70,7 @@ class Kalkulasi extends CI_Controller
     //     $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
     //     $this->load->view('templates_adm/footer');
     // }
+
 
     public function add()
     {
