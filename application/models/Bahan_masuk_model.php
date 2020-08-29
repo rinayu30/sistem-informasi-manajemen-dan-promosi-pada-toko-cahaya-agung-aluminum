@@ -50,7 +50,7 @@ class Bahan_masuk_model extends CI_Model
             'satuan' => $post['satuan'],
             'harga_satuan' => $post['harga'],
             'total_harga' =>  $this->get_harga($post),
-            'created' => date('Y-m-d')
+            'tgl_beli' =>  $post['tgl_beli'],
         ];
         $this->db->insert('bahan_masuk', $params);
     }
@@ -66,8 +66,8 @@ class Bahan_masuk_model extends CI_Model
             'satuan' => $post['satuan'],
             'harga_satuan' => $post['harga'],
             'total_harga' =>  $this->get_harga($post),
-            'created' => date('Y-m-d'),
-            'updated' => date('Y-m-d H:i:s')
+            'tgl_beli' =>  $post['tgl_beli'],
+            'tgl_ubah' => date('Y-m-d')
         ];
         $this->db->where('id_bmasuk', $post['kode']);
         $this->db->update('bahan_masuk', $params);

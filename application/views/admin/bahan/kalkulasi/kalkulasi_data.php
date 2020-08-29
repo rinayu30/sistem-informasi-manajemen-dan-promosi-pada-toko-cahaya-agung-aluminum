@@ -9,7 +9,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="box-body table-responsive justify-content-center">
-                <form action="<?php base_url('admin/bahan_perabot/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
+                <form action="<?php echo base_url('admin/bahan_perabot/proses_bahan') ?>" method="post">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Jenis Bahan*</label>
@@ -46,6 +46,7 @@
                             </script>
                             <select name="item" class="item form-control" required>
                                 <option value="0">--Pilih--</option>
+
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -76,7 +77,7 @@
                                     <i class="fa fa-plus fa-sm">
                                     </i> Tambahkan
                                 </button>
-                                </button>
+
                             </div>
                         </div>
                 </form><br>
@@ -149,28 +150,32 @@
                         $total = 0;
                         foreach ($bahanperabot as $data) { ?>
                             <tr>
-                                <td><?= $no++ ?></td>
-                                <td class="text-center" ><?= $data->nama_item ?></td>
+                                <td><?= $no ?></td>
+                                <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
                                 <td class="text-center"><?= $data->banyak ?></td>
                                 <td class="text-center"><?= $data->ukuran ?></td>
                                 <td class="text-center"><?= $data->uk_panjang ?></td>
                                 <td class="text-center"><?= $data->uk_lebar ?></td>
                                 <td class="text-center"><?= $data->jumlah ?></td>
-                                <td class="text-center"><?= $data->harga_satuan ?></td>
-                                <td class="text-center"><?= $data->jumlah_harga ?></td>
+                                <td class="text-center"><?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
+                                <td class="text-center"><?= number_format($data->jumlah_harga, 0, ',', '.') ?></td>
                                 <td class="text-center" width=20%>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i> Edit</a>
-                                    <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
+                                    <!-- <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i> Edit</a> -->
+                                    <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin membatalkan data bahan?')" class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i> Batal</a>
 
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php $no++;
+                            $total = $total + $data->jumlah_harga;
+                        } ?>
+
                         <tr class="gradeA">
                             <td colspan="8" align="center">T O T A L</td>
-                            <td>Rp. <?php 
-                            echo number_format($total, 2); ?></td>
+                            <td>Rp. <?php
+
+                                    echo number_format($total, 0, ',', '.'); ?></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -311,7 +316,7 @@ $('#deleteModal').modal();
                     var html = '';
                     var i;
                     for (i = 0; i < data.length; i++) {
-                        html += '<option>' + data[i].nama_item + '</option>';
+                        html += '<option value="' + data[i].id_item + '">' + data[i].nama_item + '</option>';
                     }
                     $('.item').html(html);
 

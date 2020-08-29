@@ -95,10 +95,9 @@ class Bahan_perabot extends CI_Controller
 
     public function proses_bahan()
     {
+
         $post = $this->input->post(null, TRUE);
-        if (isset($_POST['tambah_bahan'])) {
-            $this->bahan_perabot_model->tambah_bahan($post);
-        }
+        $this->bahan_perabot_model->tambah_bahan($post);
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');

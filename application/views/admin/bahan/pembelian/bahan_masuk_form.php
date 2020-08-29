@@ -20,10 +20,10 @@
           <div class="row">
             <div class="col-md-4 offset-4">
               <form action="<?= site_url('admin/bahan_masuk/proses') ?>" method="post">
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label for="name">Tanggal Pembelian*</label>
-                  <input class="form-control" type="date" name="tgl_beli" value="<?= $row->created = date('Y-m-d') ?>" required>
-                </div> -->
+                  <input class="form-control" type="date" name="tgl_beli" value="<?= $row->tgl_beli ?>" required>
+                </div>
                 <div class="form-group">
                   <label for="kode">Kode Bahan Masuk</label>
                   <input type="text" name="kode" value="<?= $row->id_bmasuk ?>" class="form-control" readonly>

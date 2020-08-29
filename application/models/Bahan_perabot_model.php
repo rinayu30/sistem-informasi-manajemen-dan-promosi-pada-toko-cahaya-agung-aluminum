@@ -6,16 +6,14 @@ class Bahan_perabot_model extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('*');
         $this->db->from('bahan_perabot');
-        $this->db->join('item', 'item.id_item = bahan_perabot.id_item');
-
         if ($id != null) {
             $this->db->where('id_bahan', $id);
         }
         $query = $this->db->get();
         return $query;
     }
+
 
     function get_bahan()
     {
@@ -41,22 +39,37 @@ class Bahan_perabot_model extends CI_Model
     }
     public function get_subharga()
     {
-        $jumlah = $this->input->post('jumlah');
-        $harga = $this->input->post('harga_satuan');
+
+        $jumlah = $this->input->post('banyak');
+        $harga = $this->input->post('harga_s');
         $total = $jumlah * $harga;
+        return $total;
+    }
+    function get_nilai_satuan()
+    {
+        $id_item = $this->input->post('item');
+        $satuan = $this->db->query("SELECT jenis_bahan.nilai_satuan FROM jenis_bahan RIGHT OUTER JOIN item ON item.id_jenis = jenis_bahan.id_jenis WHERE item.id_item=$id_item");
+        return $satuan;
+    }
+    public function get_jumlah()
+    {
+        $byk = $this->input->post('banyak');
+        $uk = $this->input->post('ukuran');
+        $satuan = $this->get_nilai_satuan();
+        $total = (($byk * $uk) / $satuan);
         return $total;
     }
     public function tambah_bahan($post)
     {
         $params = [
-            'id_bahan' => $this->kode_kalkulasi(),
+            'id_kalkulasi' => $this->kode_kalkulasi(),
             'id_item' => $post['item'],
             'banyak' => $post['banyak'],
             'ukuran' => $post['ukuran'],
             'uk_panjang' => $post['ukuran_p'],
             'uk_lebar' => $post['ukuran_p'],
-            'jumlah' => $post['jumlah'],
-            'harga_satuan' => $post['harga'],
+            'jumlah' => $this->get_jumlah(),
+            'harga_satuan' => $post['harga_s'],
             'jumlah_harga' => $this->get_subharga(),
         ];
         $this->db->insert('bahan_perabot', $params);

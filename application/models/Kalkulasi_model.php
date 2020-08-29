@@ -43,8 +43,8 @@ class Kalkulasi_model extends CI_Model
 
     public function hapus_data($id)
     {
-        $this->db->where('id_jenis', $id);
-        $this->db->delete('jenis_bahan');
+        $this->db->where('id_bahan', $id);
+        $this->db->delete('bahan_perabot');
     }
 
     function get_jenisbahan()
