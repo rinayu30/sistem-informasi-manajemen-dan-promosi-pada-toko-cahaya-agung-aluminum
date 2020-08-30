@@ -15,6 +15,7 @@ class Produk_model extends CI_Model
     public function get($id = null)
     {
         // $produk = $this->data['produk'];
+        // untuk mendapatkan harga produk pada detail
         $this->db->from('produk');
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
         $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
@@ -28,6 +29,7 @@ class Produk_model extends CI_Model
 
     public function get_produk($id = null)
     {
+        //untuk tampilan di website
         $this->db->from('produk');
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
         if ($id != null) {
@@ -39,6 +41,20 @@ class Produk_model extends CI_Model
             $data = $query->row();
         }
         return $data;
+    }
+
+    public function get_produkb($id = null)
+    {
+        //untuk tampilan produk sistem informasi
+        $this->db->from('produk');
+        $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
+        if ($id != null) {
+            $this->db->where('kd_produk');
+            // $this->db->group_by('produk.id_kategori', $id);
+        }
+        $query = $this->db->get();
+
+        return $query;
     }
 
     public function _uploadImage()
@@ -136,6 +152,18 @@ class Produk_model extends CI_Model
         $this->db->where('kd_produk', $post['kode']);
         $this->db->update('produk', $params);
     }
+    // public function cekHarga($id){
+    //     $this->db->from('produk');
+    //     $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
+    //     $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
+    //     if ($id != null) {
+    //         $this->db->where('produk.kd_produk', $id);
+    //     }
+    //     $query = $this->db->get();
+    //     return $query;
+    //     $d = $this->db->get('kalkulasi');
+
+    // }
 
 
     public function hapus_data($id)

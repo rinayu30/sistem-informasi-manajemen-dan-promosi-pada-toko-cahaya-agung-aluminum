@@ -21,9 +21,11 @@
                             <tr>
                                 <td>Harga Modal</td>
                                 <td><strong>
-                                        <a href="<?= site_url('admin/kalkulasi') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
-                                        <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
-                                    </strong></td>
+                                        <?php if ($data->harga_modal == " ") { ?>
+                                            <a href="<?= site_url('admin/kalkulasi') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
+                                        <?php } else { ?>
+                                            <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
+                                    </strong></td><?php } ?>
                             </tr>
                             <tr>
                                 <td> Harga Jual</td>
@@ -36,7 +38,7 @@
                                 <td><strong><?php echo $data->nama_kategori ?></strong></td>
                             </tr>
                             <tr>
-                                <td> Keterangan</td>
+                                <td width="30%"> Keterangan</td>
                                 <td> <?php echo $data->detail ?> </td>
                             </tr>
                         </table>

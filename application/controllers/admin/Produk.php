@@ -14,7 +14,7 @@ class Produk extends CI_Controller
     public function index()
     {
 
-        $data['row'] = $this->produk_model->get();
+        $data['row'] = $this->produk_model->get_produkb();
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/produk/daftar_produk', $data);
@@ -99,11 +99,22 @@ class Produk extends CI_Controller
     public function detail($id)
     {
         // $data['harga_modal'] = $this->bahan_perabot_model->get_subtotal($id);
+        // $hrg = $this->produk_model->getHarga($id);
+        // if ($hrg == TRUE) {
+        //     $data = array(
+        //         'harga' => $this->produk_model->getHarga($id),
+        //         'row' => $this->produk_model->get($id),
+        //         // 'row' => $this->produk_model->get_produkb($id),
+
+        //     );
+        // } else {
+        //     $data['row'] = $this->produk_model->get_produkb($id);
+        // }
         $data = array(
             'harga' => $this->produk_model->getHarga($id),
             'row' => $this->produk_model->get($id),
+            // 'row' => $this->produk_model->get_produkb($id),
         );
-
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/produk/detail', $data);
