@@ -23,13 +23,13 @@
                                 <td><strong>
                                         <a href="<?= site_url('admin/produk/add_harga') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
 
-                                        <!-- <div class="btn btn-sm btn-success">Rp. <?php echo number_format($produk->harga_modal, 0, ',', '.') ?></div> -->
+                                        <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
                                     </strong></td>
                             </tr>
                             <tr>
                                 <td> Harga Jual</td>
                                 <td><strong>
-                                        <!-- <div class="btn btn-sm btn-success">Rp. <?php echo number_format($produk->harga_jual, 0, ',', '.') ?></div> -->
+                                        <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_jual, 0, ',', '.') ?></div>
                                     </strong></td>
                             </tr>
                             <tr>

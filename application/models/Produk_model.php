@@ -3,6 +3,11 @@
 
 class Produk_model extends CI_Model
 {
+    public function getHarga()
+    {
+        $this->db->select('harga_jual', 'harga_modal');
+        $this->db->from('kalkulasi');
+    }
     public function get($id = null)
     {
         $this->db->from('produk');
