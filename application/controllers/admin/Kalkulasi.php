@@ -18,30 +18,52 @@ class Kalkulasi extends CI_Controller
         $data = $this->kalkulasi_model->get_item($id);
         echo json_encode($data);
     }
-    public function hitung_harga()
+    function selesai_hitung()
     {
+        // $kd_produk =  $this->input->post('kd_produk');
+        $data['id_kalkulasi'] = $this->bahan_perabot_model->kode_kalkulasi();
+        $data['harga_modal'] = $this->bahan_perabot_model->get_subtotal();
+        $data['harga_jual'] = $this->bahan_perabot_model->get_hargaJual();
         $kd_produk    =  $this->input->post('kd_produk');
-        $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+        // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+
+
         $data = array(
             'id_kalkulasi' => $data['id_kalkulasi'],
-            'kd_produk' => $kd_produk['kd_produk'],
-            'tgl_penjualan' => $tanggal,
-            'nama_pelanggan' => $pelanggan
+            'kd_produk' => $kd_produk,
+            'harga_modal' => $data['harga_modal'],
+            'harga_jual' => $data['harga_jual'],
 
         );
 
-        $this->penjualan_model->selesai_belanja($data);
-        $this->session->set_flashdata('selesai_respon', 'Data belanja tersimpan !!');
-        redirect('admin/penjualan');
-        // $post = $this->input->post(null, TRUE);
-        // if (isset($_POST['submit'])) {
-        //     $this->bahan_perabot_model->tambahKalkulasi($post);
-        // }
-        // if ($this->db->affected_rows() > 0) {
-        //     $this->session->set_flashdata('success', ' Data berhasil disimpan');
-        // }
-        // redirect('admin/kalkulasi');
+        $this->bahan_perabot_model->selesai_hitung($data);
+        $this->session->set_flashdata('success', 'Data Harga Produk Tersimpan');
+        redirect('admin/kalkulasi');
     }
+    // public function hitung_harga()
+    // {
+    //     // $kd_produk    =  $this->input->post('kd_produk');
+    //     // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+    //     // $data = array(
+    //     //     'id_kalkulasi' => $data['id_kalkulasi'],
+    //     //     'kd_produk' => $kd_produk['kd_produk'],
+    //     //     'tgl_penjualan' => $tanggal,
+    //     //     'nama_pelanggan' => $pelanggan
+
+    //     // );
+
+    //     // $this->bahan_perabot_model-->tambahKalkulasi($post);
+    //     // $this->session->set_flashdata('selesai_respon', 'Data belanja tersimpan !!');
+    //     // redirect('admin/penjualan');
+    //     $post = $this->input->post(null, TRUE);
+    //     if (isset($_POST['submit'])) {
+    //         $this->bahan_perabot_model->tambahKalkulasi($post);
+    //     }
+    //     if ($this->db->affected_rows() > 0) {
+    //         $this->session->set_flashdata('success', ' Data berhasil disimpan');
+    //     }
+    //     redirect('admin/kalkulasi');
+    // }
 
     public function index()
     {

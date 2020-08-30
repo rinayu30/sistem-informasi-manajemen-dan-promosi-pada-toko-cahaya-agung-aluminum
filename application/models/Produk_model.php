@@ -6,6 +6,7 @@ class Produk_model extends CI_Model
     public function get($id = null)
     {
         $this->db->from('produk');
+        $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
         if ($id != null) {
             $this->db->where('kd_produk', $id);

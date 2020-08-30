@@ -74,27 +74,47 @@ class Bahan_perabot_model extends CI_Model
         $sub = $jumlah * $harga;
         return $sub;
     }
+    public function get_subtotal()
+    {
+        $this->db->select_sum('jumlah_harga');
+        $query = $this->db->get('bahan_perabot');
+        if ($query->num_rows() > 0) {
+            return $query->row()->jumlah_harga;
+        }
+        return false;
+    }
     public function get_hargaJual()
     {
-        $jumlah = $this->get_subharga();
+        $jumlah = $this->get_subtotal();
         $diskon = $this->input->post('persentase');
         $sub = $diskon / 100 * $jumlah;
         return $sub;
     }
-    public function tambahKalkulasi($post)
+    // public function tambahKalkulasi($post)
+    // {
+    //     $kd_produk    =  $this->input->post('kd_produk');
+    //     $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+
+    //     $params = [
+    //         'id_kalkulasi' => $this->kode_kalkulasi(),
+    //         'kd_produk' => $post['kd_produk'],
+    //         'harga_modal' => $this->get_subharga(),
+    //         'harga_jual' => $this->get_hargaJual(),
+
+    //     ];
+    //     $this->db->insert('kalkulasi', $params);
+    //     // $this->db->select('jumlah_harga')->from('bahan_perabot')->where('id_kalkulasi', $subharga);
+    //     // $query = $this->db->get();
+    //     // return $query;
+
+    // }
+    function selesai_hitung($data)
     {
-        $params = [
-            'id_kalkulasi' => $this->kode_kalkulasi(),
-            'kd_produk' => $post['kd_produk'],
-            'harga_modal' => $this->get_subharga(),
-            'harga_jual' => $this->get_hargaJual(),
 
-        ];
-        $this->db->insert('kalkulasi', $params);
-        // $this->db->select('jumlah_harga')->from('bahan_perabot')->where('id_kalkulasi', $subharga);
-        // $query = $this->db->get();
-        // return $query;
-
+        $this->db->insert('kalkulasi', $data);
+        $last_id =  $this->db->query("select id_kalkulasi from kalkulasi order by  id_kalkulasi desc")->row_array();
+        // $this->db->query("update detailpenjualan set no_penjualan='" . $last_id['no_penjualan'] . "' where status='0' ");
+        // $this->db->query("update detailpenjualan set status='1' where status='0'");
     }
     public function tambah_bahan($post)
     {

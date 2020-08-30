@@ -93,12 +93,6 @@
 
 <section class="content">
     <?php $this->view('messages') ?>
-
-
-
-    <!-- </div>
-        </div> -->
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Harga Bahan dari Produk</h6>
@@ -119,30 +113,6 @@
                             <th class="text-center" width=15%>Sub Total</th>
                             <th class="text-center" width=20%>Aksi</th>
                         </tr>
-
-                        <tr>
-                            <!-- <td>x</td>
-                            <td class="text-center">x<x</td> <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td>
-                            <td class="text-center">x</td> -->
-                            <!-- <td class="text-center" width=20%>
-                                <a href="" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit"></i> Edit</a>
-                                <a href="<?= site_url('admin/kalkulasi/delete/' . $b->id_bahan) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Batal</a>
-
-                            </td> -->
-                        </tr>
-                        <!-- <tr>
-                            <th colspan="8" class="text-center">Total/bahan</th>
-                            <th class="text-center" width=15%>Rp. Sub Total</th>
-                            <th class="text-center" width=20%></th>
-                        </tr> -->
                     </thead>
                     <tbody>
                         <?php
@@ -186,22 +156,22 @@
     </div>
     <div class="container">
 
-        <div class="card-header py-3">
+        <!-- <div class="card-header py-3"> -->
 
-            <!-- <h6 class="m-0 font-weight-bold text-primary">Form <?= ucfirst($page) ?> Hitung</h6> -->
-        </div>
+        <!-- <h6 class="m-0 font-weight-bold text-primary">Form <?= ucfirst($page) ?> Hitung</h6> -->
+        <!-- </div> -->
         <!-- Outer Row -->
+        <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_selesai(this)">
 
-        <div class="row justify-content-left">
-            <div class="col-lg-4 justify-content-left">
-                <div class="card shadow mb-4 card-header py-3">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><label for="kd_produk">Kode Produk*</label></h6>
-                    </div>
-                    <div class="card-body" style="height: 100px;">
-                        <div class="box-body table-responsive">
-                            <div class="form-group ">
-                                <form action="<?php echo base_url('admin/kalkulasi/hitung_harga') ?>" method='post' onsubmit="return validasi_selesai(this)">
+            <div class="row justify-content-left">
+                <div class="col-lg-4 justify-content-left">
+                    <div class="card shadow mb-4 card-header py-3">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><label for="kd_produk">Kode Produk*</label></h6>
+                        </div>
+                        <div class="card-body" style="height: 100px;">
+                            <div class="box-body table-responsive">
+                                <div class="form-group ">
                                     <select id="kd_produk" class="form-control" name="kd_produk" required>
                                         <option value="" selected hidden>---Pilih---</option>
                                         <?php
@@ -214,63 +184,80 @@
                                             </option>
                                         <?php } ?>
                                     </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-lg-4 justify-content-center">
 
-
-
-            <div class="col-lg-4 justify-content-center">
-
-                <div class="card shadow mb-4 card-header py-3">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><label for="id_jenis"><small>(Masukkan persentase keuntungan)</small></label></h6>
-                    </div>
-                    <div class="card-body" style="height: 100px;">
-                        <div class="box-body table-responsive">
-
-                            <div class="row">
-                                <div class="form-group col-md-5">
-                                    <input type="number" min="1" name="persentase" class="form-control">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <input type="submit" value="Hitung Harga" class="btn btn-success btn-sm">
-                                </div>
-                            </div>
-
+                    <div class="card shadow mb-4 card-header py-3">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><label for="persentase"><small>(Masukkan persentase keuntungan)</small></label></h6>
                         </div>
-
-
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 justify-content-right">
-                <div class="card shadow mb-4 card-header py-3">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><label for="harga_jual">Harga Jual Produk </label></h6>
-                    </div>
-                    <div class="">
                         <div class="card-body" style="height: 100px;">
                             <div class="box-body table-responsive">
-                                <div class="form-group ">
-                                    <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
-                                    <input type="text" name="nama" class="form-control" readonly>
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <input type="number" min="1" name="persentase" class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <input type="submit" name="hitung" value="Hitung Harga" class="btn btn-success btn-sm">
+                                    </div>
                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+        <div class="col-lg-4 justify-content-right">
+            <div class="card shadow mb-4 card-header py-3">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><label for="harga_jual">Harga Jual Produk </label></h6>
+                </div>
+                <div class="">
+                    <div class="card-body" style="height: 100px;">
+                        <div class="box-body table-responsive">
+                            <div class="form-group ">
+                                <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
+                                <input type="text" name="harga_jual" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
 </section>
 <!-- Modal Tambah Data-->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Launch static backdrop modal
+</button> -->
 
+<!-- Modal -->
+<!-- <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="" class="btn btn-primary">Tambahkan</button>
+            </div>
+        </div>
+    </div>
+</div> -->
 <!-- Button trigger modal -->
 
 
