@@ -3,22 +3,28 @@
 
 class Produk_model extends CI_Model
 {
-    public function getHarga()
+    public function getHarga($id)
     {
-        $this->db->select('harga_jual', 'harga_modal');
-        $this->db->from('kalkulasi');
+        $query = $this->db->query("SELECT kalkulasi.harga_jual,kalkulasi.harga_modal FROM kalkulasi left outer join produk ON  produk.kd_produk = kalkulasi.kd_produk ");
+        if ($id != null) {
+            $this->db->where('kalkulasi.kd_produk', $id);
+        }
+        $query = $this->db->get('kalkulasi');
+        return $query;
     }
     public function get($id = null)
     {
+        // $produk = $this->data['produk'];
         $this->db->from('produk');
-        $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
+        $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
         if ($id != null) {
-            $this->db->where('kd_produk', $id);
+            $this->db->where('produk.kd_produk', $id);
         }
         $query = $this->db->get();
         return $query;
     }
+
 
     public function get_produk($id = null)
     {
@@ -53,15 +59,6 @@ class Produk_model extends CI_Model
         print_r($this->upload->display_errors());
         return "default.jpg";
     }
-    // function DeleteFile($oldthumbnail)
-    // {
-    //     $Folder = $this->data['Folder'];
-    //     if (file_exists($Folder . $oldthumbnail)) {
-    //         if ($oldthumbnail != $this->data['PictureForbid']) {
-    //             unlink("$Folder$oldthumbnail");
-    //         }
-    //     }
-    // }
 
     // public function _deleteImage($id)
     // {
@@ -150,8 +147,9 @@ class Produk_model extends CI_Model
     //untuk website
     public function find($id)
     {
-        $result = $this->db->where('kd_produk', $id)
+        $result = $this->db->where('kalkulasi.kd_produk', $id)
             ->limit(1)
+            ->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk')
             ->get('produk');
         if ($result->num_rows() > 0) {
             return $result->row();

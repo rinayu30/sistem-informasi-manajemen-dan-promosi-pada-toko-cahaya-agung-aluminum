@@ -7,7 +7,7 @@ class Produk extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model']);
+        $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model', 'kalkulasi_model']);
         // $this->load->library('form_validation');
     }
 
@@ -98,9 +98,12 @@ class Produk extends CI_Controller
 
     public function detail($id)
     {
-        $data['harga_modal'] = $this->bahan_perabot_model->get_subtotal();
-        $data['harga_jual'] = $this->bahan_perabot_model->get_hargaJual();
-        $data['row'] = $this->produk_model->get($id);
+        // $data['harga_modal'] = $this->bahan_perabot_model->get_subtotal($id);
+        $data = array(
+            'harga' => $this->produk_model->getHarga($id),
+            'row' => $this->produk_model->get($id),
+        );
+
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/produk/detail', $data);

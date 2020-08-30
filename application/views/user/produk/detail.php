@@ -9,7 +9,7 @@
                 <h2>Detail Produk</h2>
                 <p class="lead"><?= $data->nama_produk ?></p>
                 <p class="lead">
-                    <div class="btn btn-sm btn-success">Rp. 200.000</div>
+                    <div class="btn btn-sm btn-success">Rp. <?= number_format($data->harga_jual, 0, ',', '.') ?></div>
                 </p>
                 <ul class="project-info">
                     <li>
@@ -21,7 +21,9 @@
 
                 </ul>
             <?php endforeach; ?>
-            <button class="btn btn-inverse pull-left" type="button">Tambah ke Keranjang</button>
+            <!-- <button class="btn btn-inverse pull-left" type="button"></button> -->
+            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" onclick="return confirm('Tambahkan item ke keranjang?')" class="btn btn-inverse pull-left">
+                <i class="icon-cart"></i> Tambah ke Keranjang</a>
             <a href="<?= site_url('dashboard/produk') ?>" class="btn btn-sm pull-right">
                 <i class="icon-arrow-left"></i> Kembali</a>
 

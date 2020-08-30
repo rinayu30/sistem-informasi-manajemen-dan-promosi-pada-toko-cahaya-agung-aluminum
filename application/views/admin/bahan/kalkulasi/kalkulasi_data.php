@@ -221,7 +221,7 @@
                         <div class="box-body table-responsive">
                             <div class="form-group ">
                                 <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
-                                <input type="text" name="harga_jual" class="form-control" readonly>
+                                <input type="text" name="harga_jual" class="form-control" value="" readonly>
                             </div>
                         </div>
                     </div>

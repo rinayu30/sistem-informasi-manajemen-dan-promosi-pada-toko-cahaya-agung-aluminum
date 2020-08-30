@@ -9,7 +9,7 @@
                         <span class="gallery-hover-4col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 <div class="progress progress-warning ">
-                                    <div class="bar" style="width: 100%"> Rp.1.300.000</div>
+                                    <div class="bar" style="width: 100%"> Rp. <?= number_format($data->harga_jual, 0, ',', '.') ?></div>
 
                                 </div>
                             </span>

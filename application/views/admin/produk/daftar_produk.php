@@ -33,6 +33,7 @@
                                     <?php
                                     $no = 1;
                                     foreach ($row->result() as $key => $data) { ?>
+
                                         <tr>
                                             <td width="2%" class="text-center"><?= $no++ ?></td>
                                             <td class="text-center"><?= $data->kd_produk ?></td>

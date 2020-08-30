@@ -21,8 +21,7 @@
                             <tr>
                                 <td>Harga Modal</td>
                                 <td><strong>
-                                        <a href="<?= site_url('admin/produk/add_harga') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
-
+                                        <a href="<?= site_url('admin/kalkulasi') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
                                         <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
                                     </strong></td>
                             </tr>

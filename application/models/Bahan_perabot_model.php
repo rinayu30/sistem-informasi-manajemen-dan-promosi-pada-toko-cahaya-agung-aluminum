@@ -86,9 +86,10 @@ class Bahan_perabot_model extends CI_Model
     public function get_hargaJual()
     {
         $jumlah = $this->get_subtotal();
-        $diskon = $this->input->post('persentase');
-        $sub = $diskon / 100 * $jumlah;
-        return $sub;
+        $persentase = $this->input->post('persentase');
+        $sub = $persentase / 100 * $jumlah;
+        $sub2 = $jumlah + $sub;
+        return $sub2;
     }
     // public function tambahKalkulasi($post)
     // {

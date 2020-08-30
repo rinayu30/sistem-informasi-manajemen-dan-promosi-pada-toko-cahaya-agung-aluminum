@@ -33,11 +33,10 @@ class Kalkulasi extends CI_Controller
             'kd_produk' => $kd_produk,
             'harga_modal' => $data['harga_modal'],
             'harga_jual' => $data['harga_jual'],
-
         );
 
         $this->bahan_perabot_model->selesai_hitung($data);
-        $this->session->set_flashdata('success', 'Data Harga Produk Tersimpan');
+        $this->session->set_flashdata('success', ' Data Harga Produk Tersimpan Silahkan Lihat Detail Produk');
         redirect('admin/kalkulasi');
     }
     // public function hitung_harga()
