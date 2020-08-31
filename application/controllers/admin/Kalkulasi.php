@@ -167,4 +167,12 @@ class Kalkulasi extends CI_Controller
         }
         redirect('admin/kalkulasi');
     }
+
+    public function bulk_delete()
+    {
+        $id = $_POST['id_bahan']; // Ambil data id_bahan yang dikirim oleh view.php melalui form submit
+        $this->kalkulasi_model->bulk_delete($id); // Panggil fungsi delete dari model
+
+        redirect('admin/kalkulasi');
+    }
 }

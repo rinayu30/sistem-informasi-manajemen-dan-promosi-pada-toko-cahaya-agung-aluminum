@@ -99,58 +99,61 @@
         </div>
         <div class="card-body">
             <div class="box-body table-responsive">
-                <table class="table table-bordered table-striped" id="table1">
-                    <thead>
-                        <tr>
-                            <th width=2%>No</th>
-                            <th class="text-center" width=15%>Nama Bahan</th>
-                            <th class="text-center">Banyak</th>
-                            <th class="text-center">Ukuran Aluminium</th>
-                            <th class="text-center">Ukuran Panjang</th>
-                            <th class="text-center">Ukuran Lebar</th>
-                            <th class="text-center">Jumlah Bahan</th>
-                            <th class="text-center">Harga/satuan</th>
-                            <th class="text-center" width=15%>Sub Total</th>
-                            <th class="text-center" width=20%>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        $total = 0;
-                        foreach ($bahanperabot as $data) { ?>
+                <form method="post" action="<?php echo base_url('admin/kalkulasi/bulk_delete') ?>" id="form-delete">
+                    <table class="table table-bordered table-striped" id="table1">
+                        <thead>
                             <tr>
-                                <td><?= $no ?></td>
-                                <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
-                                <td class="text-center"><?= $data->banyak ?></td>
-                                <td class="text-center"><?= $data->ukuran ?></td>
-                                <td class="text-center"><?= $data->uk_panjang ?></td>
-                                <td class="text-center"><?= $data->uk_lebar ?></td>
-                                <td class="text-center"><?= $data->jumlah ?></td>
-                                <td class="text-center"><?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
-                                <td class="text-center"><?= number_format($data->jumlah_harga, 0, ',', '.') ?></td>
-                                <td class="text-center" width=20%>
-                                    <!-- <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i> Edit</a> -->
-                                    <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin membatalkan data bahan?')" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Batal</a>
-
-                                </td>
+                                <th width=2%><input type="checkbox" id="check-all"></th>
+                                <th class="text-center" width=15%>Nama Bahan</th>
+                                <th class="text-center">Banyak</th>
+                                <th class="text-center">Ukuran Aluminium</th>
+                                <th class="text-center">Ukuran Panjang</th>
+                                <th class="text-center">Ukuran Lebar</th>
+                                <th class="text-center">Jumlah Bahan</th>
+                                <th class="text-center">Harga/satuan</th>
+                                <th class="text-center" width=15%>Sub Total</th>
+                                <th class="text-center" width=20%>Aksi</th>
                             </tr>
-                        <?php $no++;
-                            $total = $total + $data->jumlah_harga;
-                        } ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            $total = 0;
+                            foreach ($bahanperabot as $data) { ?>
+                                <tr>
+                                    <td><input type='checkbox' class='check-item' name='id_bahan[]' value="<?= $data->id_bahan ?>"></td>
+                                    <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
+                                    <td class="text-center"><?= $data->banyak ?></td>
+                                    <td class="text-center"><?= $data->ukuran ?></td>
+                                    <td class="text-center"><?= $data->uk_panjang ?></td>
+                                    <td class="text-center"><?= $data->uk_lebar ?></td>
+                                    <td class="text-center"><?= $data->jumlah ?></td>
+                                    <td class="text-center"><?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
+                                    <td class="text-center"><?= number_format($data->jumlah_harga, 0, ',', '.') ?></td>
+                                    <td class="text-center" width=20%>
+                                        <!-- <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i> Edit</a> -->
+                                        <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin membatalkan data bahan?')" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i> Batal</a>
 
-                        <tr class="gradeA">
-                            <td colspan="8" align="center">T O T A L</td>
-                            <td>Rp. <?php
+                                    </td>
+                                </tr>
+                            <?php $no++;
+                                $total = $total + $data->jumlah_harga;
+                            } ?>
 
-                                    echo number_format($total, 0, ',', '.'); ?></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                            <tr class="gradeA">
+                                <td colspan="8" align="center">T O T A L</td>
+                                <td>Rp. <?php
 
-                </table>
+                                        echo number_format($total, 0, ',', '.'); ?></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" id="btn-delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus semua</button>
+                </form>
             </div>
         </div>
     </div>
@@ -283,7 +286,7 @@ $('#btn-delete').attr('href', url);
 $('#deleteModal').modal();
 }
 </script> -->
-
+<script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js') ?>"></script>
 
 <script type="text/javascript">
@@ -309,6 +312,23 @@ $('#deleteModal').modal();
 
                 }
             });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
+        $("#check-all").click(function() { // Ketika user men-cek checkbox all
+            if ($(this).is(":checked")) // Jika checkbox all diceklis
+                $(".check-item").prop("checked", true); // ceklis semua checkbox siswa dengan class "check-item"
+            else // Jika checkbox all tidak diceklis
+                $(".check-item").prop("checked", false); // un-ceklis semua checkbox siswa dengan class "check-item"
+        });
+
+        $("#btn-delete").click(function() { // Ketika user mengklik tombol delete
+            var confirm = window.confirm("Apakah Anda yakin ingin menghapus data-data ini?"); // Buat sebuah alert konfirmasi
+
+            if (confirm) // Jika user mengklik tombol "Ok"
+                $("#form-delete").submit(); // Submit form
         });
     });
 </script>

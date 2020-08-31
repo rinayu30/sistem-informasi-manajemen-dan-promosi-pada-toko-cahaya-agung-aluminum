@@ -47,6 +47,12 @@ class Kalkulasi_model extends CI_Model
         $this->db->delete('bahan_perabot');
     }
 
+    public function bulk_delete($id)
+    {
+        $this->db->where_in('id_bahan', $id);
+        $this->db->delete('bahan_perabot');
+    }
+
     function get_jenisbahan()
     {
         $hasil = $this->db->query("SELECT * FROM jenis_bahan");
