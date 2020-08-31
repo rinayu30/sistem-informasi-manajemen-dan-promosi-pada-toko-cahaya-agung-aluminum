@@ -19,14 +19,28 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama penjualan</th>
-                                        <th class="text-center">Jenis Kelamin</th>
-                                        <th>No Telp</th>
-                                        <th>Alamat</th>
-                                        <th>Aksi</th>
+                                        <th class="text-center">Kode penjualan</th>
+                                        <th class="text-center">Pembeli</th>
+                                        <th class="text-center">Total Bayar</th>
+                                        <th class="text-center">Sisa Bayar</th>
+                                        <th class="text-center">Tanggal Penjualan</th>
+                                        <th class="text-center">Tanggal Pengiriman</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="10%">Kode penjualan</td>
+                                        <td>Pembeli</td>
+                                        <td>Total Bayar</td>
+                                        <td>Sisa Bayar</td>
+                                        <td width="10%">Tanggal Penjualan</td>
+                                        <td width="10%">Tanggal Pengiriman</td>
+                                        <td>Status</td>
+                                        <td width="14%" class="text-center">Aksi</td>
+                                    </tr>
+                                </tbody>
 
                                 <!-- <tbody>
                                     <?php

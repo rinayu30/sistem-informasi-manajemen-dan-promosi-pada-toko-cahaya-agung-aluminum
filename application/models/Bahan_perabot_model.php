@@ -17,9 +17,33 @@ class Bahan_perabot_model extends CI_Model
 
     function get_bahan()
     {
-        $hasil = $this->db->query("SELECT bahan_perabot.*,item.* FROM bahan_perabot LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item");
+        $hasil = $this->db->query("SELECT bahan_perabot.*,item.* FROM bahan_perabot LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item WHERE bahan_perabot.status ='1'");
         return $hasil->result();
     }
+    // function duaTabel()
+    // {
+    //     $this->db->select('');
+    //     $this->db->from('produk');
+    //     $this->db->join('kalkulasi as k', 'k.kd_produk=produk.kd_produk');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+    // function get_bahan1($id = null)
+    // {
+    //     $query  = "SELECT td.id_detail_penjualan,td.jumlah_jual,td.harga_jual,b.kd_barang
+    //     FROM detailpenjualan as td,barang as b
+    //     WHERE b.kd_barang=td.kd_barang and td.status='0'";
+    //     return $this->db->query($query);
+    //     // $this->db->from('bahan_perabot');
+    //     // $this->db->join('item', 'item.id_item = bahan_perabot.id_item');
+    //     // $this->db->join('kalkulasi', 'kalkulasi.id_kalkulasi = bahan_perabot.id_kalkulasi');
+    //     // if ($id != null) {
+    //     //     $this->duaTabel();
+    //     //     $this->db->where('produk.kd_produk', $id);
+    //     // }
+    //     // $query = $this->db->get();
+    //     // return $query;
+    // }
 
     public function kode_kalkulasi()
     {
@@ -114,8 +138,8 @@ class Bahan_perabot_model extends CI_Model
 
         $this->db->insert('kalkulasi', $data);
         $last_id =  $this->db->query("select id_kalkulasi from kalkulasi order by  id_kalkulasi desc")->row_array();
-        // $this->db->query("update detailpenjualan set no_penjualan='" . $last_id['no_penjualan'] . "' where status='0' ");
-        // $this->db->query("update detailpenjualan set status='1' where status='0'");
+        $this->db->query("update bahan_perabot set id_kalkulasi='" . $last_id['id_kalkulasi'] . "' where status='1' ");
+        $this->db->query("update bahan_perabot set status='0' where status='1'");
     }
     public function tambah_bahan($post)
     {
@@ -129,8 +153,33 @@ class Bahan_perabot_model extends CI_Model
             'jumlah' => $this->get_jumlah(),
             'harga_satuan' => $post['harga_s'],
             'jumlah_harga' => $this->get_subharga(),
+            'status' => '1',
         ];
         $this->db->insert('bahan_perabot', $params);
+    }
+    public function getKalkulasi($id = null)
+    {
+        $this->db->from('kalkulasi');
+        $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
+        if ($id != null) {
+            $this->db->where('id_kalkulasi', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+        // $hasil = $this->db->query("SELECT * FROM kalkulasi LEFT OUTER JOIN produk ON kalkulasi.kd_produk=produk.kd_produk");
+        // return $hasil->result();
+    }
+    public function detailHarga($id)
+    {
+        //masih error
+        $query = "SELECT bahan_perabot.*,item.* 
+					FROM bahan_perabot,produk as p,kalkulasi as k
+                    JOIN item ON bahan_perabot.id_item=item.id_item
+					WHERE p.kd_produk=k.kd_produk and k.id_kalkulasi=bahan_perabot.id_kalkulasi and p.kd_produk='$id'";
+        return $this->db->query($query);
+
+        //$query="select sum(total_harga)/sum(jumlah) from barangmasuk"
+
     }
 
 

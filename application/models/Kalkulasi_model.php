@@ -64,4 +64,34 @@ class Kalkulasi_model extends CI_Model
         $hasil = $this->db->query("SELECT * FROM item WHERE id_jenis='$id'");
         return $hasil->result();
     }
+
+    public function detail($id)
+    {
+        // $id1 = $this->db->query("SELECT kalkulasi.id_kalkulasi JOIN produk ON kalkulasi.kd_produk=produk.kd_produk WHERE kalkulasi.kd_produk=$id");
+        // $id1 = $this->getID($id);
+        // $hasil = $this->db->query("SELECT * FROM bahan_perabot LEFT OUTER JOIN kalkulasi ON bahan_perabot.id_kalkulasi=kalkulasi.id_kalkulasi WHERE bahan_perabot.id_kalkulasi ='$id1'");
+        // return $hasil->result();
+        $this->db->select('kalkulasi.id_kalkulasi');
+        $this->db->from('kalkulasi');
+        $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
+        // if ($id != null) {
+        $this->db->where('produk.kd_produk', $id);
+        // }
+        $query = $this->db->get();
+        // if ($query->num_rows() > 0) {
+        //     return $query->row()->id_kalkulasi;
+        // }
+        // return false;
+        return $query;
+        // $id1 = $query;
+        $this->db->select('*');
+        $this->db->from('bahan_perabot');
+        $this->db->join('kalkulasi', 'kalkulasi.id_kalkulasi=bahan_perabot.id_kalkulasi');
+        $this->db->where('bahan_perabot.id_kalkulasi', $query);
+        $query1 = $this->db->get('bahan_perabot');
+        if ($query->num_rows() > 0) {
+            return $query1->result();
+        }
+        return false;
+    }
 }

@@ -1,5 +1,15 @@
 <div class="container-fluid">
+    <!-- <?php foreach ($row->result() as $key => $data) : ?>
+        <?php if ($data->harga_modal == FALSE && $data->harga_jual == false) { ?>
+            <p>Detail produk tidak dapat ditampilkan</p>
+            <p>Tambahkan harga produk terlebih dahulu</p>
+            <a href="<?= site_url('admin/kalkulasi') ?>" class="btn btn-warning btn-sm"><i class="icon icon-money icon-sm"></i> Tambahkan Harga</a>
+        <?php } else { ?>
+            <a href="<?= site_url('admin/produk') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
+        <?php } ?>
+    <?php endforeach; ?> -->
     <a href="<?= site_url('admin/produk') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
+
     <br>
     <br>
     <div class="card">
@@ -21,11 +31,13 @@
                             <tr>
                                 <td>Harga Modal</td>
                                 <td><strong>
-                                        <?php if ($data->harga_modal == " ") { ?>
+                                        <!-- <?php if ($data->harga_modal == null) { ?>
                                             <a href="<?= site_url('admin/kalkulasi') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus fa-sm"></i> Tambahkan Harga</a>
-                                        <?php } else { ?>
-                                            <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
-                                    </strong></td><?php } ?>
+                                        <?php } else { ?> -->
+                                        <div class="btn btn-sm btn-success">Rp. <?php echo number_format($data->harga_modal, 0, ',', '.') ?></div>
+
+                                    </strong></td>
+                                <!-- <?php } ?> -->
                             </tr>
                             <tr>
                                 <td> Harga Jual</td>

@@ -2,6 +2,8 @@
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h5 mb-0 text-gray-800">Produk</h1><br />
+                <a href="<?= site_url('admin/kalkulasi/tampilHarga') ?>" class="btn btn-success btn-sm">
+                    <i class="fas fa-search-plus"></i> Lihat Harga Produk</a>
                 <a href="<?= site_url('admin/produk/add') ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-sm"></i> Tambah Data</a>
                 <!-- Page Heading -->
 

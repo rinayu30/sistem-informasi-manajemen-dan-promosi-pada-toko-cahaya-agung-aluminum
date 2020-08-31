@@ -39,30 +39,6 @@ class Kalkulasi extends CI_Controller
         $this->session->set_flashdata('success', ' Data Harga Produk Tersimpan Silahkan Lihat Detail Produk');
         redirect('admin/kalkulasi');
     }
-    // public function hitung_harga()
-    // {
-    //     // $kd_produk    =  $this->input->post('kd_produk');
-    //     // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
-    //     // $data = array(
-    //     //     'id_kalkulasi' => $data['id_kalkulasi'],
-    //     //     'kd_produk' => $kd_produk['kd_produk'],
-    //     //     'tgl_penjualan' => $tanggal,
-    //     //     'nama_pelanggan' => $pelanggan
-
-    //     // );
-
-    //     // $this->bahan_perabot_model-->tambahKalkulasi($post);
-    //     // $this->session->set_flashdata('selesai_respon', 'Data belanja tersimpan !!');
-    //     // redirect('admin/penjualan');
-    //     $post = $this->input->post(null, TRUE);
-    //     if (isset($_POST['submit'])) {
-    //         $this->bahan_perabot_model->tambahKalkulasi($post);
-    //     }
-    //     if ($this->db->affected_rows() > 0) {
-    //         $this->session->set_flashdata('success', ' Data berhasil disimpan');
-    //     }
-    //     redirect('admin/kalkulasi');
-    // }
 
     public function index()
     {
@@ -78,19 +54,22 @@ class Kalkulasi extends CI_Controller
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
         $this->load->view('templates_adm/footer');
     }
-    // public function tambah_bahan()
-    // {
-    //     $post = $this->input->post(null, TRUE);
-    //     $this->bahan_perabot_model->add_bahan($post);
-    //     if ($this->db->affected_rows() > 0) {
-    //         $this->session->set_flashdata('success', ' Bahan yang dibutuhkan berhasil ditambahkan');
-    //     }
-    //     $data['row'] =  $this->kalkulasi_model->tambah_bahan();
-    //     $this->load->view('templates_adm/header');
-    //     $this->load->view('templates_adm/sidebar');
-    //     $this->load->view('admin/bahan/kalkulasi/kalkulasi_data', $data);
-    //     $this->load->view('templates_adm/footer');
-    // }
+    public function tampilHarga()
+    {
+        $data['row'] = $this->bahan_perabot_model->getKalkulasi();
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/kalkulasi/kalkulasi_list', $data);
+        $this->load->view('templates_adm/footer');
+    }
+    public function rincianbahan($id)
+    {
+        $data['row'] = $this->kalkulasi_model->detail($id);
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/kalkulasi/kalkulasi_detail', $data);
+        $this->load->view('templates_adm/footer');
+    }
 
 
     public function add()
@@ -172,7 +151,9 @@ class Kalkulasi extends CI_Controller
     {
         $id = $_POST['id_bahan']; // Ambil data id_bahan yang dikirim oleh view.php melalui form submit
         $this->kalkulasi_model->bulk_delete($id); // Panggil fungsi delete dari model
-
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', ' Data yang ditandai berhasil dihapus');
+        }
         redirect('admin/kalkulasi');
     }
 }

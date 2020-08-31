@@ -152,7 +152,7 @@
                         </tbody>
                     </table>
                     <br>
-                    <button type="button" id="btn-delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus semua</button>
+                    <button type="button" id="btn-delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus yang ditandai</button>
                 </form>
             </div>
         </div>
