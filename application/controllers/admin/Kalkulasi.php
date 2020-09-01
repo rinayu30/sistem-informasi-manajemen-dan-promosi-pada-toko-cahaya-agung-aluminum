@@ -64,11 +64,51 @@ class Kalkulasi extends CI_Controller
     }
     public function rincianbahan($id)
     {
-        $data['row'] = $this->kalkulasi_model->detail($id);
+        // $query = $this->kalkulasi_model->detail($id);
+        //     if ($query->num_rows() > 0) {
+        //         $bahan = $query->row();
+        //         // $data = array(
+        //         //     'page' => 'edit',
+        //         //     'row' => $bahan
+        //         // );
+        //         $data['row'] = $bahan;
+        // $data = array(
+        //     'id_bahan' => $data['id_bahan'],
+        //     'id_item' => $data['id_item'],
+        //     'banyak' => $data['banyak'],
+        //     'ukuran' => $data['ukuran'],
+        //     'uk_panjang' => $data['uk_panjang'],
+        //     'uk_lebar' => $data['uk_lebar'],
+        //     'jumlah' => $data['jumlah'],
+        //     'harga_satuan' => $data['harga_satuan'],
+        //     'jumlah_harga' => $data['jumlah_harga'],
+        // );
+        // $bahan = new stdClass();
+        // $bahan->id_bahan;
+        // $bahan->id_item;
+        // $bahan->banyak;
+        // $bahan->ukuran;
+        // $bahan->uk_panjang;
+        // $bahan->uk_lebar;
+        // $bahan->jumlah;
+        // $bahan->harga_satuan;
+        // $bahan->jumlah_harga;
+
+        // $data['row'] = $this->kalkulasi_model->detail($id);
+        $bahan = $this->kalkulasi_model->detail($id);
+        $data = array(
+            // 'detail' => $this->kalkulasi_model->detail($id),
+            'row' => $bahan,
+        );
+
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_detail', $data);
         $this->load->view('templates_adm/footer');
+        // } else {
+        //     echo "<script>alert('Data tidak dapat ditemukan');";
+        //     echo "window.location='" . site_url('admin/produk') . "';</script>";
+        // }
     }
 
 

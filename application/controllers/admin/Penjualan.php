@@ -25,17 +25,23 @@ class Penjualan extends CI_Controller
     {
         $penjualan = new stdClass();
         //field sesuai dengan database
-        $penjualan->kd_penjualan = null;
-        $penjualan->nama_penjualan = null;
-        $penjualan->gambar = null;
-        $penjualan->stok = null;
-        $penjualan->kategori = null;
-        $penjualan->detail = null;
+        $penjualan->kd_penjualan = $this->penjualan_model->buat_kode();
+        $penjualan->kd_produk = $this->penjualan_model->getKode();
+        $penjualan->jumlah = null;
+        $penjualan->harga_jual = $this->penjualan_model->getHargaJual();
+        $penjualan->tot_bayar = $this->penjualan_model->getBayar();
+        $penjualan->dp_awal = null;
+        $penjualan->sisa = $this->penjualan_model->getSisa();
+        $penjualan->tgl_penjualan = null;
+        $penjualan->tgl_pengiriman = $this->penjualan_model->getTgl();
         $data = array(
             'page' => 'tambah',
             'row' => $penjualan
         );
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/penjualan/penjualan_form', $data);
+        $this->load->view('templates_adm/footer');
     }
 
     public function edit($id)

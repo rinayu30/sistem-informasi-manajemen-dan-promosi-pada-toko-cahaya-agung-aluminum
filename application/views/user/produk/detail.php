@@ -22,8 +22,8 @@
                 </ul>
             <?php endforeach; ?>
             <!-- <button class="btn btn-inverse pull-left" type="button"></button> -->
-            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" onclick="return confirm('Tambahkan item ke keranjang?')" class="btn btn-inverse pull-left">
-                <i class="icon-cart"></i> Tambah ke Keranjang</a>
+            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" onclick="return confirm('Tambahkan item ke keranjang?')" class="btn btn-success pull-left">
+                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang</a>
             <a href="<?= site_url('dashboard/produk') ?>" class="btn btn-sm pull-right">
                 <i class="icon-arrow-left"></i> Kembali</a>
 

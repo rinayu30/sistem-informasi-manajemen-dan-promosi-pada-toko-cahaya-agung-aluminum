@@ -1,6 +1,8 @@
 <section class="content">
     <div class="container-fluid">
-        <a href="<?= site_url('admin/kalkulasi/tampilHarga') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
+        <div>
+            <a href="<?= site_url('admin/kalkulasi/tampilHarga') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
+        </div><br>
         <?php $this->view('messages') ?>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
