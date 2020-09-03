@@ -69,7 +69,16 @@ class Kalkulasi_model extends CI_Model
     // $hasil = $this->db->query("SELECT * FROM bahan_perabot LEFT OUTER JOIN kalkulasi ON bahan_perabot.id_kalkulasi=kalkulasi.id_kalkulasi WHERE bahan_perabot.id_kalkulasi ='$id1'");
     // return $hasil->result();
 
-
+    function detaiil($id)
+    {
+        $hasil = $this->db->query("SELECT bahan_perabot.*, kalkulasi.*, produk.*, item.* FROM bahan_perabot 
+        LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item 
+        LEFT OUTER JOIN kalkulasi ON bahan_perabot.id_kalkulasi=kalkulasi.id_kalkulasi 
+        LEFT OUTER JOIN produk ON kalkulasi.kd_produk=produk.kd_produk 
+        WHERE bahan_perabot.status ='1' AND produk.kd_produk ='$id' ");
+        return $hasil->result();
+    }
+    
     public function detail($id)
     {
         $kode = $this->db->query("SELECT kalkulasi.id_kalkulasi FROM kalkulasi left outer join produk ON  produk.kd_produk = kalkulasi.kd_produk WHERE produk.kd_produk='$id' ");

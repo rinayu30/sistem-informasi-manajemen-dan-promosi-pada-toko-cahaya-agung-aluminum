@@ -94,7 +94,7 @@ class Kalkulasi extends CI_Controller
         // $bahan->harga_satuan;
         // $bahan->jumlah_harga;
 
-        $data['row'] = $this->kalkulasi_model->detail($id);
+        $data['row'] = $this->kalkulasi_model->detaiil($id);
         // $bahan = $this->kalkulasi_model->detail($id);
         // $data['row'] = $bahan;
 

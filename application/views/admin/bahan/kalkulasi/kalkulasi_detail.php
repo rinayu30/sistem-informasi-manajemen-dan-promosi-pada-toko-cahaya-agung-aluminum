@@ -30,7 +30,7 @@
                                 <?php
                                 $no = 1;
                                 $total = 0;
-                                foreach ($row as $key => $data) { ?>
+                                foreach ($row as $data) { ?>
                                     <tr>
                                         <td><input type='checkbox' class='check-item' name='id_bahan[]' value="<?= $data->id_bahan ?>"></td>
                                         <td class="text-center" value="<?= $data->id_item ?>"><?= $data->nama_item ?></td>
