@@ -94,7 +94,8 @@ class Bahan_perabot extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         $this->bahan_perabot_model->tambah_bahan($post);
-
+        // $post = $this->bahan_perabot_model->get_jumlah();
+        $this->item_model->update_kurang_stok($post);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }

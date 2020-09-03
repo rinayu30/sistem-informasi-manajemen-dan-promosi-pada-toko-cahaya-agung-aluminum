@@ -42,7 +42,7 @@
                                             <td class="text-center" width="13%"><?= $data->nama_pemasok ?></td>
                                             <td class="text-center"><?= $data->nama_item ?></td>
                                             <td class="text-center"><?= $data->jumlah ?></td>
-                                            <td class="text-center"><?= $data->satuan ?></td>
+                                            <td class="text-center"><?= $data->satuan == 1 ? "meter" : "pcs" ?></td>
                                             <td class="text-center"><?= $data->harga_satuan ?></td>
                                             <td class="text-center"><?= $data->total_harga ?></td>
                                             <td class="text-center" width="20%">

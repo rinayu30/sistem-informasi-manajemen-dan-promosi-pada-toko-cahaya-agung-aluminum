@@ -23,12 +23,13 @@ class Penjualan extends CI_Controller
 
     public function add()
     {
+        $id = $this->input->post('kd_produk');
         $penjualan = new stdClass();
         //field sesuai dengan database
         $penjualan->kd_penjualan = $this->penjualan_model->buat_kode();
-        $penjualan->kd_produk = $this->penjualan_model->getKode();
+        $penjualan->kd_produk = null;
         $penjualan->jumlah = null;
-        $penjualan->harga_jual = $this->penjualan_model->getHargaJual();
+        $penjualan->harga_jual = $this->penjualan_model->getHargaJual($id);
         $penjualan->tot_bayar = $this->penjualan_model->getBayar();
         $penjualan->dp_awal = null;
         $penjualan->sisa = $this->penjualan_model->getSisa();

@@ -17,9 +17,19 @@
                         <div class="col-md-5 offset-1 justify-content-left">
                             <form action="<?= site_url('admin/penjualan/proses') ?>" method="post">
                                 <div class="form-group">
-                                    <label for="barang">Kode Produk*</label>
-                                    <input type="text" name="pembeli" value="<?= $row->kd_produk ?>" class="form-control" required>
-                                    <!-- <?= form_error('barang') ?> -->
+                                    <label for="kd_produk">Kode Produk*</label>
+                                    <select id="kd_produk" class="form-control" name="kd_produk" required>
+                                        <option value="" selected hidden>---Pilih---</option>
+                                        <?php
+                                        $db = $this->db->get('produk');
+                                        foreach ($db->result() as $data) {
+                                        ?>
+                                            <option value="<?php echo $data->kd_produk; ?>">
+                                                <?php echo $data->kd_produk; ?>&emsp;:&emsp;
+                                                <?php echo $data->nama_produk; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select> <!-- <?= form_error('barang') ?> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah</label>
@@ -41,15 +51,15 @@
                                 <input type="text" name="kode" value="<?= $row->kd_penjualan ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="harga_jual">Harga Jual</label>
-                                <input type="text" name="harga_jual" value="<?= $row->harga_jual ?>" class="form-control" readonly>
+                                <label for="harga_jual">Harga Jual <small>(Rp)</small></label>
+                                <input type="number" name="harga_jual" value="<?= number_format($row->harga_jual, 0, ',', '.')  ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="nama">Total Bayar</label>
+                                <label for="nama">Total Bayar <small>(Rp)</small></label>
                                 <input type="text" name="bayar" value="<?= $row->tot_bayar ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="sisa">Sisa Bayar</label>
+                                <label for="sisa">Sisa Bayar <small>(Rp)</small></label>
                                 <input type="text" name="sisa" value="<?= $row->sisa ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">

@@ -88,8 +88,10 @@ class Bahan_masuk extends CI_Controller
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah'])) {
             $this->bahan_masuk_model->add($post);
+            $this->item_model->update_tambah_stok($post);
         } else if (isset($_POST['edit'])) {
             $this->bahan_masuk_model->edit($post);
+            $this->item_model->update_tambah_stok($post);
         }
 
         if ($this->db->affected_rows() > 0) {

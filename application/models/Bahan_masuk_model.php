@@ -54,7 +54,13 @@ class Bahan_masuk_model extends CI_Model
         ];
         $this->db->insert('bahan_masuk', $params);
     }
-
+    // function update_tambah_stok($data)
+    // {
+    //     $jumlah = $data['jumlah'];
+    //     $id = $data['id_item'];
+    //     $sql = "UPDATE item SET stok = stok + '$jumlah' WHERE id_item='$id'";
+    //     $this->db->query($sql);
+    // }
     public function edit($post)
     {
 

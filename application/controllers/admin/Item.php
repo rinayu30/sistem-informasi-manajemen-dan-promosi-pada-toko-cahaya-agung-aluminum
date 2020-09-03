@@ -7,7 +7,7 @@ class item extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['item_model', 'jenis_model']);
+        $this->load->model(['item_model', 'jenis_model', 'bahan_perabot_model']);
         // $this->load->library('form_validation');
     }
 
@@ -69,6 +69,7 @@ class item extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah'])) {
+
             $this->item_model->add($post);
         } else if (isset($_POST['edit'])) {
             $this->item_model->edit($post);
@@ -85,6 +86,15 @@ class item extends CI_Controller
         $this->item_model->hapus_data($id);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
+        }
+        redirect('admin/item');
+    }
+    public function bulk_delete()
+    {
+        $id = $_POST['id_item']; // Ambil data id_bahan yang dikirim oleh view.php melalui form submit
+        $this->item_model->bulk_delete($id); // Panggil fungsi delete dari model
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', ' Data yang ditandai berhasil dihapus');
         }
         redirect('admin/item');
     }

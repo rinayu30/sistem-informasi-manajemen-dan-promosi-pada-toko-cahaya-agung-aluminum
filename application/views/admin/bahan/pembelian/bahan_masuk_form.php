@@ -51,7 +51,12 @@
 
                 <div class="form-group">
                   <label for="satuan">Satuan</label>
-                  <input type="text" name="satuan" value="<?= $row->satuan ?>" class="form-control" required>
+                  <select name="satuan" class="form-control text-sm">
+                    <option value="">--Pilih--</option>
+                    <option value="1" <?= set_value('satuan') == 1 ? "selected" : null ?>>meter</option>
+                    <option value="2" <?= set_value('satuan') == 2 ? "selected" : null ?>>pcs</option>
+                  </select>
+                  <!-- <input type="text" name="satuan" value="<?= $row->satuan ?>" class="form-control" required> -->
                 </div>
 
                 <div class="form-group">

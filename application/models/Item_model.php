@@ -53,4 +53,25 @@ class Item_model extends CI_Model
         $this->db->where('id_item', $id);
         $this->db->delete('item');
     }
+    public function bulk_delete($id)
+    {
+        $this->db->where_in('id_item', $id);
+        $this->db->delete('item');
+    }
+
+    function update_tambah_stok($post)
+    {
+        $jumlah = $post['jumlah'];
+        $id = $post['item'];
+        $sql = "UPDATE item SET stok = stok + '$jumlah' WHERE id_item='$id'";
+        $this->db->query($sql);
+    }
+
+    function update_kurang_stok($post)
+    {
+        $jumlah = $this->bahan_perabot_model->get_jumlah();;
+        $id = $post['item'];
+        $sql = "UPDATE item SET stok = stok - '$jumlah' WHERE id_item='$id'";
+        $this->db->query($sql);
+    }
 }

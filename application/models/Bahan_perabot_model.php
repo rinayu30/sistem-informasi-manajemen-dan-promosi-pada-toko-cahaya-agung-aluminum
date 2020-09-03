@@ -77,7 +77,6 @@ class Bahan_perabot_model extends CI_Model
     public function get_jumlah()
     {
         $byk = $this->input->post('banyak');
-
         $uk = $this->input->post('ukuran');
         $ukp = $this->input->post('ukuran_p');
         $ukl = $this->input->post('ukuran_l');
