@@ -29,7 +29,7 @@
                                                 <?php echo $data->nama_produk; ?>
                                             </option>
                                         <?php } ?>
-                                    </select> <!-- <?= form_error('barang') ?> -->
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah</label>
@@ -52,15 +52,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="harga_jual">Harga Jual <small>(Rp)</small></label>
-                                <input type="number" name="harga_jual" value="<?= number_format($row->harga_jual, 0, ',', '.')  ?>" class="form-control" readonly>
+                                <input type="number" id="harga_jual" name="harga_jual" value="<?= number_format($row->harga_jual, 0, ',', '.')  ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="nama">Total Bayar <small>(Rp)</small></label>
-                                <input type="text" name="bayar" value="<?= $row->tot_bayar ?>" class="form-control" readonly>
+                                <input type="text" id="bayar" name="bayar" value="<?= $row->tot_bayar ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="sisa">Sisa Bayar <small>(Rp)</small></label>
-                                <input type="text" name="sisa" value="<?= $row->sisa ?>" class="form-control" readonly>
+                                <input type="text" id="sisa" name="sisa" value="<?= $row->sisa ?>" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <p> </p>
