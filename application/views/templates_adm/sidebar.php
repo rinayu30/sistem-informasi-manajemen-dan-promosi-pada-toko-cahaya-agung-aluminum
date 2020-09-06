@@ -62,9 +62,20 @@
           <span>Pemasok</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/laporan') ?>">
+        <!-- <a class="nav-link" href="<?= site_url('admin/laporan') ?>">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Laporan</span></a>
+          <span>Laporan</span></a> -->
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Laporan</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= site_url('admin/laporan') ?>">Laporan Stok</a>
+            <a class="collapse-item" href="<?= site_url('admin/laporan') ?>">Laporan Penjualan</a>
+            <!-- <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>">Kalkulasi Harga</a> -->
+          </div>
+        </div>
       </li>
       <?php if ($this->fungsi->user_login()->level == 1) { ?>
 

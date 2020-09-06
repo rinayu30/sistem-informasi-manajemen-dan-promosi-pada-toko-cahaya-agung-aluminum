@@ -83,7 +83,7 @@
 </div>
 <div class="container-fluid">
     <section class="content">
-        <!-- <?php $this->view('messages') ?> -->
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"></h6>
@@ -147,6 +147,7 @@
         </div>
         <div class="container">
             <!-- Outer Row -->
+            <?php $this->view('messages') ?>
             <form action="<?php echo base_url('admin/penjualan/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
 
                 <div class="row justify-content-left">
@@ -157,10 +158,7 @@
                             </div>
                             <div class="card-body" style="height: 100px;">
                                 <div class="box-body table-responsive">
-                                    <div class="form-group">
-                                        <label for="tgl_pej">Tanggal Penjualan</label>
-                                        <input type="date" name="tgl_pej" value="" class="form-control" hidden>
-                                    </div>
+
                                     <div class="form-group ">
                                         <select id="pembeli" class="form-control" name="pembeli" required>
                                             <option value="" selected hidden>---Pilih---</option>
@@ -182,13 +180,18 @@
 
                         <div class="card shadow mb-4 card-header py-3">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><label for="uang_m"><small>(Masukkan uang dp jika ada)</small></label></h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><label for="uang_m"><small>(Masukkan uang dp jika ada) | (Masukkan tanggal penjualan)</small></label></h6>
                             </div>
                             <div class="card-body" style="height: 100px;">
                                 <div class="box-body table-responsive">
                                     <div class="row">
                                         <div class="form-group col-md-5">
+                                            <!-- value="<?= $row->dp_awal ?>"  -->
                                             <input type="number" min="1" name="uang_m" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
+                                            <input type="date" name="tgl_pej" class="form-control">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <input type="submit" name="hitung" value="Selesai" class="btn btn-success btn-sm">

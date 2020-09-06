@@ -55,7 +55,7 @@ class Penjualan_model extends CI_Model
 
     public function buat_kode_penjualan()
     {
-        $this->db->select('Right(penjualan.kd_penjualan,3) as kode ', false);
+        $this->db->select('Right(penjualan.kd_penjualan,2) as kode ', false);
         $this->db->order_by('kd_penjualan', 'desc');
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
@@ -97,11 +97,34 @@ class Penjualan_model extends CI_Model
         $sub = $jml * $harga;
         return $sub;
     }
-    public function getBayar()
+    public function get_bayar()
     {
+        $this->db->select_sum('subtotal');
+        $query = $this->db->get('detail_penjualan');
+        if ($query->num_rows() > 0) {
+            return $query->row()->subtotal;
+        }
+        return false;
     }
-    public function getSisa()
+
+    // public function get_bayar()
+    // {
+    //     $jumlah = $this->get_subtotal();
+    //     // $persentase = $this->input->post('persentase');
+    //     // $sub = $persentase / 100 * $jumlah;
+    //     // $sub2 = $jumlah + $sub;
+    //     return $jumlah;
+    // }
+    public function get_sisa()
     {
+        $jumlah = $this->get_bayar();
+        $dp = $this->input->post('uang_m');
+        if ($dp == null) {
+            return $jumlah;
+        } else {
+            $sisa = $jumlah - $dp;
+            return $sisa;
+        }
     }
     public function getTgl()
     {
@@ -114,15 +137,19 @@ class Penjualan_model extends CI_Model
             'kd_penjualan' => $this->buat_kode_penjualan(),
             'kd_produk' => $post['kd_produk'],
             'harga_jual' => $this->getHargaJual(),
-            // 'gambar' => $this->_uploadImage(),
             'jumlah' => $post['jumlah'],
             'subtotal' => $this->getSub(),
-            // 'tgl_penjualan' => $post['tgl_pej'],
             'status' => '1',
         ];
         $this->db->insert('detail_penjualan', $params);
     }
-
+    function selesai_hitung($data)
+    {
+        $this->db->insert('penjualan', $data);
+        $last_id =  $this->db->query("select kd_penjualan from penjualan order by  kd_penjualan desc")->row_array();
+        $this->db->query("update detail_penjualan set kd_penjualan='" . $last_id['kd_penjualan'] . "' where status='1' ");
+        $this->db->query("update detail_penjualan set status='0' where status='1'");
+    }
     public function edit($post)
     {
 
@@ -138,8 +165,6 @@ class Penjualan_model extends CI_Model
         $this->db->where('kd_penjualan', $post['kode']);
         $this->db->update('penjualan', $params);
     }
-
-
     public function hapus_data($id)
     {
         $this->db->where('id_detail', $id);

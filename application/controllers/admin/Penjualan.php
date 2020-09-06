@@ -60,22 +60,34 @@ class Penjualan extends CI_Controller
         $this->load->view('templates_adm/footer');
     }
 
-    public function edit($id)
+    function selesai_hitung()
     {
-        $query = $this->penjualan_model->get($id);
-        if ($query->num_rows() > 0) {
+        // $kd_produk =  $this->input->post('kd_produk');
+        $data['kd_penjualan'] = $this->penjualan_model->buat_kode_penjualan();
+        $data['bayar'] = $this->penjualan_model->get_bayar();
+        $data['sisa'] = $this->penjualan_model->get_sisa();
+        $id_pembeli    =  $this->input->post('pembeli');
+        $dp_awal    =  $this->input->post('uang_m');
+        $tgl_penjualan    =  $this->input->post('tgl_pej');
+        // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
 
-            $penjualan = $query->row();
-            $data = array(
-                'page' => 'edit',
-                'row' => $penjualan
-            );
-            $this->load->view("admin/penjualan/penjualan_form", $data);
-        } else {
-            echo "<script>alert('Data tidak dapat ditemukan');";
-            echo "window.location='" . site_url('admin/penjualan') . "';</script>";
-        }
+
+        $data = array(
+            'kd_penjualan' => $data['kd_penjualan'],
+            'id_pembeli' => $id_pembeli,
+            'tot_bayar' => $data['bayar'],
+            'dp_awal' => $dp_awal,
+            'sisa' => $data['sisa'],
+            'tgl_penjualan' => $tgl_penjualan,
+            'tgl_pengiriman' => $tgl_penjualan,
+            'status_jual' => '0',
+        );
+
+        $this->penjualan_model->selesai_hitung($data);
+        $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan');
+        redirect('admin/penjualan');
     }
+
 
     public function proses()
     {
@@ -83,9 +95,6 @@ class Penjualan extends CI_Controller
         if (isset($_POST['tambah_jual'])) {
             $this->penjualan_model->add($post);
         }
-        //  else if (isset($_POST['edit'])) {
-        //     $this->penjualan_model->edit($post);
-        // }
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
