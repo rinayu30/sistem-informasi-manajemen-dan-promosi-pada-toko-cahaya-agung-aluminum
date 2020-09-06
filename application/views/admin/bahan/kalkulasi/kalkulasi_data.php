@@ -51,16 +51,16 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
-                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control" disabled>
+                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control" disabled>
+                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control" disabled>
+                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>

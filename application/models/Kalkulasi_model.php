@@ -78,41 +78,41 @@ class Kalkulasi_model extends CI_Model
         WHERE bahan_perabot.status ='1' AND produk.kd_produk ='$id' ");
         return $hasil->result();
     }
-    
-    public function detail($id)
-    {
-        $kode = $this->db->query("SELECT kalkulasi.id_kalkulasi FROM kalkulasi left outer join produk ON  produk.kd_produk = kalkulasi.kd_produk WHERE produk.kd_produk='$id' ");
-        if ($kode->num_rows() > 0) {
-            return $kode->row()->id_kalkulasi;
-        }
-        return false;
-        $this->db->select('bahan_perabot.*');
-        $this->db->from('bahan_perabot');
-        $this->db->join('kalkulasi', 'kalkulasi.id_kalkulasi=bahan_perabot.id_kalkulasi');
-        $this->db->join('item', 'item.id_item=bahan_perabot.id_item');
-        if ($kode != null) {
-            $this->db->where('bahan_perabot.id_kalkulasi', $kode);
-        }
-        // $query = $this->db->get('bahan_perabot');
-        // return $query;
-        $query = $this->db->get();
-        return $query;
-        // if ($query->num_rows() > 0) {
-        //     return $query;
-        // }
-        // return false;
 
-        // $this->db->select('kalkulasi.id_kalkulasi');
-        // $this->db->from('kalkulasi');
-        // $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
-        // // if ($id != null) {
-        // $this->db->where('produk.kd_produk', $id);
-        // // }
-        // $query = $this->db->get();
-        // // if ($query->num_rows() > 0) {
-        // //     return $query->row()->id_kalkulasi;
-        // // }
-        // // return false;
-        // return $query;
-    }
+    // public function detail($id)
+    // {
+    //     $kode = $this->db->query("SELECT kalkulasi.id_kalkulasi FROM kalkulasi left outer join produk ON  produk.kd_produk = kalkulasi.kd_produk WHERE produk.kd_produk='$id' ");
+    //     if ($kode->num_rows() > 0) {
+    //         return $kode->row()->id_kalkulasi;
+    //     }
+    //     return false;
+    //     $this->db->select('bahan_perabot.*');
+    //     $this->db->from('bahan_perabot');
+    //     $this->db->join('kalkulasi', 'kalkulasi.id_kalkulasi=bahan_perabot.id_kalkulasi');
+    //     $this->db->join('item', 'item.id_item=bahan_perabot.id_item');
+    //     if ($kode != null) {
+    //         $this->db->where('bahan_perabot.id_kalkulasi', $kode);
+    //     }
+    //     // $query = $this->db->get('bahan_perabot');
+    //     // return $query;
+    //     $query = $this->db->get();
+    //     return $query;
+    //     // if ($query->num_rows() > 0) {
+    //     //     return $query;
+    //     // }
+    //     // return false;
+
+    //     // $this->db->select('kalkulasi.id_kalkulasi');
+    //     // $this->db->from('kalkulasi');
+    //     // $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
+    //     // // if ($id != null) {
+    //     // $this->db->where('produk.kd_produk', $id);
+    //     // // }
+    //     // $query = $this->db->get();
+    //     // // if ($query->num_rows() > 0) {
+    //     // //     return $query->row()->id_kalkulasi;
+    //     // // }
+    //     // // return false;
+    //     // return $query;
+    // }
 }

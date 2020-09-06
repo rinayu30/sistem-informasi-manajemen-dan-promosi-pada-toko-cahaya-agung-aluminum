@@ -2,7 +2,7 @@
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h5 mb-0 text-gray-800">Penjualan</h1><br />
-                <a href="<?= site_url('admin/penjualan/add') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus fa-sm"></i> Tambah Data</a>
+                <a href="<?= site_url('admin/penjualan/add') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus fa-sm"></i> Tambah Penjualan</a>
                 <!-- Page Heading -->
 
                 <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->

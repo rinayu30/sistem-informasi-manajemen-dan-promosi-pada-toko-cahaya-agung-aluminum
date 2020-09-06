@@ -13,38 +13,11 @@ class Bahan_perabot_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
-
-
     function get_bahan()
     {
         $hasil = $this->db->query("SELECT bahan_perabot.*,item.* FROM bahan_perabot LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item WHERE bahan_perabot.status ='1'");
         return $hasil->result();
     }
-    // function duaTabel()
-    // {
-    //     $this->db->select('');
-    //     $this->db->from('produk');
-    //     $this->db->join('kalkulasi as k', 'k.kd_produk=produk.kd_produk');
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }
-    // function get_bahan1($id = null)
-    // {
-    //     $query  = "SELECT td.id_detail_penjualan,td.jumlah_jual,td.harga_jual,b.kd_barang
-    //     FROM detailpenjualan as td,barang as b
-    //     WHERE b.kd_barang=td.kd_barang and td.status='0'";
-    //     return $this->db->query($query);
-    //     // $this->db->from('bahan_perabot');
-    //     // $this->db->join('item', 'item.id_item = bahan_perabot.id_item');
-    //     // $this->db->join('kalkulasi', 'kalkulasi.id_kalkulasi = bahan_perabot.id_kalkulasi');
-    //     // if ($id != null) {
-    //     //     $this->duaTabel();
-    //     //     $this->db->where('produk.kd_produk', $id);
-    //     // }
-    //     // $query = $this->db->get();
-    //     // return $query;
-    // }
-
     public function kode_kalkulasi()
     {
         $this->db->select('Right(kalkulasi.id_kalkulasi,3) as kode ', false);
