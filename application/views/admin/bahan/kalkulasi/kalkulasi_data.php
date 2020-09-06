@@ -9,7 +9,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="box-body table-responsive justify-content-center">
-                <form action="<?php echo base_url('admin/bahan_perabot/proses_bahan') ?>" method="post">
+                <form action="<?php echo base_url('admin/bahan_perabot/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input();">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Jenis Bahan*</label>
@@ -44,23 +44,23 @@
                                     });
                                 });
                             </script>
-                            <select name="item" class="item form-control" required>
+                            <select name="item" id="id_item" class="item form-control" required>
                                 <option value="0">--Pilih--</option>
 
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
-                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control">
+                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control" disabled>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
+                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
+                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
@@ -164,7 +164,7 @@
         <!-- <h6 class="m-0 font-weight-bold text-primary">Form <?= ucfirst($page) ?> Hitung</h6> -->
         <!-- </div> -->
         <!-- Outer Row -->
-        <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_selesai(this)">
+        <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
 
             <div class="row justify-content-left">
                 <div class="col-lg-4 justify-content-left">
@@ -333,21 +333,41 @@ $('#deleteModal').modal();
     });
 </script>
 <script type="text/javascript">
-    function validasi_form_input(form) {
-        if (form.kd_produk.value == "") {
-            alert("Kode Produk Masih Kosong!");
-            form.kd_produk.focus();
-            return (false);
-        } else if (form.id_jenis.value == "") {
+    function validasi_form_input() {
+        // var kd_produk = document.getElementById('kd_produk').value;
+        var jenis_bahan = document.getElementById('id_jenis').value;
+        var id_item = document.getElementById('id_item').value;
+        // if (kd_produk == "") {
+        //     alert("Kode Produk Masih Kosong!");
+        //     document.getElementById('kd_produk').focus();
+        //     // return (false);
+        // }
+        if (jenis_bahan.value == "") {
             alert("Jenis Bahan masih kosong!");
-            form.id_jenis.focus();
-            return (false);
+            document.getElementById('id_jenis').focus();
+            // return (false);
         } else if (form.id_item.value == "") {
             alert("Nama Bahan masih kosong!");
-            form.id_item.focus();
-            return (false);
+            document.getElementById('id_item').focus();
+            // return (false);
         }
-        return (true);
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    function validasi_hitung() {
+        var kd_produk = document.getElementById('kd_produk').value;
+        var persentase = document.getElementById('persentase').value;
+        if (kd_produk == "") {
+            alert("Kode Produk Masih Kosong!");
+            document.getElementById('kd_produk').focus();
+            // return (false);
+        } else if (persentase.value == "") {
+            alert("Jenis Bahan masih kosong!");
+            document.getElementById('persentase').focus();
+            // return (false);
+        }
+        return false;
     }
 </script>
 <!-- <script type="text/javascript">
