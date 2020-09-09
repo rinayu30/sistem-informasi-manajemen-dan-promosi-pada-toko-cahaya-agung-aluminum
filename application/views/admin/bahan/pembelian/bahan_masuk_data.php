@@ -38,7 +38,7 @@
                                         <tr>
                                             <!-- <td><?= $no++ ?></td> -->
                                             <td class="text-center"><?= $data->id_bmasuk ?></td>
-                                            <td class="text-center" width="13%"><?= $data->created ?></td>
+                                            <td class="text-center" width="13%"><?= $data->tgl_beli ?></td>
                                             <td class="text-center" width="13%"><?= $data->nama_pemasok ?></td>
                                             <td class="text-center"><?= $data->nama_item ?></td>
                                             <td class="text-center"><?= $data->jumlah ?></td>

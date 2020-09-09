@@ -65,15 +65,32 @@
         <!-- <a class="nav-link" href="<?= site_url('admin/laporan') ?>">
           <i class="fas fa-fw fa-folder"></i>
           <span>Laporan</span></a> -->
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Utilities</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div> -->
+
+
+
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-folder"></i>
           <span>Laporan</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?= site_url('admin/laporan') ?>">Laporan Stok</a>
-            <a class="collapse-item" href="<?= site_url('admin/laporan') ?>">Laporan Penjualan</a>
-            <!-- <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>">Kalkulasi Harga</a> -->
+            <a class="collapse-item" href="<?= site_url('admin/penjualan/laporan_b') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Pembatalan</a>
+            <a class="collapse-item" href="<?= site_url('admin/penjualan/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Penjualan</a>
+            <a class="collapse-item" href="<?= site_url('admin/bahan_masuk/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Bahan Masuk</a>
           </div>
         </div>
       </li>
@@ -97,9 +114,9 @@
           </a>
           <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="<?= site_url('admin/jenis') ?>">Jenis Bahan</a>
-              <a class="collapse-item" href="<?= site_url('admin/item') ?>">Item Bahan</a>
-              <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>">Kalkulasi Harga</a>
+              <a class="collapse-item" href="<?= site_url('admin/jenis') ?>"><i class="fas fa-fw fa-folder"></i> Jenis Bahan</a>
+              <a class="collapse-item" href="<?= site_url('admin/item') ?>"><i class="fas fa-fw fa-folder"></i> Item Bahan</a>
+              <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>"><i class="fas fa-fw fa-folder"></i> Kalkulasi Harga</a>
             </div>
           </div>
         </li>

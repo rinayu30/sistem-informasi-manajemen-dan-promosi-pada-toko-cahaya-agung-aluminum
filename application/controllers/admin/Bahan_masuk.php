@@ -32,6 +32,12 @@ class Bahan_masuk extends CI_Controller
         $bahan_masuk->total_harga = null;
         $bahan_masuk->tgl_beli = null;
 
+        // $query_satuan = $this->bahan_masuk_model->get();
+        // $satuan[null] = '--Pilih--';
+        // foreach ($query_satuan->result() as $sat) {
+        //     $satuan[$sat->id_satuan] = $sat->nama_pemasok;
+        // }
+
         $query_pemasok = $this->pemasok_model->get();
         $pemasok[null] = '--Pilih--';
         foreach ($query_pemasok->result() as $pem) {
@@ -55,6 +61,7 @@ class Bahan_masuk extends CI_Controller
     public function edit($id)
     {
         $query = $this->bahan_masuk_model->get($id);
+        // $tgl = date('Y-m-d 00:00:00', strtotime($this->input->post('tgl_beli')));
         if ($query->num_rows() > 0) {
             $bahan_masuk = $query->row();
 
@@ -75,6 +82,7 @@ class Bahan_masuk extends CI_Controller
                 'row' => $bahan_masuk,
                 'pemasok' => $pemasok, 'selectedpemasok' => $bahan_masuk->id_pemasok,
                 'item' => $item, 'selecteditem' => $bahan_masuk->id_item,
+                'tgl_beli' => $bahan_masuk->tgl_beli
             );
             $this->load->view('admin/bahan/pembelian/bahan_masuk_form', $data);
         } else {
@@ -107,5 +115,13 @@ class Bahan_masuk extends CI_Controller
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
         }
         redirect('admin/bahan_masuk');
+    }
+    public function laporan()
+    {
+        $data['laporan'] = $this->bahan_masuk_model->laporan();
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/pembelian/laporan_bahan_masuk', $data);
+        $this->load->view('templates_adm/footer');
     }
 }

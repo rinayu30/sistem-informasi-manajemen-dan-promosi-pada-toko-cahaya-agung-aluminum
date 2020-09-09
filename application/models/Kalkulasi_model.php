@@ -75,7 +75,7 @@ class Kalkulasi_model extends CI_Model
         LEFT OUTER JOIN item ON bahan_perabot.id_item=item.id_item 
         LEFT OUTER JOIN kalkulasi ON bahan_perabot.id_kalkulasi=kalkulasi.id_kalkulasi 
         LEFT OUTER JOIN produk ON kalkulasi.kd_produk=produk.kd_produk 
-        WHERE bahan_perabot.status ='1' AND produk.kd_produk ='$id' ");
+        WHERE bahan_perabot.status ='0' AND produk.kd_produk ='$id' ");
         return $hasil->result();
     }
 

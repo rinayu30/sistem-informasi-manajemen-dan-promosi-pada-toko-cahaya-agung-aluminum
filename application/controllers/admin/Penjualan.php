@@ -64,8 +64,9 @@ class Penjualan extends CI_Controller
     {
         // $kd_produk =  $this->input->post('kd_produk');
         $data['kd_penjualan'] = $this->penjualan_model->buat_kode_penjualan();
-        $data['bayar'] = $this->penjualan_model->get_bayar();
-        $data['sisa'] = $this->penjualan_model->get_sisa();
+        $id = $this->penjualan_model->buat_kode_penjualan();
+        $data['bayar'] = $this->penjualan_model->get_bayar($id);
+        $data['sisa'] = $this->penjualan_model->get_sisa($id);
         $id_pembeli    =  $this->input->post('pembeli');
         $dp_awal    =  $this->input->post('uang_m');
         $tgl_penjualan    =  $this->input->post('tgl_pej');
@@ -103,13 +104,11 @@ class Penjualan extends CI_Controller
 
     public function detail($id)
     {
-        $result = $this->db->where('kd_penjualan', $id)->get('penjualan');
-        if ($result->num_rows() > 0) {
-            return $result->result();
-        } else {
-            return false;
-        }
-        return $this->db->delete($this->_table, array("kd_penjualan" => $id));
+        $data['record'] = $this->penjualan_model->detail($id);
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/penjualan/penjualan_detail', $data);
+        $this->load->view('templates_adm/footer');
     }
 
     public function delete($id)
@@ -128,5 +127,48 @@ class Penjualan extends CI_Controller
             $this->session->set_flashdata('success', ' Data yang ditandai berhasil dihapus');
         }
         redirect('admin/penjualan');
+    }
+
+    public function laporan()
+    {
+
+        // $tanggal1 =  $this->input->post('tanggal1');
+        // $tanggal2 =  $this->input->post('tanggal2');
+
+        // if (isset($_POST['submit'])) {
+        //     $tanggal1 =  $this->input->post('tanggal1');
+        //     $tanggal2 =  $this->input->post('tanggal2');
+
+        // $data['record'] =  $this->penjualan_model->laporan_periode($tanggal1, $tanggal2);
+        $data['record'] =  $this->penjualan_model->laporan_default();
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/penjualan/laporan', $data);
+        $this->load->view('templates_adm/footer');
+        // } else if (isset($_POST['cetak'])) {
+        //     $dompdf = new Dompdf();
+        //     $tanggal1 =  $this->input->post('tanggal1');
+        //     $tanggal2 =  $this->input->post('tanggal2');
+        //     $data['record'] = $this->db->query("SELECT p.no_penjualan,p.tgl_penjualan,u.nama_lengkap,sum(dp.jumlah_jual) as jml,sum(dp.harga_jual*dp.jumlah_jual) as total
+        //         FROM penjualan as p,detailpenjualan as dp,user as u
+        //         WHERE dp.no_penjualan=p.no_penjualan and u.id_user=p.id_user 
+        // 		and p.tgl_penjualan between '$tanggal1' and '$tanggal2'
+        //         group by p.no_penjualan")->result();
+
+
+        //     $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
+
+        //     $dompdf->load_html($html);
+
+        //     $dompdf->set_paper('A4', 'potrait');
+        //     $dompdf->render();
+
+        //     $pdf = $dompdf->output();
+
+        //     $dompdf->stream('laporan_penjualanbln.pdf', array("Attachchment" => false));
+        // } else {
+        //     $data['record'] =  $this->penjualan_model->laporan_default();
+        //     $this->load->view('admin/penjualan/laporan', $data);
+        // }
     }
 }

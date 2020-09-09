@@ -70,18 +70,31 @@ class Bahan_perabot_model extends CI_Model
         $sub = $jumlah * $harga;
         return $sub;
     }
-    public function get_subtotal()
+    // public function get_subtotal()
+    // {
+    //     $this->db->select_sum('jumlah_harga');
+    //     $query = $this->db->get('bahan_perabot');
+    //     if ($query->num_rows() > 0) {
+    //         return $query->row()->jumlah_harga;
+    //     }
+    //     return false;
+    // }
+
+    public function get_subtotalD($id)
     {
         $this->db->select_sum('jumlah_harga');
+        $this->db->where('id_kalkulasi', $id);
         $query = $this->db->get('bahan_perabot');
         if ($query->num_rows() > 0) {
             return $query->row()->jumlah_harga;
         }
         return false;
+        // return $query;
     }
-    public function get_hargaJual()
+
+    public function get_hargaJual($id)
     {
-        $jumlah = $this->get_subtotal();
+        $jumlah = $this->get_subtotalD($id);
         $persentase = $this->input->post('persentase');
         $sub = $persentase / 100 * $jumlah;
         $sub2 = $jumlah + $sub;
@@ -107,11 +120,12 @@ class Bahan_perabot_model extends CI_Model
     // }
     function selesai_hitung($data)
     {
-
+        $id = $this->input->post('kd_produk');
         $this->db->insert('kalkulasi', $data);
         $last_id =  $this->db->query("select id_kalkulasi from kalkulasi order by  id_kalkulasi desc")->row_array();
         $this->db->query("update bahan_perabot set id_kalkulasi='" . $last_id['id_kalkulasi'] . "' where status='1' ");
         $this->db->query("update bahan_perabot set status='0' where status='1'");
+        $this->db->query("update produk set updated='0' where updated='1' AND kd_produk= '$id'");
     }
     public function tambah_bahan($post)
     {
@@ -131,12 +145,12 @@ class Bahan_perabot_model extends CI_Model
     }
     public function getKalkulasi($id = null)
     {
-        $this->db->from('kalkulasi');
+        // $this->db->from('kalkulasi');
         $this->db->join('produk', 'produk.kd_produk = kalkulasi.kd_produk');
         if ($id != null) {
             $this->db->where('id_kalkulasi', $id);
         }
-        $query = $this->db->get();
+        $query = $this->db->get('kalkulasi');
         return $query;
         // $hasil = $this->db->query("SELECT * FROM kalkulasi LEFT OUTER JOIN produk ON kalkulasi.kd_produk=produk.kd_produk");
         // return $hasil->result();

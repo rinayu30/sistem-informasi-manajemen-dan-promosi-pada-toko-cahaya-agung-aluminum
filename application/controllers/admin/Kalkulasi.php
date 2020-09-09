@@ -22,8 +22,9 @@ class Kalkulasi extends CI_Controller
     {
         // $kd_produk =  $this->input->post('kd_produk');
         $data['id_kalkulasi'] = $this->bahan_perabot_model->kode_kalkulasi();
-        $data['harga_modal'] = $this->bahan_perabot_model->get_subtotal();
-        $data['harga_jual'] = $this->bahan_perabot_model->get_hargaJual();
+        $id = $this->bahan_perabot_model->kode_kalkulasi();
+        $data['harga_modal'] = $this->bahan_perabot_model->get_subtotalD($id);
+        $data['harga_jual'] = $this->bahan_perabot_model->get_hargaJual($id);
         $kd_produk    =  $this->input->post('kd_produk');
         // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
 
@@ -64,48 +65,12 @@ class Kalkulasi extends CI_Controller
     }
     public function rincianbahan($id)
     {
-        // $query = $this->kalkulasi_model->detail($id);
-        //     if ($query->num_rows() > 0) {
-        //         $bahan = $query->row();
-        //         // $data = array(
-        //         //     'page' => 'edit',
-        //         //     'row' => $bahan
-        //         // );
-        //         $data['row'] = $bahan;
-        // $data = array(
-        //     'id_bahan' => $data['id_bahan'],
-        //     'id_item' => $data['id_item'],
-        //     'banyak' => $data['banyak'],
-        //     'ukuran' => $data['ukuran'],
-        //     'uk_panjang' => $data['uk_panjang'],
-        //     'uk_lebar' => $data['uk_lebar'],
-        //     'jumlah' => $data['jumlah'],
-        //     'harga_satuan' => $data['harga_satuan'],
-        //     'jumlah_harga' => $data['jumlah_harga'],
-        // );
-        // $bahan = new stdClass();
-        // $bahan->id_bahan;
-        // $bahan->id_item;
-        // $bahan->banyak;
-        // $bahan->ukuran;
-        // $bahan->uk_panjang;
-        // $bahan->uk_lebar;
-        // $bahan->jumlah;
-        // $bahan->harga_satuan;
-        // $bahan->jumlah_harga;
 
         $data['row'] = $this->kalkulasi_model->detaiil($id);
-        // $bahan = $this->kalkulasi_model->detail($id);
-        // $data['row'] = $bahan;
-
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/bahan/kalkulasi/kalkulasi_detail', $data);
         $this->load->view('templates_adm/footer');
-        // } else {
-        //     echo "<script>alert('Data tidak dapat ditemukan');";
-        //     echo "window.location='" . site_url('admin/produk') . "';</script>";
-        // }
     }
 
 
@@ -129,22 +94,22 @@ class Kalkulasi extends CI_Controller
     }
 
 
-    public function edit($id)
-    {
-        $query = $this->kalkulasi_model->get($id);
-        if ($query->num_rows() > 0) {
-            $kalkulasi = $query->row();
-            $data = array(
-                'page' => 'edit',
-                'row' => $kalkulasi,
-                // 'kode' =>$kode,'selectedkode'=>$kode->kd_produk,
-            );
-            $this->load->view("admin/kalkulasi/kalkulasi_data", $data);
-        } else {
-            echo "<script>alert('Data tidak dapat ditemukan');";
-            echo "window.location='" . site_url('admin/kalkulasi') . "';</script>";
-        }
-    }
+    // public function edit($id)
+    // {
+    //     $query = $this->kalkulasi_model->get($id);
+    //     if ($query->num_rows() > 0) {
+    //         $kalkulasi = $query->row();
+    //         $data = array(
+    //             'page' => 'edit',
+    //             'row' => $kalkulasi,
+    //             // 'kode' =>$kode,'selectedkode'=>$kode->kd_produk,
+    //         );
+    //         $this->load->view("admin/kalkulasi/kalkulasi_data", $data);
+    //     } else {
+    //         echo "<script>alert('Data tidak dapat ditemukan');";
+    //         echo "window.location='" . site_url('admin/kalkulasi') . "';</script>";
+    //     }
+    // }
 
     public function proses_bahan()
     {
@@ -159,20 +124,20 @@ class Kalkulasi extends CI_Controller
         redirect('admin/kalkulasi');
     }
 
-    public function proses()
-    {
-        $post = $this->input->post(null, TRUE);
-        if (isset($_POST['tambah'])) {
-            $this->kalkulasi_model->add($post);
-        } else if (isset($_POST['edit'])) {
-            $this->kalkulasi_model->edit($post);
-        }
+    // public function proses()
+    // {
+    //     $post = $this->input->post(null, TRUE);
+    //     if (isset($_POST['tambah'])) {
+    //         $this->kalkulasi_model->add($post);
+    //     } else if (isset($_POST['edit'])) {
+    //         $this->kalkulasi_model->edit($post);
+    //     }
 
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Data berhasil disimpan');
-        }
-        redirect('admin/kalkulasi');
-    }
+    //     if ($this->db->affected_rows() > 0) {
+    //         $this->session->set_flashdata('success', ' Data berhasil disimpan');
+    //     }
+    //     redirect('admin/kalkulasi');
+    // }
 
 
     public function delete($id)

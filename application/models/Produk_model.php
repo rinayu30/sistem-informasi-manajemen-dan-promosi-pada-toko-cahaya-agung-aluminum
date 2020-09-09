@@ -122,6 +122,7 @@ class Produk_model extends CI_Model
             'stok' => $post['stok'],
             'id_kategori' => $post['kategori'],
             'detail' => empty($post['ket']) ? null : $post['ket'],
+            'updated' => '1'
         ];
         $this->db->insert('produk', $params);
     }
@@ -144,7 +145,7 @@ class Produk_model extends CI_Model
             'stok' => $post['stok'],
             'id_kategori' => $post['kategori'],
             'detail' => empty($post['ket']) ? null : $post['ket'],
-            'updated' => date('Y-m-d H:i:s')
+
         ];
         if ($post['gambar'] != null) {
             $params['gambar'] = $this->_uploadImage();

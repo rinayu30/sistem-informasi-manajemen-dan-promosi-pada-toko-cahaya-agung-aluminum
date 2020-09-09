@@ -97,9 +97,10 @@ class Penjualan_model extends CI_Model
         $sub = $jml * $harga;
         return $sub;
     }
-    public function get_bayar()
+    public function get_bayar($id)
     {
         $this->db->select_sum('subtotal');
+        $this->db->where('kd_penjualan', $id);
         $query = $this->db->get('detail_penjualan');
         if ($query->num_rows() > 0) {
             return $query->row()->subtotal;
@@ -115,9 +116,9 @@ class Penjualan_model extends CI_Model
     //     // $sub2 = $jumlah + $sub;
     //     return $jumlah;
     // }
-    public function get_sisa()
+    public function get_sisa($id)
     {
-        $jumlah = $this->get_bayar();
+        $jumlah = $this->get_bayar($id);
         $dp = $this->input->post('uang_m');
         if ($dp == null) {
             return $jumlah;
@@ -174,5 +175,30 @@ class Penjualan_model extends CI_Model
     {
         $this->db->where_in('id_detail', $id);
         $this->db->delete('detail_penjualan');
+    }
+    // public function join(){
+    //     $hasil= $this->db->query("SELECT penjualan.*,pembeli.*
+    //     FROM penjualan
+    //     LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+    //     WHERE penjualan.kd_penjualan ='$id'");
+    //     return $hasil;
+    // }
+    public function detail($id)
+    {
+        $hasil = $this->db->query("SELECT detail_penjualan.*, produk.*,penjualan.*,pembeli.*
+        FROM detail_penjualan
+        LEFT OUTER JOIN produk ON detail_penjualan.kd_produk=produk.kd_produk
+        LEFT OUTER JOIN penjualan ON detail_penjualan.kd_penjualan=penjualan.kd_penjualan
+        LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli 
+        WHERE penjualan.kd_penjualan ='$id' GROUP BY produk.kd_produk ");
+        return $hasil;
+    }
+    public function laporan_default()
+    {
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+                FROM penjualan
+                LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+				order by tgl_penjualan desc";
+        return $this->db->query($query);
     }
 }

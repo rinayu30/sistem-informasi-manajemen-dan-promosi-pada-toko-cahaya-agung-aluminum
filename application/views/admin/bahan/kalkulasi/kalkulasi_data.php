@@ -145,7 +145,6 @@
                             <tr class="gradeA">
                                 <td colspan="8" align="center">T O T A L</td>
                                 <td>Rp. <?php
-
                                         echo number_format($total, 0, ',', '.'); ?></td>
                                 <td></td>
                             </tr>
@@ -167,7 +166,7 @@
         <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
 
             <div class="row justify-content-left">
-                <div class="col-lg-4 justify-content-left">
+                <div class="col-lg-6 justify-content-left">
                     <div class="card shadow mb-4 card-header py-3">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"><label for="kd_produk">Kode Produk*</label></h6>
@@ -178,7 +177,9 @@
                                     <select id="kd_produk" class="form-control" name="kd_produk" required>
                                         <option value="" selected hidden>---Pilih---</option>
                                         <?php
-                                        $db = $this->db->get('produk');
+                                        $db = $this->db->query("SELECT * FROM produk where updated='1'");
+                                        // $db = $this->db->get('produk');
+                                        // $this->db->where('updated' == '1');
                                         foreach ($db->result() as $data) {
                                         ?>
                                             <option value="<?php echo $data->kd_produk; ?>">
@@ -192,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 justify-content-center">
+                <div class="col-lg-6 justify-content-right">
 
                     <div class="card shadow mb-4 card-header py-3">
                         <div class="card-header py-3">
@@ -214,23 +215,7 @@
                     </div>
                 </div>
         </form>
-        <div class="col-lg-4 justify-content-right">
-            <div class="card shadow mb-4 card-header py-3">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><label for="harga_jual">Harga Jual Produk </label></h6>
-                </div>
-                <div class="">
-                    <div class="card-body" style="height: 100px;">
-                        <div class="box-body table-responsive">
-                            <div class="form-group ">
-                                <!-- <label for="nama" class="m-0 font-weight-bold text-primary">Jenis Bahan*</label> -->
-                                <input type="text" name="harga_jual" class="form-control" value="" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     </div>
