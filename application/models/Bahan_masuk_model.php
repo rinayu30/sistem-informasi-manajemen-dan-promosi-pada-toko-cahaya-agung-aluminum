@@ -85,4 +85,13 @@ class Bahan_masuk_model extends CI_Model
         $this->db->where('id_bmasuk', $id);
         $this->db->delete('bahan_masuk');
     }
+    public function laporan()
+    {
+        $query = "SELECT bahan_masuk.*,pemasok.*, item.*
+                FROM bahan_masuk
+                LEFT OUTER JOIN pemasok ON bahan_masuk.id_pemasok=pemasok.id_pemasok
+                LEFT OUTER JOIN item ON bahan_masuk.id_item=item.id_item
+				order by tgl_beli desc";
+        return $this->db->query($query);
+    }
 }

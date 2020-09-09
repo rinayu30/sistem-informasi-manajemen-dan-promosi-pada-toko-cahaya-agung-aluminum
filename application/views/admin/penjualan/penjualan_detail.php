@@ -81,22 +81,22 @@
                             <?php $no++;
                             } ?>
 
-                            <tr class="gradeA text-right">
-                                <td colspan="4">Total bayar</td>
-                                <td>Rp. <?php
-                                        echo number_format($data->tot_bayar, 0, ',', '.'); ?></td>
+                            <tr class="gradeA">
+                                <td class="text-right" colspan="4">Total bayar</td>
+                                <td class="text-center">Rp. <?php
+                                                            echo number_format($data->tot_bayar, 0, ',', '.'); ?></td>
 
                             </tr>
-                            <tr class="gradeA text-right">
-                                <td colspan="4">Uang Muka</td>
-                                <td>Rp. <?php
-                                        echo number_format($data->dp_awal, 0, ',', '.'); ?></td>
+                            <tr class="gradeA">
+                                <td class="text-right" colspan="4">Uang Muka</td>
+                                <td class="text-center">Rp. <?php
+                                                            echo number_format($data->dp_awal, 0, ',', '.'); ?></td>
 
                             </tr>
-                            <tr class="gradeA text-right">
-                                <td colspan="4">Sisa</td>
-                                <td>Rp. <?php
-                                        echo number_format($data->sisa, 0, ',', '.'); ?></td>
+                            <tr class="gradeA">
+                                <td class="text-right" colspan="4">Sisa</td>
+                                <td class="text-center">Rp. <?php
+                                                            echo number_format($data->sisa, 0, ',', '.'); ?></td>
 
                             </tr>
 

@@ -42,13 +42,17 @@
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Seluruh Penjualan</h6>
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Seluruh Penjualan</h6>
+                        <button href="<?php echo site_url('admin/penjualan/cetak_penjualan_semua') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak Semua</button>
+
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="box-body table-responsive">
                         <table class="table table-bordered table-striped" id="dataTable">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>No Faktur</th>
                                     <th>Pembeli</th>
                                     <th>Tanggal Penjualan</th>
@@ -56,7 +60,7 @@
                                     <th>Uang Muka</th>
                                     <th>Sisa</th>
                                     <th>Status</th>
-                                    <th class="text-center">Aksi</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,21 +84,15 @@
                                             <?php } else { ?>
                                                 <span class="badge badge-danger">Batal</span>
                                             <?php } ?>
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop<?= $data->kd_penjualan ?>"><i class="fas fa-edit"></i></button>
+
                                         </td>
+                                        <td class="text-center">
+                                            <a href="<?= site_url('admin/penjualan/detail/' . $data->kd_penjualan) ?>" class="btn btn-info btn-sm">
+                                                <i class="fas fa-info"></i> <b>Detail</b> </a>
 
-                                        <td class="text-center" width=22%>
-                                            <a href="<?= site_url('admin/penjualan/edit_status/' . $data->kd_penjualan) ?>" class="btn btn-success btn-sm">
-                                                <i class="fas fa-edit"></i> Edit Status</a>
-                                            <a href="<?= site_url('admin/penjualan/detail/' . $data->kd_penjualan) ?>" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-search-plus"></i> Detail</a>
 
-                                            <!-- <input type="hidden" name="id_kategori" value="<?= $data->id_kategori ?>">
-                                    <button onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash"></i> Hapus
-                                    </button> -->
 
-                                            <!-- <td onclick="javascript : return confirm('Anda yakin menghapus data?')"><?php echo anchor('admin/pengguna/delete/' . $data->id_user) ?>,'<div class ="btn btn-danger btn-sm" ><i class="fa fa-trash"></i></div></td> -->
-                                            <!-- <a href="#modalDel" data-toggle="modal" onclick="$('#modalDel #formDel').attr('action','<?= site_url('admin/pengguna/delete/' . $data->id_user) ?>')" class ="btn btn-danger btn-sm" ><i class="fa fa-trash"></a></i> -->
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -108,3 +106,40 @@
         </div>
 
 </section>
+<!-- Awal Modal Edit Status--->
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<?php
+$no = 1;
+foreach ($record->result() as $key => $data) { ?>
+    <div class="modal fade" id="staticBackdrop<?= $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="status_jual">Ubah Status Penjualan</label>
+                        <select name="status_jual" class="form-control text-sm">
+                            <?php $status = $this->input->post('status_jual') ?? $data->status_jual ?>
+                            <option value="-1" <?= $status == -1 ? 'selected' : null ?>>Batal</option>
+                            <option value="0" <?= $status == 0 ? 'selected' : null ?>>Proses</option>
+                            <option value="1">Selesai</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary btn-sm">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    <!-- Akhir Modal Edit Status--->

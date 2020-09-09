@@ -116,6 +116,15 @@ class Bahan_masuk extends CI_Controller
         }
         redirect('admin/bahan_masuk');
     }
+
+    public function detail($id)
+    {
+        $data['laporan'] = $this->bahan_masuk_model->detail($id);
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/bahan/pembelian/pembelian_detail', $data);
+        $this->load->view('templates_adm/footer');
+    }
     public function laporan()
     {
         $data['laporan'] = $this->bahan_masuk_model->laporan();
