@@ -127,10 +127,24 @@ class Bahan_masuk extends CI_Controller
     }
     public function laporan()
     {
-        $data['laporan'] = $this->bahan_masuk_model->laporan();
-        $this->load->view('templates_adm/header');
-        $this->load->view('templates_adm/sidebar');
-        $this->load->view('admin/bahan/pembelian/laporan_bahan_masuk', $data);
-        $this->load->view('templates_adm/footer');
+        $tanggal1 =  $this->input->post('tanggal1');
+        $tanggal2 =  $this->input->post('tanggal2');
+
+        if (isset($_POST['submit'])) {
+            $tanggal1 =  $this->input->post('tanggal1');
+            $tanggal2 =  $this->input->post('tanggal2');
+
+            $data['laporan'] =  $this->bahan_masuk_model->laporan_periode($tanggal1, $tanggal2);
+            $this->load->view('templates_adm/header');
+            $this->load->view('templates_adm/sidebar');
+            $this->load->view('admin/bahan/pembelian/laporan_bahan_masuk', $data);
+            $this->load->view('templates_adm/footer');
+        } else {
+            $data['laporan'] = $this->bahan_masuk_model->laporan();
+            $this->load->view('templates_adm/header');
+            $this->load->view('templates_adm/sidebar');
+            $this->load->view('admin/bahan/pembelian/laporan_bahan_masuk', $data);
+            $this->load->view('templates_adm/footer');
+        }
     }
 }

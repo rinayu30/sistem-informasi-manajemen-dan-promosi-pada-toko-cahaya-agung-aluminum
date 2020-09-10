@@ -94,4 +94,14 @@ class Bahan_masuk_model extends CI_Model
 				order by tgl_beli desc";
         return $this->db->query($query);
     }
+    function laporan_periode($tanggal1, $tanggal2)
+    {
+        $query = "SELECT bahan_masuk.*,pemasok.*, item.*
+        FROM bahan_masuk
+        LEFT OUTER JOIN pemasok ON bahan_masuk.id_pemasok=pemasok.id_pemasok
+        LEFT OUTER JOIN item ON bahan_masuk.id_item=item.id_item
+        WHERE bahan_masuk.tgl_beli between '$tanggal1' and '$tanggal2'
+        order by tgl_beli desc";
+        return $this->db->query($query);
+    }
 }

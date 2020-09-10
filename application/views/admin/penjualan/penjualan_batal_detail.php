@@ -2,8 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-right">
-                <a href="<?= site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
-                <a href="<?= site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm"><i class="fa fa-print fa-sm"></i> Cetak Faktur</a>
+                <a href="<?= site_url('admin/penjualan/laporan_b') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
             </div>
         </div><br>
 
@@ -12,8 +11,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Detail Penjualan </h6>
             </div>
-            <?php
-            foreach ($info->result() as $key => $data) { ?>
+            <?php foreach ($info->result() as $key => $data) { ?>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card-body" style="height: 100px;">
@@ -31,7 +29,7 @@
                         <div class="card-body" style="height: 100px;">
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label for="kd_penjualan">No Faktur </label> </div>
+                                    <label for="tgl_jual">No Faktur </label> </div>
                                 <div class="form-group col-md-2">
                                     <label>:</label> </div>
                                 <div class="form-group col-md-5">
@@ -39,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label for="id_pembeli">Nama Pembeli</label> </div>
+                                    <label for="tgl_jual">Nama Pembeli</label> </div>
                                 <div class="form-group col-md-2">
                                     <label>:</label> </div>
                                 <div class="form-group col-md-5" value="<?= $data->id_pembeli ?>">

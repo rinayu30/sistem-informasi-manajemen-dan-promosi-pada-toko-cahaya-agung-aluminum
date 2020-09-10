@@ -17,6 +17,7 @@
                     <div class="box-body table-responsive">
                         <form method="post">
                             <div class="row">
+
                                 <div class="form-group col-md-6">
 
                                     <label for="exampleInputName2"><b>Dari Tanggal</b></label>
