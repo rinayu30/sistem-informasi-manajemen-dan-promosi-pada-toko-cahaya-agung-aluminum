@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
-                                <a href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_periode') ?>" class="btn btn-success btn-sm"><i class="fas fa-file"></i> Ekspor ke PDF</a></button>
+                                <!-- <a href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_periode') ?>" class="btn btn-success btn-sm"><i class="fas fa-file"></i> Ekspor ke PDF</a></button> -->
                                 <br><br>
                             </div>
                         </form>
