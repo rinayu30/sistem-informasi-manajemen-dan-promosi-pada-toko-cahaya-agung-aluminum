@@ -147,4 +147,23 @@ class Bahan_masuk extends CI_Controller
             $this->load->view('templates_adm/footer');
         }
     }
+
+    public function pdf_pembelian_periode()
+    {
+        $tanggal1 =  $this->input->post('tanggal1');
+        $tanggal2 =  $this->input->post('tanggal2');
+        $this->load->library('dompdf_gen');
+        $data['laporan'] = $this->bahan_masuk_model->laporan_periode($tanggal1, $tanggal2);
+
+        $this->load->view('admin/bahan/pembelian/cetak_laporan', $data);
+
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_pembelian.pdf", array('Attachment' => 0));
+    }
 }

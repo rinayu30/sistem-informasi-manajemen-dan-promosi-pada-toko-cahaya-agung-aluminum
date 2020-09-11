@@ -31,8 +31,8 @@
 
                             </div>
                             <div class="form-group text-center">
-                                <button href="<?php echo site_url('admin/bahan/pembelian/laporan_filter') ?>" class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
-                                <button href="<?php echo site_url('admin/bahan/pembelian/cetak_pembelian_periode') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak</button>
+                                <button class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
+                                <a href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_periode') ?>" class="btn btn-success btn-sm"><i class="fas fa-file"></i> Ekspor ke PDF</a></button>
                                 <br><br>
                             </div>
                         </form>
@@ -44,7 +44,7 @@
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Seluruh Pembelian Bahan</h6>
-                        <button href="<?php echo site_url('admin/bahan/pembelian/cetak_pembelian_semua') ?>" class="btn btn-primary btn-sm text-right" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak Semua</button>
+                        <button href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_semua') ?>" class="btn btn-success btn-sm text-right" type="submit" name="cetak"><i class="fas fa-file"></i> Ekspor Semua ke PDF</button>
                     </div>
                 </div>
                 <div class="card-body">
