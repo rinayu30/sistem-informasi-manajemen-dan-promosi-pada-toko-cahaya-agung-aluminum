@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group text-center">
                                 <button href="<?php echo site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
-                                <button href="<?php echo site_url('admin/penjualan/cetak_penjualan_periode') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak</button>
+                                <button href="<?php echo site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak</button>
                                 <br><br>
                             </div>
                         </form>

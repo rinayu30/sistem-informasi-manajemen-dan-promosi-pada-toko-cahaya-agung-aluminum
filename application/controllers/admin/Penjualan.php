@@ -9,6 +9,7 @@ class Penjualan extends CI_Controller
         check_not_login();
         $this->load->model('penjualan_model');
         // $this->load->library('form_validation');
+        // require_once APPPATH . 'third_party/dompdf/dompdf_config.inc.php';
     }
 
     // public function index()
@@ -163,20 +164,30 @@ class Penjualan extends CI_Controller
             $this->load->view('templates_adm/sidebar');
             $this->load->view('admin/penjualan/laporan', $data);
             $this->load->view('templates_adm/footer');
+        } else if (isset($_POST['cetak'])) {
+            $this->load->library('dompdf_gen');
 
-            // } else if (isset($_POST['cetak'])) {
-            //     $dompdf = new Dompdf();
-            //     $tanggal1 =  $this->input->post('tanggal1');
-            //     $tanggal2 =  $this->input->post('tanggal2');
-            //     $data['record'] = $this->db->query("SELECT p.no_penjualan,p.tgl_penjualan,u.nama_lengkap,sum(dp.jumlah_jual) as jml,sum(dp.harga_jual*dp.jumlah_jual) as total
-            //         FROM penjualan as p,detailpenjualan as dp,user as u
-            //         WHERE dp.no_penjualan=p.no_penjualan and u.id_user=p.id_user 
-            // 		and p.tgl_penjualan between '$tanggal1' and '$tanggal2'
-            //         group by p.no_penjualan")->result();
+            // $dompdf = new Dompdf();
+            $tanggal1 =  $this->input->post('tanggal1');
+            $tanggal2 =  $this->input->post('tanggal2');
+            $data['record'] = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+            FROM penjualan
+            LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+            WHERE status_jual ='-1' and penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
+            order by tgl_penjualan desc")->result();
+            $file = 'admin/laporan/cetak_penjualan_periode';
+            $this->load->view($file, $data);
 
 
-            //     $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
-
+            $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
+            $paper_size = 'A4';
+            $orientation = 'potrait';
+            $html = $this->output->get_output();
+            $this->dompdf->set_paper($paper_size, $orientation);
+            $this->dompdf->load_html($html);
+            $this->dompdf->render();
+            $this->dompdf->stream("Laporan_penjualan_periode.pdf", array('Attachment' => false));
+            // $this->load->view('admin/layout/wrapper', $data, FALSE);
             //     $dompdf->load_html($html);
 
             //     $dompdf->set_paper('A4', 'potrait');
@@ -209,27 +220,28 @@ class Penjualan extends CI_Controller
             $this->load->view('templates_adm/sidebar');
             $this->load->view('admin/penjualan/laporan_batal', $data);
             $this->load->view('templates_adm/footer');
-            // } else if (isset($_POST['cetak'])) {
-            //     $dompdf = new Dompdf();
-            //     $tanggal1 =  $this->input->post('tanggal1');
-            //     $tanggal2 =  $this->input->post('tanggal2');
-            //     $data['record'] = $this->db->query("SELECT p.no_penjualan,p.tgl_penjualan,u.nama_lengkap,sum(dp.jumlah_jual) as jml,sum(dp.harga_jual*dp.jumlah_jual) as total
-            //         FROM penjualan as p,detailpenjualan as dp,user as u
-            //         WHERE dp.no_penjualan=p.no_penjualan and u.id_user=p.id_user 
-            // 		and p.tgl_penjualan between '$tanggal1' and '$tanggal2'
-            //         group by p.no_penjualan")->result();
+        } else if (isset($_POST['cetak'])) {
+            $this->load->library('dompdf_gen');
+            $tanggal1 =  $this->input->post('tanggal1');
+            $tanggal2 =  $this->input->post('tanggal2');
+            $data['record'] = $this->db->query("SELECT p.no_penjualan,p.tgl_penjualan,u.nama_lengkap,sum(dp.jumlah_jual) as jml,sum(dp.harga_jual*dp.jumlah_jual) as total
+                    FROM penjualan as p,detailpenjualan as dp,user as u
+                    WHERE dp.no_penjualan=p.no_penjualan and u.id_user=p.id_user 
+            		and p.tgl_penjualan between '$tanggal1' and '$tanggal2'
+                    group by p.no_penjualan")->result();
 
 
-            //     $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
+            $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
 
-            //     $dompdf->load_html($html);
+            $this->dompdf->load_html($html);
 
-            //     $dompdf->set_paper('A4', 'potrait');
-            //     $dompdf->render();
+            $this->dompdf->set_paper('A4', 'potrait');
+            $this->dompdf->render();
 
-            //     $pdf = $dompdf->output();
 
-            //     $dompdf->stream('laporan_penjualanbln.pdf', array("Attachchment" => false));
+            // $pdf = dompdf->output();
+
+            $this->dompdf->stream('laporan_penjualanbln.pdf', array("Attachchment" => false));
         } else {
             $data['record'] =  $this->penjualan_model->laporan_batal();
             $this->load->view('templates_adm/header');
