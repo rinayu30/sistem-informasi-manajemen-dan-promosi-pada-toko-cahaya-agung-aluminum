@@ -8,10 +8,10 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-        <div class="sidebar-brand-icon">
-          <i class="fas fa-store"></i>
+        <div class="sidebar-brand-text  mx-1 mb-2 mt-2">
+          <img class="img-profile rounded-circle" src="http://localhost/tokocahayaagung/assets_user/img/gallery/caa3.svg" style="width:5em;height:5em">
         </div>
-        <div class="sidebar-brand-text mx-1 mb-2 mt-2">Toko Cahaya Agung Aluminium</div> <br>
+        <div class="sidebar-brand-text mx-1 mb-2 mt-2">Cahaya Agung Aluminium</div><br>
       </a>
 
       <!-- Divider -->
@@ -62,26 +62,6 @@
           <span>Pemasok</span></a>
       </li>
       <li class="nav-item">
-        <!-- <a class="nav-link" href="<?= site_url('admin/laporan') ?>">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Laporan</span></a> -->
-        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div> -->
-
-
-
-
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-folder"></i>
           <span>Laporan</span>
@@ -101,12 +81,6 @@
           <h6>PENGATURAN</h6>
           <hr>
         </div>
-
-        <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('admin/pengguna') ?>">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Pengguna</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
@@ -125,6 +99,12 @@
             <i class="fas fa-fw fa-inbox"></i>
             <span>Kategori Produk</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= site_url('admin/pengguna') ?>">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Pengguna</span></a>
+        </li>
+
       <?php } ?>
       <!-- <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('admin/pengaturan') ?>">
@@ -186,10 +166,10 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </a> -->
                 <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings

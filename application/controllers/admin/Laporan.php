@@ -13,5 +13,10 @@ class Laporan extends CI_Controller
 
     public function cetak_penjualan_periode()
     {
+        $tanggal1 =  $this->input->post('tanggal1');
+        $tanggal2 =  $this->input->post('tanggal2');
+
+        $data['record'] =  $this->penjualan_model->laporan_periode($tanggal1, $tanggal2);
+        $this->load->view('admin/penjualan/cetak_penjualan_periode', $data);
     }
 }
