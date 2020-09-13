@@ -10,8 +10,8 @@
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-text  mx-1 mb-2 mt-2">
           <img class="img-profile rounded-circle" src="http://localhost/tokocahayaagung/assets_user/img/gallery/caa3.svg" style="width:5em;height:5em">
-        </div>
-        <div class="sidebar-brand-text mx-1 mb-2 mt-2">Cahaya Agung Aluminium</div><br>
+        </div><br>
+        <div class="sidebar-brand-text mx-1 mb-2 mt-2">Toko Cahaya Agung Aluminium</div><br>
       </a>
 
       <!-- Divider -->
