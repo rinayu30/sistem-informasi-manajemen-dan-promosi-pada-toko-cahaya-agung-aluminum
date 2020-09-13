@@ -16,9 +16,6 @@
         </tr>
     </table><br>
 <h3 align="center">Laporan Penjualan</h3> <br><br>
-<?php $tanggal1=$_POST['tanggal1'];  ?>
-<?php $tanggal2=$_POST['tanggal2'];  ?>
-<i><b>Tanggal : </b><font size="2"><?php echo $_POST['tanggal1']?><b> s/d </b><?php echo $_POST['tanggal2']?></font></i><br><br>
 
 	<table align="center" class="table table-bordered" id="dataTable" width="100%" border=1 cellspacing="0">
     <thead>
@@ -33,9 +30,7 @@
         </thead>
 					<tbody>
 					<?php 
-					     $tanggal1=  $this->input->post('tanggal1');
-						$tanggal2=  $this->input->post('tanggal2');
-								
+					
                         foreach ($record as $data) {
 					 ?>
 						<tr>

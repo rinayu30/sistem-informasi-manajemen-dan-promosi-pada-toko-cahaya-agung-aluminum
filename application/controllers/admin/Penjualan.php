@@ -10,6 +10,9 @@ class Penjualan extends CI_Controller
         $this->load->model('penjualan_model');
         // $this->load->library('form_validation');
         // require_once APPPATH . 'third_party/dompdf/dompdf_config.inc.php';
+        $this->load->library('form_validation');
+        // require_once APPPATH.'third_party/dompdf/dompdf_config.inc.php';
+        $this->load->library('pdf');
     }
 
     // public function index()
@@ -165,37 +168,46 @@ class Penjualan extends CI_Controller
             $this->load->view('admin/penjualan/laporan', $data);
             $this->load->view('templates_adm/footer');
         } else if (isset($_POST['cetak'])) {
-            $this->load->library('dompdf_gen');
-
-            // $dompdf = new Dompdf();
+         
             $tanggal1 =  $this->input->post('tanggal1');
             $tanggal2 =  $this->input->post('tanggal2');
-            $data['record'] = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+
+            $pdf = new FPDF('p','mm','A4');
+            $pdf->SetLeftMargin(28);
+            $pdf->AddPage();
+
+            $pdf->SetFont('Arial','B',12);
+            
+            $pdf->Cell(150,7,'TOKO CAHAYA AGUNG ALUMINIUM PEKANBARU',0,1,'C');
+            $pdf->SetFont('Arial','B',10);
+            $pdf->Cell(150,7,'Jl. Garuda Sakti No.Km 2,5, Simpang Baru, Kec. Tampan ',0,1,'C');
+            $pdf->Ln(2.5);
+
+            $pdf->Cell(10,7,'',0,1,'C');
+            $pdf->SetFont('Arial','B',9);
+            $pdf->Cell(30,6,'No FAKTUR',1,0,'C');
+            $pdf->Cell(40,6,'PEMBELI',1,0,'C');
+            $pdf->Cell(27,6,'TOTAL BAYAR',1,0,'C');
+            $pdf->Cell(25,6,'UANG MUKA',1,0,'C');
+            $pdf->Cell(25,6,'SISA',1,1,'C');
+            $pdf->SetFont('Arial','',9);
+
+            $record = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
             FROM penjualan
             LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
-            WHERE status_jual ='-1' and penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
+            WHERE penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
             order by tgl_penjualan desc")->result();
-            $file = 'admin/laporan/cetak_penjualan_periode';
-            $this->load->view($file, $data);
-
-
-            $html = $this->load->view("admin/penjualan/cetak_penjualan_periode", $data, true);
-            $paper_size = 'A4';
-            $orientation = 'potrait';
-            $html = $this->output->get_output();
-            $this->dompdf->set_paper($paper_size, $orientation);
-            $this->dompdf->load_html($html);
-            $this->dompdf->render();
-            $this->dompdf->stream("Laporan_penjualan_periode.pdf", array('Attachment' => false));
-            // $this->load->view('admin/layout/wrapper', $data, FALSE);
-            //     $dompdf->load_html($html);
-
-            //     $dompdf->set_paper('A4', 'potrait');
-            //     $dompdf->render();
-
-            //     $pdf = $dompdf->output();
-
-            //     $dompdf->stream('laporan_penjualanbln.pdf', array("Attachchment" => false));
+                
+            foreach ($record as $row){
+                $pdf->Cell(30,6,$row->kd_penjualan,1,0,'C');
+                $pdf->Cell(40,6,$row->nama_pembeli,1,0);
+                $pdf->Cell(27,6,'Rp.'.number_format($row->tot_bayar),1,0);
+                $pdf->Cell(25,6,'Rp.'.number_format($row->dp_awal),1,0); 
+                $pdf->Cell(25,6,'Rp.'.number_format($row->sisa),1,1); 
+            }
+            $pdf->Output();
+        
+		
         } else {
             $data['record'] =  $this->penjualan_model->laporan_default();
             $this->load->view('templates_adm/header');
@@ -250,4 +262,48 @@ class Penjualan extends CI_Controller
             $this->load->view('templates_adm/footer');
         }
     }
+
+
+    
+	public function cetak_penjualan(){
+		
+            // $this->load->view("admin/penjualan/cetak_penjualan", $data);
+            
+            $pdf = new FPDF('p','mm','A4');
+
+            $pdf->SetLeftMargin(28);
+            $pdf->AddPage();
+
+            $pdf->SetFont('Arial','B',12);
+
+            $pdf->Cell(150,7,'TOKO CAHAYA AGUNG ALUMINIUM PEKANBARU',0,1,'C');
+            $pdf->SetFont('Arial','B',10);
+            $pdf->Cell(150,7,'Jl. Garuda Sakti No.Km 2,5, Simpang Baru, Kec. Tampan ',0,1,'C');
+            $pdf->Ln(2.5);
+
+            $pdf->Cell(10,7,'',0,1,'C');
+            $pdf->SetFont('Arial','B',9);
+            $pdf->Cell(30,6,'No FAKTUR',1,0,'C');
+            $pdf->Cell(40,6,'PEMBELI',1,0,'C');
+            $pdf->Cell(27,6,'TOTAL BAYAR',1,0,'C');
+            $pdf->Cell(25,6,'UANG MUKA',1,0,'C');
+            $pdf->Cell(25,6,'SISA',1,1,'C');
+            $pdf->SetFont('Arial','',9);
+
+            $record = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+            FROM penjualan
+            LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+            order by tgl_penjualan desc")->result(); 
+                
+            foreach ($record as $row){
+                $pdf->Cell(30,6,$row->kd_penjualan,1,0,'C');
+                $pdf->Cell(40,6,$row->nama_pembeli,1,0);
+                $pdf->Cell(27,6,'Rp.'.number_format($row->tot_bayar),1,0);
+                $pdf->Cell(25,6,'Rp.'.number_format($row->dp_awal),1,0); 
+                $pdf->Cell(25,6,'Rp.'.number_format($row->sisa),1,1); 
+            }
+            $pdf->Output();
+		
+         
+	}
 }
