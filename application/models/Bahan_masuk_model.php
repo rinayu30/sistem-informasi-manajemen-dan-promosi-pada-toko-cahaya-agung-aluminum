@@ -91,8 +91,9 @@ class Bahan_masuk_model extends CI_Model
                 FROM bahan_masuk
                 LEFT OUTER JOIN pemasok ON bahan_masuk.id_pemasok=pemasok.id_pemasok
                 LEFT OUTER JOIN item ON bahan_masuk.id_item=item.id_item
-				order by tgl_beli desc";
+				order by bahan_masuk.tgl_beli desc";
         return $this->db->query($query);
+        // return $query;
     }
     function laporan_periode($tanggal1, $tanggal2)
     {

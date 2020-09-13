@@ -46,7 +46,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Seluruh Penjualan</h6>
                         <!-- <button href="<?php echo site_url('admin/penjualan/cetak_penjualan_semua') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak Semua</button> -->
-                        <p  align="right"><a href="<?php echo site_url('admin/penjualan/cetak_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Print All </a>  &emsp; &emsp;</p>
+                        <p align="right"><a href="<?php echo site_url('admin/penjualan/cetak_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Semua </a> &emsp; &emsp;</p>
 
                     </div>
                 </div>

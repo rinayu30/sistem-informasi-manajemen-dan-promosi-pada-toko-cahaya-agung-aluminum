@@ -31,8 +31,9 @@
 
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
-                                <!-- <a href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_periode') ?>" class="btn btn-success btn-sm"><i class="fas fa-file"></i> Ekspor ke PDF</a></button> -->
+                                <button href="<?php echo site_url('admin/bahan_masuk/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
+                                <button href="<?php echo site_url('admin/bahan_masuk/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak</button>
+
                                 <br><br>
                             </div>
                         </form>
@@ -44,7 +45,7 @@
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Seluruh Pembelian Bahan</h6>
-                        <button href="<?php echo site_url('admin/bahan_masuk/pdf_pembelian_semua') ?>" class="btn btn-success btn-sm text-right" type="submit" name="cetak"><i class="fas fa-file"></i> Ekspor Semua ke PDF</button>
+                        <p align="right"><a href="<?php echo site_url('admin/bahan_masuk/laporan_seluruh') ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Semua </a> &emsp; &emsp;</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -65,7 +66,7 @@
                                 <?php
                                 $total = 0;
                                 $jumlah = 0;
-                                foreach ($laporan->result() as $key => $data) { ?>
+                                foreach ($record->result() as $key => $data) { ?>
                                     <tr class="text-center">
                                         <td><?= $data->id_bmasuk ?></td>
                                         <td value="<?= $data->id_pemasok ?>"><?= $data->nama_pemasok ?></td>
@@ -79,7 +80,8 @@
                                 <?php
                                     $total = $total + $data->total_harga;
                                     $jumlah = $jumlah + $data->jumlah;
-                                } ?>
+                                }
+                                ?>
 
                             </tbody>
                             <tr>

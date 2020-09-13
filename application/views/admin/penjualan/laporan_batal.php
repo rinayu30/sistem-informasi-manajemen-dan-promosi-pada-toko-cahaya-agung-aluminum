@@ -44,7 +44,7 @@
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Seluruh Penjualan</h6>
-                        <button href="<?php echo site_url('admin/penjualan/cetak_batal_penjualan') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak Semua</button>
+                        <a href="<?php echo site_url('admin/penjualan/cetak_batal_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Semua</a>
 
                     </div>
                 </div>
