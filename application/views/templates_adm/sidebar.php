@@ -8,10 +8,15 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-        <div class="sidebar-brand-text  mx-1 mb-2 mt-2">
+        <div class="sidebar-brand-text  mx-1 mt-2">
+          <img class="img-profile" src="http://localhost/tokocahayaagung/assets_user/img/gallery/caa3.svg" style="width:8em;height:8em">
+        </div>
+      </a>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <!-- <div class="sidebar-brand-text  mx-1 mb-2 mt-2">
           <img class="img-profile rounded-circle" src="http://localhost/tokocahayaagung/assets_user/img/gallery/caa3.svg" style="width:5em;height:5em">
-        </div><br>
-        <div class="sidebar-brand-text mx-1 mb-2 mt-2">Toko Cahaya Agung Aluminium</div><br>
+        </div><br> -->
+        <div class="sidebar-brand-text mx-1 mb-2 ">Toko Cahaya Agung Aluminium</div><br>
       </a>
 
       <!-- Divider -->
@@ -29,9 +34,9 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        <h6>MENU</h6>
-        <hr>
+        <h6 align="center">MENU</h6>
       </div>
+      <hr class="sidebar-divider my-1">
       <!-- Nav Item - Pages Collapse Menu -->
       <!-- Divider -->
       <!-- Nav Item - Tables -->
@@ -75,12 +80,11 @@
         </div>
       </li>
       <?php if ($this->fungsi->user_login()->level == 1) { ?>
-
+        <hr class="sidebar-divider my-3">
         <div class="sidebar-heading">
-          <hr>
-          <h6>PENGATURAN</h6>
-          <hr>
+          <h6 align="center">PENGATURAN</h6>
         </div>
+        <hr class="sidebar-divider my-1">
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>

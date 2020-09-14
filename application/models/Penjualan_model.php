@@ -41,16 +41,22 @@ class Penjualan_model extends CI_Model
     public function buat_kode_penjualan()
     {
         $this->db->select('Right(penjualan.kd_penjualan,2) as kode ', false);
+        // $this->db->where('Mid(penjualan.kd_penjualan,3,6)' = DATE_FORMAT(CURDATE(), '%y%m%d'));
         $this->db->order_by('kd_penjualan', 'desc');
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
-        if ($query->num_rows() <> 0) {
+        // $sql = "SELECT RIGHT(penjualan.kd_penjualan,1) as kode
+        // FROM penjualan
+        // WHERE MID(kd_penjualan,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
+        // $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
             $data = $query->row();
-            $kode = intval($data->kode) + 1;
+            $kode = intval(($data->kode) + 1);
+            $no = sprintf("%'.02d", $kode);
         } else {
-            $kode = 1;
+            $no = "01";
         }
-        $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT);
+        $kodemax = str_pad($no, 2, "0", STR_PAD_LEFT);
         $kodejadi  = "PJ" . date('ymd') . $kodemax;
         return $kodejadi;
     }
@@ -112,8 +118,16 @@ class Penjualan_model extends CI_Model
             return $sisa;
         }
     }
-    public function getTgl()
+    public function edit_status($status, $id)
     {
+        $hasil = $this->db->query("UPDATE penjualan SET status_jual='$status' WHERE kd_penjualan='$id'");
+        return $hasil;
+        // $post=$this->input->post('');
+        // $params = [
+        //     'status' => $post['status_jual'],
+        // ];
+        // $this->db->where('kd_penjualan', $post['id']);
+        // $this->db->update('penjualan', $params);
     }
 
     public function add($post)
@@ -175,11 +189,12 @@ class Penjualan_model extends CI_Model
 
     public function ambil($id = null)
     {
-        $query = $this->db->query("SELECT detail_penjualan.*, produk.*,penjualan.*,pembeli.*
+        $query = $this->db->query("SELECT detail_penjualan.*, produk.*,penjualan.*,pembeli.*,user.*
         FROM detail_penjualan
         LEFT OUTER JOIN produk ON detail_penjualan.kd_produk=produk.kd_produk
         LEFT OUTER JOIN penjualan ON detail_penjualan.kd_penjualan=penjualan.kd_penjualan
         LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli 
+        LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
         WHERE penjualan.kd_penjualan ='$id' GROUP BY penjualan.kd_penjualan");
 
         return $query;
@@ -187,17 +202,19 @@ class Penjualan_model extends CI_Model
 
     public function laporan_default()
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
                 FROM penjualan
                 LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
-				order by tgl_penjualan desc";
+                LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
+                order by tgl_penjualan desc";
         return $this->db->query($query);
     }
     public function laporan_batal()
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
-                FROM penjualan
-                LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        FROM penjualan
+        LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+        LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
                 WHERE status_jual ='-1'
 				order by tgl_penjualan desc";
         return $this->db->query($query);
@@ -206,18 +223,20 @@ class Penjualan_model extends CI_Model
 
     function laporan_periode($tanggal1, $tanggal2)
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
-                FROM penjualan
-                LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        FROM penjualan
+        LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+        LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
                 WHERE penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
                 order by tgl_penjualan desc";
         return $this->db->query($query);
     }
     function laporan_batal_periode($tanggal1, $tanggal2)
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
         FROM penjualan
         LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
+        LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
         WHERE status_jual ='-1' and penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
         order by tgl_penjualan desc";
         return $this->db->query($query);

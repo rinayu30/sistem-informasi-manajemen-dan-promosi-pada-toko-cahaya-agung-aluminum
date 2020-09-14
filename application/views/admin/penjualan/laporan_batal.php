@@ -55,6 +55,7 @@
                                 <tr class="text-center">
                                     <th>No Faktur</th>
                                     <th>Pembeli</th>
+                                    <th>PJ</th>
                                     <th>Tanggal Penjualan</th>
                                     <th>Pengembalian Uang</th>
                                     <th>Detail</th>
@@ -68,6 +69,7 @@
                                     <tr>
                                         <td width=2%><?= $data->kd_penjualan ?></td>
                                         <td class="text-center" value="<?= $data->id_pembeli ?>"><?= $data->nama_pembeli ?></td>
+                                        <td class="text-center" value="<?= $data->id_user ?>"><?= $data->nama_user ?></td>
                                         <td class="text-center" width=10%><?= $data->tgl_penjualan ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->dp_awal, 0, ',', '.') ?></td>
                                         <td class="text-center">
@@ -78,7 +80,7 @@
                                 <?php } ?>
 
                             </tbody>
-                        </table>
+                        </table><br><small><i>*PJ : Penanggung Jawab</i></small>
                     </div>
                 </div>
             </div>

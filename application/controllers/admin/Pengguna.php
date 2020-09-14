@@ -41,7 +41,7 @@ class Pengguna extends CI_Controller
         $this->form_validation->set_message('is_unique', '%s sudah ada, silahkan ganti');
         $this->form_validation->set_message('min_length', '%s minimal 6 karakter');
 
-        $this->form_validation->set_error_delimiters('<h6><span class="invalid-feedback">', '</span></h6>');
+        $this->form_validation->set_error_delimiters('<h6><span class="alert alert-danger">', '</span></h6>');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/pengguna/form_user');
@@ -86,7 +86,7 @@ class Pengguna extends CI_Controller
         $this->form_validation->set_message('is_unique', '%s sudah ada, silahkan ganti');
         $this->form_validation->set_message('min_length', '%s minimal 6 karakter');
 
-        $this->form_validation->set_error_delimiters('<h6><span class="help-block">', '</span></h6>');
+        $this->form_validation->set_error_delimiters('<h6><span class="alert alert-danger">', '</span></h6>');
 
         if ($this->form_validation->run() == FALSE) {
             $query = $this->auth_model->get($id);

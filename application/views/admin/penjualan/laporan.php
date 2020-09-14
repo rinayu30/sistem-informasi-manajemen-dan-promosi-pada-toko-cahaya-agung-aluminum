@@ -57,6 +57,7 @@
                                 <tr class="text-center">
                                     <th>No Faktur</th>
                                     <th>Pembeli</th>
+                                    <th>PJ</th>
                                     <th>Tanggal Penjualan</th>
                                     <th>Total Bayar</th>
                                     <th>Uang Muka</th>
@@ -73,6 +74,8 @@
                                     <tr>
                                         <td width=2%><?= $data->kd_penjualan ?></td>
                                         <td class="text-center" value="<?= $data->id_pembeli ?>"><?= $data->nama_pembeli ?></td>
+                                        <td class="text-center" value="<?= $data->id_user ?>"><?= $data->nama_user ?></td>
+
                                         <td class="text-center" width=10%><?= $data->tgl_penjualan ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->tot_bayar, 0, ',', '.') ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->dp_awal, 0, ',', '.') ?></td>
@@ -86,7 +89,7 @@
                                             <?php } else { ?>
                                                 <span class="badge badge-danger">Batal</span>
                                             <?php } ?>
-                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop<?= $data->kd_penjualan ?>"><i class="fas fa-edit"></i></button>
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop<?php $data->kd_penjualan ?>"><i class="fas fa-edit"></i></button>
 
                                         </td>
                                         <td class="text-center">
@@ -100,7 +103,7 @@
                                 <?php } ?>
 
                             </tbody>
-                        </table>
+                        </table><br><small><i>*PJ : Penanggung Jawab</i></small>
                     </div>
                 </div>
             </div>
@@ -113,10 +116,8 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<?php
-$no = 1;
-foreach ($record->result() as $key => $data) { ?>
-    <div class="modal fade" id="staticBackdrop<?= $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<?php foreach ($record->result() as $key => $data) { ?>
+    <div class="modal fade" id="staticBackdrop<?php $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,20 +127,21 @@ foreach ($record->result() as $key => $data) { ?>
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="status_jual">Ubah Status Penjualan</label>
-                        <select name="status_jual" class="form-control text-sm">
-                            <?php $status = $this->input->post('status_jual') ?? $data->status_jual ?>
-                            <option value="-1" <?= $status == -1 ? 'selected' : null ?>>Batal</option>
-                            <option value="0" <?= $status == 0 ? 'selected' : null ?>>Proses</option>
-                            <option value="1">Selesai</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary btn-sm">Simpan</button>
-                    </div>
+                    <form action="<?= base_url('admin/penjualan/proses') ?>" method="post">
+                        <div class="form-group">
+                            <label for="status_jual">Ubah Status Penjualan <?= $data->kd_penjualan  ?></label>
+                            <select name="status_jual" class="form-control text-sm">
+                                <?php $status = $this->input->post('status_jual') ?? $data->status_jual ?>
+                                <option value="-1" <?= $status == -1 ? 'selected' : null ?>>Batal</option>
+                                <option value="0" <?= $status == 0 ? 'selected' : null ?>>Proses</option>
+                                <option value="1">Selesai</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
+                            <button type="submit" name="edit_status" class="btn btn-primary btn-sm">Simpan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

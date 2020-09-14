@@ -23,6 +23,14 @@
                                 <div class="form-group col-md-5">
                                     <?= $data->tgl_penjualan ?> </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <label for="user">Dibuat oleh</label> </div>
+                                <div class="form-group col-md-2">
+                                    <label>:</label> </div>
+                                <div class="form-group col-md-5">
+                                    <?= $data->nama_user ?> </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
