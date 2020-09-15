@@ -108,13 +108,25 @@ class Penjualan extends CI_Controller
         if (isset($_POST['tambah_jual'])) {
             $this->penjualan_model->add($post);
         }
-        // else if (isset($_POST['edit_status'])) {
+        // if (isset($_POST['edit_status'])) {
         //     $this->penjualan_model->edit_status($post);
         // }
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
         redirect('admin/penjualan');
+    }
+
+    public function proses_edit()
+    {
+        $post = $this->input->post(null, TRUE);
+        if (isset($_POST['edit_status'])) {
+            $this->penjualan_model->edit_status($post);
+        }
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', ' Data berhasil disimpan');
+        }
+        redirect('admin/penjualan/laporan');
     }
 
     public function detail($id)
@@ -522,11 +534,12 @@ class Penjualan extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
 
         // foreach ($info as $row) {
-        $pdf->Cell(90, 3, 'Tgl. Transaksi   :', 0, 1, 'L');
+        $pdf->Cell(100, 3, 'Tgl. Transaksi   :', 0, 1, 'L');
+        $pdf->Cell(100, 3, 'No Faktur        :', 0, 1, 'R');
         $pdf->Cell(10, 3, '', 0, 1, 'C');
         $pdf->Cell(90, 3, 'Dibuat oleh      :', 0, 1, 'L');
         $pdf->Cell(10, 3, '', 0, 1, 'C');
-        $pdf->Cell(90, 3, 'No Faktur        :', 0, 1, 'R');
+        // $pdf->Cell(90, 3, 'No Faktur        :', 0, 1, 'R');
         $pdf->Cell(10, 3, '', 0, 1, 'C');
         $pdf->Cell(90, 3, 'Pembeli          :', 0, 1, 'R');
         $pdf->Cell(10, 3, '', 0, 1, 'C');

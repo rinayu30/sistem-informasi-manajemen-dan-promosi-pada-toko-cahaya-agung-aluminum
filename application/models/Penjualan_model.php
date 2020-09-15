@@ -41,7 +41,7 @@ class Penjualan_model extends CI_Model
     public function buat_kode_penjualan()
     {
         $this->db->select('Right(penjualan.kd_penjualan,2) as kode ', false);
-        // $this->db->where('Mid(penjualan.kd_penjualan,3,6)' = DATE_FORMAT(CURDATE(), '%y%m%d'));
+        $this->db->where('Mid(penjualan.kd_penjualan,3,6)', DATE_FORMAT(CURDATE(), '%y%m%d'));
         $this->db->order_by('kd_penjualan', 'desc');
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
@@ -118,9 +118,10 @@ class Penjualan_model extends CI_Model
             return $sisa;
         }
     }
-    public function edit_status($status, $id)
+    public function edit_status($post)
     {
-        $hasil = $this->db->query("UPDATE penjualan SET status_jual='$status' WHERE kd_penjualan='$id'");
+        $id = $this->input->post('kd_penjualan');
+        $hasil = $this->db->query("UPDATE penjualan SET status_jual='$post' WHERE kd_penjualan='$id'");
         return $hasil;
         // $post=$this->input->post('');
         // $params = [

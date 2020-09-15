@@ -113,6 +113,7 @@ class Bahan_masuk extends CI_Controller
     public function delete($id)
     {
         $this->bahan_masuk_model->hapus_data($id);
+        // $this->item_model->update_minus_stok($id);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
         }

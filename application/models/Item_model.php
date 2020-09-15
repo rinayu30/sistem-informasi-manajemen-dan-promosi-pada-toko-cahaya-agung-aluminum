@@ -67,6 +67,20 @@ class Item_model extends CI_Model
         $this->db->query($sql);
     }
 
+    // function update_minus_stok($id)
+    // {
+    //     $jumlah = "SELECT bahan_masuk.jumlah from bahan_masuk 
+    //     left join item on bahan_masuk.id_item=item.id_item 
+    //     WHERE bahan_masuk.id_bmasuk='$id'";
+    //     $id_item = "SELECT bahan_masuk.id_item 
+    //     from bahan_masuk 
+    //     left join item on bahan_masuk.id_item=item.id_item 
+    //     WHERE bahan_masuk.id_bmasuk='$id'";
+    //     // $id_item = $post['item'];
+    //     $sql = "UPDATE item SET stok = stok - $jumlah WHERE id_item=$id_item";
+    //     $this->db->query($sql);
+    // }
+
     function update_kurang_stok($post)
     {
         $jumlah = $this->bahan_perabot_model->get_jumlah();;

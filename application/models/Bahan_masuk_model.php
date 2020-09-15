@@ -79,7 +79,6 @@ class Bahan_masuk_model extends CI_Model
         $this->db->update('bahan_masuk', $params);
     }
 
-
     public function hapus_data($id)
     {
         $this->db->where('id_bmasuk', $id);

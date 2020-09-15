@@ -127,7 +127,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('admin/penjualan/proses') ?>" method="post">
+                    <form action="<?= base_url('admin/penjualan/proses_edit') ?>" method="post">
                         <div class="form-group">
                             <label for="status_jual">Ubah Status Penjualan <?= $data->kd_penjualan  ?></label>
                             <select name="status_jual" class="form-control text-sm">
