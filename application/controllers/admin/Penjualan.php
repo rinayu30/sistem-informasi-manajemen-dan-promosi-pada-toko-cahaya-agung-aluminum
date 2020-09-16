@@ -94,11 +94,11 @@ class Penjualan extends CI_Controller
         redirect('admin/penjualan');
     }
     //ubah status jual pake ajax
-    function edit_status_jual()
+    function edit_status_jual($id)
     {
-        $id = $this->penjualan_model->buat_kode_penjualan();
+        // $id = $this->penjualan_model->buat_kode_penjualan();
         $status = $this->input->post('status_jual');
-        $data = $this->penjualan_model->edit_status($status, $id);
+        $data = $this->penjualan_model->edit_status($id);
         echo json_encode($data);
     }
 
@@ -119,14 +119,27 @@ class Penjualan extends CI_Controller
 
     public function proses_edit()
     {
-        $post = $this->input->post(null, TRUE);
-        if (isset($_POST['edit_status'])) {
-            $this->penjualan_model->edit_status($post);
-        }
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Data berhasil disimpan');
-        }
+        $kode = $this->input->post('kd_penjualan');
+        $status_jual = $this->input->post('status_jual');
+        $this->penjualan_model->edit_status($status_jual, $kode);
         redirect('admin/penjualan/laporan');
+        // $post = $this->input->post(null, TRUE);
+        // if (isset($_POST['submit'])) {
+        //     $this->penjualan_model->edit_status($post);
+        // }
+        // if ($this->db->affected_rows() > 0) {
+        //     $this->session->set_flashdata('success', ' Data berhasil disimpan');
+        // }
+        // redirect('admin/penjualan/laporan');
+        // $id = $this->uri->segment(3);
+        // $e = $this->db->where('kd_penjualan', $id)->get('penjualan')->row();
+
+        // $kirim['status_jual'] = $e->status_jual;
+        // $kirim['alamat'] = $e->alamat;
+
+        // $this->output
+        //     ->set_content_type('application/json')
+        //     ->set_output(json_encode($kirim));
     }
 
     public function detail($id)
