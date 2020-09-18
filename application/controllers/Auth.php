@@ -26,26 +26,26 @@ class Auth extends CI_Controller
                     'level' => $row->level
                 );
                 $this->session->set_userdata($params);
-                switch ($this->session->set_userdata('level')) {
-                    case 1:
-                        echo "<script> alert ('Selamat, login berhasil'); </script>";
-                        redirect('admin/dashboard');
-                        break;
-                    case 2:
-                        echo "<script> alert ('Selamat, login berhasil'); </script>";
-                        redirect('admin/dashboard');
-                        break;
-                    case 3:
-                        echo "<script> alert ('Selamat, login berhasil');</script>";
-                        redirect('dashboard');
-                        break;
-                    default:
-                        break;
-                }
-                // echo "<script> 
-                // alert ('Selamat, login berhasil');
-                // window.location='" . site_url('admin/dashboard') . "'
-                // </script>";
+                // switch ($this->session->set_userdata('level')) {
+                //     case 1:
+                //         echo "<script> alert ('Selamat, login berhasil'); </script>";
+                //         redirect('admin/dashboard');
+                //         break;
+                //     case 2:
+                //         echo "<script> alert ('Selamat, login berhasil'); </script>";
+                //         redirect('admin/dashboard');
+                //         break;
+                //     case 3:
+                //         echo "<script> alert ('Selamat, login berhasil');</script>";
+                //         redirect('dashboard');
+                //         break;
+                //     default:
+                //         break;
+                // }
+                echo "<script> 
+                alert ('Selamat, login berhasil');
+                window.location='" . site_url('admin/dashboard') . "'
+                </script>";
             } else {
                 echo "<script> 
                 alert ('Maaf login gagal, password/username salah');

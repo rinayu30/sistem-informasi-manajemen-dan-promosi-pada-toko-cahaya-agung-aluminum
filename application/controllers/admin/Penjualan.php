@@ -298,7 +298,6 @@ class Penjualan extends CI_Controller
 
     public function laporan_b()
     {
-
         $tanggal1 =  $this->input->post('tanggal1');
         $tanggal2 =  $this->input->post('tanggal2');
 
@@ -528,8 +527,6 @@ class Penjualan extends CI_Controller
     }
     public function cetak_faktur($id)
     {
-        $record = $this->penjualan_model->detail($id);
-        $info = $this->penjualan_model->ambil($id);
         $pdf = new FPDF('l', 'mm', 'A5');
         $pdf->SetLeftMargin(18);
         $pdf->SetRightMargin(10);
@@ -537,83 +534,64 @@ class Penjualan extends CI_Controller
         $pdf->SetFont('Arial', 'B', 10);
         // $pdf->Cell(5, 10, '', 0, 1, 'L');
         $pdf->Image('assets_user/img/gallery/caa3p.png', 10, 10, 25, 20, '', 'C');
-        $pdf->Cell(175, 5, 'TOKO CAHAYA AGUNG ALUMINIUM PEKANBARU', 0, 1, 'C');
+        $pdf->SetLeftMargin(18);
+        $pdf->Cell(180, 5, 'TOKO CAHAYA AGUNG ALUMINIUM PEKANBARU', 0, 1, 'C');
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(175, 11, 'Jl. Garuda Sakti No.Km 2,5, Simpang Baru, Kec. Tampan ', 0, 1, 'C');
-        $pdf->Cell(200, 5, '________________________________________________________________________________________________', 0, 1, 'C');
+        $pdf->Cell(180, 11, 'Jl. Garuda Sakti No.Km 2,5, Simpang Baru, Kec. Tampan ', 0, 1, 'C');
+        $pdf->Cell(150, 10, '________________________________________________________________________________________________________________________________________________________', 0, 1, 'C');
         $pdf->Ln(1.5);
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(180, 7, 'FAKTUR PEMBELIAN PRODUK', 0, 1, 'C');
-        $pdf->Cell(10, 7, '', 0, 1, 'C');
+        $pdf->Cell(10, 4, '', 0, 1, 'C');
         $pdf->SetFont('Arial', 'B', 9);
-
-        // foreach ($info as $row) {
-        $pdf->Cell(100, 3, 'Tgl. Transaksi   :', 0, 1, 'L');
-        $pdf->Cell(100, 3, 'No Faktur        :', 0, 1, 'R');
-        $pdf->Cell(10, 3, '', 0, 1, 'C');
-        $pdf->Cell(90, 3, 'Dibuat oleh      :', 0, 1, 'L');
-        $pdf->Cell(10, 3, '', 0, 1, 'C');
-        // $pdf->Cell(90, 3, 'No Faktur        :', 0, 1, 'R');
-        $pdf->Cell(10, 3, '', 0, 1, 'C');
-        $pdf->Cell(90, 3, 'Pembeli          :', 0, 1, 'R');
-        $pdf->Cell(10, 3, '', 0, 1, 'C');
-
-        // }
-        $pdf->SetLeftMargin(40);
+        $pdf->SetLeftMargin(30);
+        $info = $this->penjualan_model->ambil($id);
+        foreach ($info->result() as $row) {
+            $pdf->Cell(200, 3, 'Tgl. Transaksi       ' . '  :   ' . $row->tgl_penjualan . '                                               No Faktur           ' . '     :   ' . $row->kd_penjualan, 0, 1, 'L');
+            $pdf->Cell(10, 3, '', 0, 1, 'C');
+            $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                      Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
+            // $pdf->Cell(10, 3, '', 0, 1, 'C');
+            // $pdf->Cell(90, 3, 'No Faktur        :', 0, 1, 'R');
+            $pdf->Cell(10, 5, '', 0, 1, 'C');
+        }
+        $pdf->SetLeftMargin(35);
         $pdf->SetFont('Arial', 'B', 9);
-        $pdf->Cell(30, 6, 'No', 1, 0, 'C');
-        $pdf->Cell(30, 6, 'Nama Produk', 1, 0, 'C');
+        $pdf->Cell(8, 6, 'No', 1, 0, 'C');
+        $pdf->Cell(52, 6, 'Nama Produk', 1, 0, 'C');
         $pdf->Cell(25, 6, 'Jumlah', 1, 0, 'C');
         $pdf->Cell(25, 6, 'Harga', 1, 0, 'C');
         $pdf->Cell(27, 6, 'Total Harga', 1, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
 
+        $record = $this->penjualan_model->detail($id);
+        $byr = 0;
+        $awal = 0;
+        $sisa = 0;
+        $no = 1;
+        foreach ($record->result() as $row) {
+            $pdf->Cell(8, 6, $no, 1, 0, 'C');
+            $pdf->Cell(52, 6, $row->nama_produk, 1, 0, 'C');
+            $pdf->Cell(25, 6, $row->jumlah, 1, 0, 'C');
+            $pdf->Cell(25, 6, 'Rp.' . number_format($row->harga_jual), 1, 0, 'R');
+            $pdf->Cell(27, 6, 'Rp.' . number_format($row->subtotal), 1, 1, 'R');
 
-        // $byr = 0;
-        // $awal = 0;
-        // $sisa = 0;
-        // $no = 1;
-        // foreach ($record as $row) {
-        //     $pdf->Cell(30, 6, $no, 1, 0, 'C');
-        //     $pdf->Cell(30, 6, $row->nama_produk, 1, 0, 'C');
-        //     $pdf->Cell(30, 6, $row->jumlah, 1, 0, 'C');
-        //     $pdf->Cell(25, 6, 'Rp.' . number_format($row->harga_jual), 1, 0);
-        //     $pdf->Cell(25, 6, 'Rp.' . number_format($row->subtotal), 1, 0);
+            $no++;
+            $byr = $byr + $row->subtotal;
+            $awal = $awal + $row->dp_awal;
+            $sisa = $byr - $awal;
+        }
+        $pdf->Cell(110, 6, 'Total', 1, 0, 'R');
+        $pdf->Cell(27, 6, 'Rp.' . number_format($byr), 1, 1, 'R');
+        $pdf->Cell(110, 6, 'Uang Muka', 1, 0, 'R');
+        $pdf->Cell(27, 6, 'Rp.' . number_format($awal), 1, 1, 'R');
+        $pdf->Cell(110, 6, 'Sisa Pembayaran', 1, 0, 'R');
+        $pdf->Cell(27, 6, 'Rp.' . number_format($sisa), 1, 1, 'R');
 
-        //     $no++;
-        //     $byr = $byr + $row->subtotal;
-        //     // $awal = $awal + $row->dp_awal;
-        //     // $sisa = $sisa + $row->sisa;
-        // }
-        $pdf->Cell(110, 6, 'Total', 1, 0, 'C');
-        $pdf->Cell(27, 6, 'Rp.', 1, 1, 'R');
-        // $pdf->Cell(27, 6, 'Rp.' . number_format($byr), 1, 0, 'R');
-        $pdf->Cell(110, 6, 'Uang', 1, 0, 'C');
-        $pdf->Cell(27, 6, 'Rp.', 1, 1, 'R');
-        $pdf->Cell(110, 6, 'Kembalian', 1, 0, 'C');
-        $pdf->Cell(27, 6, 'Rp.', 1, 1, 'R');
-        // $bulan = array(
-        //     '01' => 'Januari',
-        //     '02' => 'Februari',
-        //     '03' => 'Maret',
-        //     '04' => 'April',
-        //     '05' => 'Mei',
-        //     '06' => 'Juni',
-        //     '07' => 'Juli',
-        //     '08' => 'Agustus',
-        //     '09' => 'September',
-        //     '10' => 'Oktober',
-        //     '11' => 'November',
-        //     '12' => 'Desember',
-        // );
-        // $kd_bulan = date('m');
-        // for($i=1;$i<=12;$i++;){}
-        $pdf->Ln(5.5);
+        $pdf->Ln(2.5);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->SetLeftMargin(18);
+        $pdf->SetLeftMargin(10);
         $pdf->Cell(150, 11, 'Terima Kasih Telah Membeli Produk Kami ', 0, 1, 'C');
 
-        // $pdf->Cell(170, 7, 'Pekanbaru,' . date('d') . ' ' . $bulan[$kd_bulan] . ' ' . date('Y'), 0, 1, 'R');
         $pdf->Output();
     }
 }

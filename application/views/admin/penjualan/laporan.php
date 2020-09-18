@@ -180,7 +180,7 @@
                 var id = $(this).attr('data');
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('admin/penjualan') ?>",
+                    url: "<?php echo base_url('admin/penjualan/laporan') ?>",
                     dataType: "JSON",
                     data: {
                         id: id
@@ -217,8 +217,8 @@
                     <div class="form-group">
                         <label for="status_jual">Ubah Status Penjualan</label>
                         <select name="status_jual" class="form-control text-sm">
-                            <?php $status = $this->input->post('status_jual') ?? $data->status_jual ?>
-                            <option value="-1" <?= $status == -1 ? 'selected' : null ?>>Batal</option>
+                            < <?php $status = $this->input->post('status_jual') ?? $data->status_jual ?> -->
+    <!-- <option value="-1" <?= $status == -1 ? 'selected' : null ?>>Batal</option>
                             <option value="0" <?= $status == 0 ? 'selected' : null ?>>Proses</option>
                             <option value="1" <?= $status == 1 ? 'selected' : null ?>>Selesai</option>
                         </select>
@@ -226,31 +226,31 @@
                     <div class="form-group clearfix">
                         <button type="button" data-dismiss="modal">Batal</button>
                         <button type="button" id='btn' class="btn btn-success pull-right">Simapan</button>
-                    </div>
-                </form>
+                    </div> -->
+    <!-- </form>
             </div>
         </div>
     </div>
-</div>
+</div> 
 Akhir Modal Edit Status--->
     <!-- <script type="text/javascript">
-    $(function() {
-        $('#btn-edit').click(function(e) {
-            e.preventDefault();
-            $('#modal').modal({
-                backdrop: 'static',
-                show: true
+        $(function() {
+            $('#btn-edit').click(function(e) {
+                e.preventDefault();
+                $('#modal').modal({
+                    backdrop: 'static',
+                    show: true
+                });
+                id = $(this).data('id');
+                // mengambil nilai data-id yang di click
+                $.ajax({
+                    url: 'admin/penjualan/proses_edit/' + id,
+                    success: function(data) {
+                        $("input[name='kd_penjualan']").val(data.id);
+                        $("input[name='status_jual']").val(data.status_jual);
+                        // $("textarea[name='alamat']").val(data.alamat);
+                    }
+                });
             });
-            id = $(this).data('id');
-            // mengambil nilai data-id yang di click
-            $.ajax({
-                url: 'admin/penjualan/proses_edit/' + id,
-                success: function(data) {
-                    // $("input[name='id']").val(data.id);
-                    $("input[name='status_jual']").val(data.status_jual);
-                    // $("textarea[name='alamat']").val(data.alamat);
-                }
-            });
-        });
-    })
-</script> -->
+        })
+    </script> -->

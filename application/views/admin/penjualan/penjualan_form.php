@@ -17,7 +17,8 @@
                         <form action="<?= site_url('admin/penjualan/proses') ?>" method="post">
                             <div class="form-group">
                                 <label for="kd_produk">Kode Produk*</label>
-                                <select id="kd_produk" class="form-control" name="kd_produk" required>
+                                <!-- <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label> -->
+                                <select id="kd_produk" type="search" class="form-control form-control-sm" name="kd_produk" required>
                                     <option value="" selected hidden>---Pilih---</option>
                                     <?php
                                     $db = $this->db->get('produk');
@@ -32,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
-                                <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control">
+                                <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control form-control-sm">
                             </div>
 
 
@@ -40,11 +41,11 @@
                     <div class="col-md-5 justify-content-right">
                         <div class="form-group">
                             <label for="kode">Nomor Penjualan</label>
-                            <input type="text" name="kode" value="<?= $row->kd_penjualan ?>" class="form-control" readonly>
+                            <input type="text" name="kode" value="<?= $row->kd_penjualan ?>" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="form-group">
                             <label for="tgl_pej"></label>
-                            <input type="date" name="tgl_pej" class="form-control" hidden>
+                            <input type="date" name="tgl_pej" class="form-control form-control-sm" hidden>
                         </div>
                         <!-- <div class="form-group">
                             <label for="uang_dp">Uang Muka</label>
@@ -64,11 +65,11 @@
                                 <label for="sisa">Sisa Bayar <small>(Rp)</small></label>
                                 <input type="text" id="sisa" name="sisa" value="<?= $row->sisa ?>" class="form-control" readonly>
                             </div> -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
 
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" name="tambah_jual" class="btn btn-success btn-sm">Simpan</button>
+                        </div> -->
+                        <div class="form-group ">
+                            <button type="submit" name="tambah_jual" class="btn btn-success btn-sm">Tambah</button>
                             <button type="reset" class="btn btn-danger btn-sm">Reset</button>
 
                         </div>
@@ -160,7 +161,7 @@
                                 <div class="box-body table-responsive">
 
                                     <div class="form-group ">
-                                        <select id="pembeli" class="form-control" name="pembeli" required>
+                                        <select id="pembeli" class="form-control form-control-sm" name="pembeli" required>
                                             <option value="" selected hidden>---Pilih---</option>
                                             <?php
                                             $db = $this->db->get('pembeli');
@@ -187,11 +188,11 @@
                                     <div class="row">
                                         <div class="form-group col-md-5">
                                             <!-- value="<?= $row->dp_awal ?>"  -->
-                                            <input type="number" min="1" name="uang_m" class="form-control">
+                                            <input type="number" min="1" name="uang_m" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
-                                            <input type="date" name="tgl_pej" class="form-control">
+                                            <input type="date" name="tgl_pej" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <input type="submit" name="hitung" value="Selesai" class="btn btn-success btn-sm">
