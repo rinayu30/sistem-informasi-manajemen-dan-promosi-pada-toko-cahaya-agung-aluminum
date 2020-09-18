@@ -136,7 +136,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('admin/penjualan/proses_edit' . $data->kd_penjualan) ?>" method="post">
+                    <form action="<?= base_url('admin/penjualan/proses_edit/' . $data->kd_penjualan) ?>" method="post">
                         <div class="form-group">
                             <label for="status_jual">Ubah Status Penjualan</label>
                             <select name="status_jual" class="form-control text-sm">
@@ -164,20 +164,39 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary btn-sm">Simpan</button>
+                            <button class="btn btn-info btn-sm">Ubah</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     <?php } ?>
-    <script src="<?php echo base_url() . 'assets/js/jquery-2.2.4.min.js' ?>"></script>
-    <script src="<?php echo base_url() . 'assets/js/bootstrap.js' ?>"></script>
-    <script src="<?php echo base_url() . 'assets/js/jquery.dataTables.min.js' ?>"></script>
-    <script src="<?php echo base_url() . 'assets/js/moment.js' ?>"></script>
-    <script>
+    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.js' ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/bootstrap.js' ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.dataTables.js' ?>"></script>
+    <script type="text/javascript">
         $(document).ready(function() {
-            $('#mydata').DataTable();
+            $('#show_data').on('click', function() {
+                var id = $(this).attr('data');
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo base_url('admin/penjualan') ?>",
+                    dataType: "JSON",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $.each(data, function(kd_penjualan, status_jual) {
+                            $('#ModalaEdit').modal('show');
+                            $('[name="kd_penjualan"]').val(data.kd_penjualan);
+                            $('[name="status_jual"]').val(data.status_jual);
+                            // $('[name="harga_edit"]').val(data.barang_harga);
+                        });
+                    }
+                });
+                return false;
+            });
+
         });
     </script>
     <!-- Akhir Modal Edit Status--->

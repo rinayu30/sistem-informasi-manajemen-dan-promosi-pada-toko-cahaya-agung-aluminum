@@ -76,17 +76,19 @@ class Produk_model extends CI_Model
         return "default.jpg";
     }
 
-    // public function _deleteImage($id)
-    // {
-    //     $produk = $this->data['produk'];
-    //     if (file_exists($produk . $id))
-    //         if ($id != $this->data['gambar_lama']) {
-    //             // $target_file = '.uploads/produk/' . $produk->gambar;
-    //             unlink($produk . $id);
-    //             // $filename = explode(".", $produk->gambar)[0];
-    //             // return array_map('unlink', glob(FCPATH . "uploads/produk/$filename.*"));
-    //         }
-    // }
+    public function _deleteImage1($id)
+    {
+        $produk = $this->data['produk'];
+        if (file_exists($produk . $id))
+            if ($id != $this->data['gambar']) {
+                $target_file = '.uploads/produk/' . $produk->gambar[0];
+                unlink($produk . $id);
+                $filename = explode(".", $produk->gambar)[0];
+                return array_map('unlink', glob(FCPATH . $target_file));
+                // return array_map('unlink', glob(FCPATH . "uploads/produk/$filename.*"));
+
+            }
+    }
     public function _deleteImage($id)
     {
         $produk = $this->data['produk'];
@@ -149,6 +151,7 @@ class Produk_model extends CI_Model
         ];
         if ($post['gambar'] != null) {
             $params['gambar'] = $this->_uploadImage();
+            // unlink("uploads/produks/" . $gambar);
         }
         $this->db->where('kd_produk', $post['kode']);
         $this->db->update('produk', $params);
@@ -169,8 +172,8 @@ class Produk_model extends CI_Model
 
     public function hapus_data($id)
     {
-        $this->_deleteImage($id);
         $this->db->where('kd_produk', $id);
+        $this->_deleteImage($id);
         $this->db->delete('produk');
     }
     //untuk website

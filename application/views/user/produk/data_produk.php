@@ -15,7 +15,7 @@
                             </span>
                         </span>
                         <?php if ($data->gambar != null) { ?>
-                            <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" style="height: 220px; width :min-content">
+                            <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" style="height:250px; width :inherit">
                         <?php } ?>
                         <span class="project-details" style="width :initial">
                             <a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>" class="btn btn-normal btn-sm lead">

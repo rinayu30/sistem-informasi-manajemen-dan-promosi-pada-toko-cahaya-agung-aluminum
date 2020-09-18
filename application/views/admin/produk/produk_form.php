@@ -36,13 +36,13 @@
                 <?php if ($page == 'edit') {
                   if ($row->gambar != null) { ?>
                     <div style="margin-bottom: 5px;">
-                      <img src="<?= base_url('uploads/produk/' . $row->gambar) ?>" style="width : 80%">
+                      <img src="<?= site_url('uploads/produk/' . $row->gambar) ?>" value="<?= $row->gambar ?>" style="width : 80%">
                     </div>
                 <?php
                   }
                 } ?>
                 <!-- <input type="hidden" name="gambar_lama" value="<?= $row->gambar ?>" /> -->
-                <input type="file" name="gambar" value="<?= $row->gambar ?>" class="form-control-file" />
+                <input type="file" name="gambar" value="<?= site_url('uploads/produk/' . $row->gambar) ?>" class="form-control-file" />
                 <small>(Biarkan kosong jika gambar tidak <?= $page == 'edit' ? 'diganti' : 'ada' ?>)</small>
               </div>
 

@@ -8,7 +8,7 @@ class Produk extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model', 'kalkulasi_model']);
-        // $this->load->library('form_validation');
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -29,6 +29,7 @@ class Produk extends CI_Controller
     // }
     public function add()
     {
+
         $produk = new stdClass();
         //field sesuai dengan database
         $produk->kd_produk = $this->produk_model->buat_kode();
@@ -68,15 +69,23 @@ class Produk extends CI_Controller
             );
             $this->load->view("admin/produk/produk_form", $data);
         } else {
-            echo "<script>alert('Data tidak dapat ditemukan');";
+            echo "<script>alert('Data tidak dapat ditemukan, tambahkan harga produk pada menu kalkulasi harga terlebih dahulu');";
             echo "window.location='" . site_url('admin/produk') . "';</script>";
         }
     }
 
     public function proses()
     {
+        // $this->form_validation->set_rules('nama', 'Nama', 'required');
+        // $this->form_validation->set_rules('kategori', 'Kategori', 'required');
+        // $this->form_validation->set_message('required', '%s harus diisi');
+        // $this->form_validation->set_error_delimiters('<small><span class="text-danger">', '</span></small>');
+
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah'])) {
+            // if ($this->form_validation->run() == FALSE) {
+            //     $this->load->view('admin/pengguna/produk_form');
+            // } else {
             $this->produk_model->add($post);
         } else if (isset($_POST['edit'])) {
 

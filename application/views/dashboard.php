@@ -3,7 +3,7 @@
 
     <!-- Slider Carousel
         ================================================== -->
-    <div class="span8">
+    <div class="span8 ">
         <div class="flexslider">
             <ul class="slides">
                 <li><img src="<?= base_url() ?>assets_user/img/gallery/caa2.svg" alt="slider" /></a></li>

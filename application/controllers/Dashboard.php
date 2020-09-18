@@ -6,6 +6,8 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         // check_not_login();
+        // cek_admin();
+        // check_not_login();
         $this->load->model(['produk_model', 'kategori_model']);
         // $this->load->library('form_validation');
     }

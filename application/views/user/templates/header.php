@@ -119,9 +119,20 @@
 								</li> -->
 							</ul>
 						</li>
-
 						<li class="<?= $this->uri->segment(1) == 'kontak' ? 'active' : '' ?>"><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
-						<li><a href="page-contact.htm">Masuk</a></li>
+						<li>
+							<?php if ($this->session->userdata('username')) { ?>
+								<a href="<?= base_url('auth/logout') ?>">
+									Logout
+								</a>
+							<?php } else { ?>
+								<a href="<?= base_url('auth/login') ?>">
+									Login
+								</a>
+							<?php } ?>
+
+							<!-- <a href="<?= base_url('auth/login') ?>">Login</a> -->
+						</li>
 					</ul>
 
 				</div>

@@ -121,8 +121,9 @@ class Penjualan extends CI_Controller
     {
         $kode = $this->input->post('kd_penjualan');
         $status_jual = $this->input->post('status_jual');
-        $this->penjualan_model->edit_status($status_jual, $kode);
-        redirect('admin/penjualan/laporan');
+        $data = $this->penjualan_model->edit_status($status_jual, $kode);
+        echo json_encode($data);
+        // redirect('admin/penjualan/laporan');
         // $post = $this->input->post(null, TRUE);
         // if (isset($_POST['submit'])) {
         //     $this->penjualan_model->edit_status($post);
