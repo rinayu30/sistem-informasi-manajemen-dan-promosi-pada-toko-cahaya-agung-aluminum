@@ -47,7 +47,6 @@ class Penjualan_model extends CI_Model
     public function buat_kode_penjualan()
     {
         $this->db->select('Right(penjualan.kd_penjualan,2) as kode ', false);
-        $this->db->where('Mid(penjualan.kd_penjualan,3,6)', DATE('d/M/y'));
         $this->db->order_by('kd_penjualan', 'desc');
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
@@ -61,9 +60,27 @@ class Penjualan_model extends CI_Model
             $no = sprintf("%'.02d", $kode);
         } else {
             $no = "01";
+            // $kode = 1;
         }
         $kodemax = str_pad($no, 2, "0", STR_PAD_LEFT);
         $kodejadi  = "PJ" . date('ymd') . $kodemax;
+        return $kodejadi;
+    }
+
+    public function buat_kode()
+    {
+        $this->db->select('Right(produk.kd_produk,3) as kode ', false);
+        $this->db->order_by('kd_produk', 'desc');
+        $this->db->limit(1);
+        $query = $this->db->get('produk');
+        if ($query->num_rows() <> 0) {
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            $kode = 1;
+        }
+        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kodejadi  = "PR" . $kodemax;
         return $kodejadi;
     }
 
