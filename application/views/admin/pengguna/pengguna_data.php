@@ -36,7 +36,20 @@
                           <td class="text-center"><?= $data->username ?></td>
                           <td class="text-center"><?= $data->email ?></td>
                           <td class="text-center"><?= $data->no_telp ?></td>
-                          <td class="text-center"><?= $data->level == 1 ? "Admin" : "Karyawan" ?></td>
+                          <td class="text-center">
+                            <?php if ($data->level == '1') { ?>
+                              <span class="badge badge-primary">Admin</span>
+                              </a>
+                            <?php } else if ($data->level == '2') { ?>
+                              <span class="badge badge-success">Karyawan</span>
+                            <?php } else { ?>
+                              <span class="badge badge-danger">Pengunjung</span>
+
+                            <?php } ?>
+
+
+                          </td>
+
                           <td colspan="3" class="text-center">
                             <form action="<?= site_url('admin/pengguna/delete') ?>" method="post">
 

@@ -16,7 +16,7 @@ class Dashboard extends CI_Controller
         $this->load->view('user/templates/header');
         $this->load->view('dashboard');
         $this->load->view('user/templates/footer');
-        // $this->load->view('user/templates/sidebar');
+        $this->load->view('user/templates/sidebar');
     }
 
     public function kontak()
@@ -45,6 +45,8 @@ class Dashboard extends CI_Controller
 
     public function tambah_keranjang($id)
     {
+        // check_not_login();
+        // cek_pengunjung();
         $produk = $this->produk_model->find($id);
         $data = array(
             'id'      => $produk->kd_produk,
@@ -61,6 +63,7 @@ class Dashboard extends CI_Controller
     }
     public function detail_keranjang()
     {
+        // check_not_login();
         $this->load->view('user/templates/header');
         $this->load->view('user/templates/sidebar');
         $this->load->view('user/keranjang');
@@ -68,11 +71,13 @@ class Dashboard extends CI_Controller
     }
     public function hapus_keranjang()
     {
+        // check_not_login();
         $this->cart->destroy();
         redirect('dashboard/produk');
     }
     public function pembayaran()
     {
+        // check_not_login();
         $this->load->view('user/templates/header');
         $this->load->view('user/templates/sidebar');
         $this->load->view('user/pembayaran');

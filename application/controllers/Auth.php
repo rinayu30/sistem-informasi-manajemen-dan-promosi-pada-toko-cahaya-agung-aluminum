@@ -26,7 +26,14 @@ class Auth extends CI_Controller
                     'level' => $row->level
                 );
                 $this->session->set_userdata($params);
-                // switch ($this->session->set_userdata('level')) {
+                if ($this->session->userdata("level") == "1") {
+                    redirect('admin/dashboard/');
+                } elseif ($this->session->userdata("level") == "2") {
+                    redirect('admin/dashboard/');
+                } else {
+                    redirect('dashboard');
+                }
+                // switch ($this->fungsi->user_login()->level) {
                 //     case 1:
                 //         echo "<script> alert ('Selamat, login berhasil'); </script>";
                 //         redirect('admin/dashboard');
@@ -42,16 +49,21 @@ class Auth extends CI_Controller
                 //     default:
                 //         break;
                 // }
-                echo "<script> 
-                alert ('Selamat, login berhasil');
-                window.location='" . site_url('admin/dashboard') . "'
-                </script>";
+                // echo "<script> 
+                // alert ('Selamat, login berhasil');
+                // window.location='" . site_url('admin/dashboard') . "'
+                // </script>";
             } else {
-                echo "<script> 
-                alert ('Maaf login gagal, password/username salah');
-                window.location='" . site_url('auth/login') . "'
-                </script>";
-                // $this->session->set
+
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Username atau password Anda Salah!
+                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>');
+                redirect('auth/login');
+                // echo "<script> 
+                // alert ('Maaf login gagal, password/username salah');
+                // window.location='" . site_url('auth/login') . "'
+                // </script>";
             }
         }
     }

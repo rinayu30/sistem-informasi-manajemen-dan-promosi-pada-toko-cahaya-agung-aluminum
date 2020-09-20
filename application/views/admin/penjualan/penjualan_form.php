@@ -18,8 +18,14 @@
                             <div class="form-group">
                                 <label for="kd_produk">Kode Produk*</label>
                                 <!-- <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label> -->
+                                <!-- <div class="navbar-form">
+                                    <?= form_open('admin/penjualan/search') ?>
+                                    <input type="text" name="keyword" class="form-control form-control-sm" placeholder="cari produk berdasarkan kode atau nama ...">
+                                    <button type="submit" class="btn btn-success btn-sm">Cari produk</button>
+                                    <?= form_close() ?>
+                                </div> -->
                                 <select id="kd_produk" type="search" class="form-control form-control-sm" name="kd_produk" required>
-                                    <option value="" selected hidden>---Pilih---</option>
+                                    <option value="">--Pilih--</option>
                                     <?php
                                     $db = $this->db->get('produk');
                                     foreach ($db->result() as $data) {
@@ -159,20 +165,30 @@
                             </div>
                             <div class="card-body" style="height: 100px;">
                                 <div class="box-body table-responsive">
-
                                     <div class="form-group ">
-                                        <select id="pembeli" class="form-control form-control-sm" name="pembeli" required>
-                                            <option value="" selected hidden>---Pilih---</option>
-                                            <?php
-                                            $db = $this->db->get('pembeli');
-                                            foreach ($db->result() as $data) {
-                                            ?>
-                                                <option value="<?php echo $data->id_pembeli; ?>">
-                                                    <?php echo $data->nama_pembeli; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <select id="pembeli" class="form-control form-control-sm" name="pembeli" required>
+                                                    <option value="" selected hidden>---Pilih---</option>
+                                                    <?php
+                                                    $db = $this->db->get('pembeli');
+                                                    foreach ($db->result() as $data) {
+                                                    ?>
+                                                        <option value="<?php echo $data->id_pembeli; ?>">
+                                                            <?php echo $data->nama_pembeli; ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <a href="<?= site_url('admin/pembeli/add') ?>" class="btn btn-primary btn-sm"><i class="fas fa-user-plus fa-sm"></i></a>
+
+                                            </div>
+                                        </div>
+
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -181,7 +197,7 @@
 
                         <div class="card shadow mb-4 card-header py-3">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><label for="uang_m"><small>(Masukkan uang dp jika ada) | (Masukkan tanggal penjualan)</small></label></h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><label for="uang_m"><small>(Uang dp jika ada / dibayar) | (Masukkan tanggal penjualan)</small></label></h6>
                             </div>
                             <div class="card-body" style="height: 100px;">
                                 <div class="box-body table-responsive">

@@ -13,26 +13,15 @@ class Penjualan extends CI_Controller
         $this->load->library('pdf');
     }
 
-    // public function index()
-    // {
-
-    //     $data['row'] = $this->penjualan_model->get();
-    //     $this->load->view('templates_adm/header');
-    //     $this->load->view('templates_adm/sidebar');
-    //     $this->load->view('admin/penjualan/penjualan_data', $data);
-    //     $this->load->view('templates_adm/footer');
-    // }
-
-    // public function index()
-    // {
-
-    //     $data['row'] = $this->penjualan_model->get_Detail();
-    //     $this->load->view('templates_adm/header');
-    //     $this->load->view('templates_adm/sidebar');
-    //     $this->load->view('admin/penjualan/penjualan_form', $data);
-    //     $this->load->view('templates_adm/footer');
-    // }
-
+    public function search()
+    {
+        $key = $this->input->post('keyword');
+        $data['produk'] = $this->penjualan_model->get_keyword($key);
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/penjualan/penjualan_form', $data);
+        $this->load->view('templates_adm/footer');
+    }
     public function index()
     {
         $id = $this->input->post('kd_produk');
@@ -51,11 +40,6 @@ class Penjualan extends CI_Controller
         $data['detail'] = $this->penjualan_model->get_Dpenjualan();
         $data['row'] = $penjualan;
         $data['page'] = 'tambah';
-        // $data = array(
-        //     'page' => 'tambah',
-        //     'row' => $penjualan,
-        //     'detail' => $this->penjualan_model->get_Detail(),
-        // );
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/penjualan/penjualan_form', $data);
@@ -90,7 +74,7 @@ class Penjualan extends CI_Controller
         );
 
         $this->penjualan_model->selesai_hitung($data);
-        $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan');
+        $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
         redirect('admin/penjualan');
     }
     //ubah status jual pake ajax
@@ -112,47 +96,31 @@ class Penjualan extends CI_Controller
         //     $this->penjualan_model->edit_status($post);
         // }
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Data berhasil disimpan');
+            $this->session->set_flashdata('success', ' Penjualan berhasil ditambahkan');
         }
         redirect('admin/penjualan');
     }
 
-    public function proses_edit()
+    public function edit_status()
     {
+
         $kode = $this->input->post('kd_penjualan');
         $status_jual = $this->input->post('status_jual');
-        $data = $this->penjualan_model->edit_status($status_jual, $kode);
-        echo json_encode($data);
-        // redirect('admin/penjualan/laporan');
+        $this->penjualan_model->edit_status($status_jual, $kode);
+        // echo json_encode($data);
+        redirect('admin/penjualan/laporan');
         // $post = $this->input->post(null, TRUE);
         // if (isset($_POST['submit'])) {
         //     $this->penjualan_model->edit_status($post);
         // }
-        // if ($this->db->affected_rows() > 0) {
-        //     $this->session->set_flashdata('success', ' Data berhasil disimpan');
-        // }
-        // redirect('admin/penjualan/laporan');
-        // $id = $this->uri->segment(3);
-        // $e = $this->db->where('kd_penjualan', $id)->get('penjualan')->row();
-
-        // $kirim['status_jual'] = $e->status_jual;
-        // $kirim['alamat'] = $e->alamat;
-
-        // $this->output
-        //     ->set_content_type('application/json')
-        //     ->set_output(json_encode($kirim));
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', ' Status penjualan berhasil diubah');
+        }
     }
 
     public function detail($id)
     {
-        // $query = $this->penjualan_model->detail($id);
-        // $row = $query->first_row();
-        // if (isset($row)) {
-        //     echo $row['tgl_penjualan'];
-        //     echo $row['kd_penjualan'];
-        //     echo $row['id_pembeli'];
-        // }
-        // $data['first'] = $this->penjualan_model->ambil($id);
+
         $data['record'] = $this->penjualan_model->detail($id);
         $data['info'] = $this->penjualan_model->ambil($id);
         $this->load->view('templates_adm/header');
@@ -550,8 +518,6 @@ class Penjualan extends CI_Controller
             $pdf->Cell(200, 3, 'Tgl. Transaksi       ' . '  :   ' . $row->tgl_penjualan . '                                               No Faktur           ' . '     :   ' . $row->kd_penjualan, 0, 1, 'L');
             $pdf->Cell(10, 3, '', 0, 1, 'C');
             $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                      Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
-            // $pdf->Cell(10, 3, '', 0, 1, 'C');
-            // $pdf->Cell(90, 3, 'No Faktur        :', 0, 1, 'R');
             $pdf->Cell(10, 5, '', 0, 1, 'C');
         }
         $pdf->SetLeftMargin(35);
@@ -565,7 +531,7 @@ class Penjualan extends CI_Controller
 
         $record = $this->penjualan_model->detail($id);
         $byr = 0;
-        $awal = 0;
+
         $sisa = 0;
         $no = 1;
         foreach ($record->result() as $row) {
@@ -577,12 +543,12 @@ class Penjualan extends CI_Controller
 
             $no++;
             $byr = $byr + $row->subtotal;
-            $awal = $awal + $row->dp_awal;
+            $awal = $row->dp_awal;
             $sisa = $byr - $awal;
         }
         $pdf->Cell(110, 6, 'Total', 1, 0, 'R');
         $pdf->Cell(27, 6, 'Rp.' . number_format($byr), 1, 1, 'R');
-        $pdf->Cell(110, 6, 'Uang Muka', 1, 0, 'R');
+        $pdf->Cell(110, 6, 'Dibayar', 1, 0, 'R');
         $pdf->Cell(27, 6, 'Rp.' . number_format($awal), 1, 1, 'R');
         $pdf->Cell(110, 6, 'Sisa Pembayaran', 1, 0, 'R');
         $pdf->Cell(27, 6, 'Rp.' . number_format($sisa), 1, 1, 'R');

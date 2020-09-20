@@ -25,8 +25,8 @@
     </div>
 </div><!-- End Headline -->
 
-<div class="row gallery-row">
-    <!-- Begin Gallery Row -->
+<!-- <div class="row gallery-row">
+     Begin Gallery Row 
 
     <div class="span12">
         <h5 class="title-bg">Produk Kami :
@@ -34,11 +34,11 @@
             <button class="btn btn-mini btn-inverse hidden-phone" type="button">Lihat Produk</button>
         </h5>
 
-        <!-- Client Area
-        ================================================== -->
+         Client Area
+        ================================================== 
 
 
-    </div>
+    </div> -->
 
 </div><!-- End Bottom Section -->
 

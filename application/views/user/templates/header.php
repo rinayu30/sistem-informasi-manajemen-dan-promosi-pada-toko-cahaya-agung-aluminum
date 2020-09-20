@@ -121,7 +121,7 @@
 						</li>
 						<li class="<?= $this->uri->segment(1) == 'kontak' ? 'active' : '' ?>"><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
 						<li>
-							<?php if ($this->session->userdata('username')) { ?>
+							<?php if ($this->fungsi->user_login()->nama_user) { ?>
 								<a href="<?= base_url('auth/logout') ?>">
 									Logout
 								</a>
@@ -133,6 +133,9 @@
 
 							<!-- <a href="<?= base_url('auth/login') ?>">Login</a> -->
 						</li>
+
+						<!-- Dropdown - User Information -->
+						</li>
 					</ul>
 
 				</div>
@@ -143,7 +146,7 @@
 					<div class="mobile-nav-select">
 						<select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
 							<option value="">Navigate...</option>
-							<option value="index.htm">Home</option>
+							<option value="<?= site_url('home') ?>">Home</option>
 							<option value="page-full-width.htm">Produk</option>
 							<option value="<?= site_url('home/produk') ?>">- Semua produk</option>
 							<option value="page-right-sidebar.htm">- Lemari</option>

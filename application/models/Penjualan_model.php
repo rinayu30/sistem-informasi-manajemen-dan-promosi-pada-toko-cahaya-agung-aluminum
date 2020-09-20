@@ -15,8 +15,14 @@ class Penjualan_model extends CI_Model
         return $query;
     }
 
-
-
+    public function get_keyword($key)
+    {
+        $this->db->select('*');
+        $this->db->from('produk');
+        $this->db->like('kd_produk', $key);
+        $this->db->or_like('nama_produk', $key);
+        return $this->db->get()->result();
+    }
 
     public function get_Dpenjualan()
     {
@@ -49,9 +55,9 @@ class Penjualan_model extends CI_Model
         // FROM penjualan
         // WHERE MID(kd_penjualan,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
         // $query = $this->db->query($sql);
-        if ($query->num_rows() > 0) {
+        if ($query->num_rows() <> 0) {
             $data = $query->row();
-            $kode = intval(($data->kode) + 1);
+            $kode = intval($data->kode) + 1;
             $no = sprintf("%'.02d", $kode);
         } else {
             $no = "01";
@@ -120,23 +126,14 @@ class Penjualan_model extends CI_Model
     }
     public function edit_status($status_jual, $kode)
     {
-        $hasil = $this->db->query("UPDATE penjualan SET status_jual='$status_jual' WHERE kd_penjualan='$kode'");
-        return $hasil;
 
-        // $params = [
-        //     'status_jual' => $post['status_jual'],
-        //     'updated' => date('Y-m-d H:i:s')
-        // ];
-        // $this->db->where('kd_penjualan', $post['kd_penjualan']);
-        // $this->db->update('penjualan', $params);
-        // $hasil = $this->db->query("UPDATE penjualan SET status_jual='' WHERE kd_penjualan='$id'");
-        // return $hasil;
-        // $post=$this->input->post('');
-        // $params = [
-        //     'status' => $post['status_jual'],
-        // ];
-        // $this->db->where('kd_penjualan', $post['id']);
-        // $this->db->update('penjualan', $params);
+        $params = [
+            'status_jual' => $status_jual,
+            'updated' => date('Y-m-d H:i:s')
+        ];
+        $this->db->where('kd_penjualan', $kode);
+        $this->db->update('penjualan', $params);
+        return TRUE;
     }
 
     public function add($post)
