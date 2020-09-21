@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <!-- <h1 class="h5 mb-0 text-gray-800">Penjualan</h1><br /> -->
-        <!-- <a href="<?= site_url('admin/penjualan') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a> -->
+        <a href="<?= site_url('admin/penjualan/daftar_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-hand-holding-usd"></i> Lihat Daftar Penjualan</a>
         <!-- Page Heading -->
     </div>
     <div class="card shadow mb-4">

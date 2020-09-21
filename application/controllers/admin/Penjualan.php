@@ -75,7 +75,7 @@ class Penjualan extends CI_Controller
 
         $this->penjualan_model->selesai_hitung($data);
         $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
-        redirect('admin/penjualan');
+        redirect('admin/penjualan/daftar_penjualan');
     }
     //ubah status jual pake ajax
     function edit_status_jual($id)
@@ -126,6 +126,16 @@ class Penjualan extends CI_Controller
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/penjualan/penjualan_detail', $data);
+        $this->load->view('templates_adm/footer');
+    }
+
+    public function daftar_penjualan()
+    {
+
+        $data['record'] =  $this->penjualan_model->laporan_default();
+        $this->load->view('templates_adm/header');
+        $this->load->view('templates_adm/sidebar');
+        $this->load->view('admin/penjualan/daftar_penjualan', $data);
         $this->load->view('templates_adm/footer');
     }
 
@@ -215,7 +225,7 @@ class Penjualan extends CI_Controller
             LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
 
             WHERE penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
-            order by tgl_penjualan desc")->result();
+            AND status_jual='1' order by tgl_penjualan desc")->result();
             $byr = 0;
             $awal = 0;
             $sisa = 0;
@@ -256,7 +266,7 @@ class Penjualan extends CI_Controller
             $pdf->Cell(170, 7, 'Pekanbaru,' . date('d') . ' ' . $bulan[$kd_bulan] . ' ' . date('Y'), 0, 1, 'R');
             $pdf->Output();
         } else {
-            $data['record'] =  $this->penjualan_model->laporan_default();
+            $data['record'] =  $this->penjualan_model->laporan_default_selesai();
             $this->load->view('templates_adm/header');
             $this->load->view('templates_adm/sidebar');
             $this->load->view('admin/penjualan/laporan', $data);

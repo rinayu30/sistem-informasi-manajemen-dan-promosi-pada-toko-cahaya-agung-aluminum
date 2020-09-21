@@ -3,50 +3,18 @@
         <div class="card-header">
             <hr>
 
-            <h4 align="center"> <b>LAPORAN PENJUALAN</b></h4><br>
+            <h4 align="center"> <b>PENJUALAN</b></h4><br>
             <h4 align="center"> <b>TOKO CAHAYA AGUNG ALUMINIUM</b></h4>
             <br>
             <hr>
         </div>
         <div class="container-fluid">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-
-                </div>
-                <div class="card-body">
-                    <div class="box-body table-responsive">
-                        <form method="post">
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-
-                                    <label for="exampleInputName2"><b>Dari Tanggal</b></label>
-                                    <input type="date" name="tanggal1" class="form-control" required placeholder="Tanggal Mulai">
-
-                                </div>
-                                <div class="form-group col-md-6">
-
-                                    <label for="exampleInputEmail2"> <b>Hingga Tanggal</b></label>
-                                    <input type="date" name="tanggal2" class="form-control" required placeholder="Tanggal Selesai">
-                                </div>
-
-                            </div>
-                            <div class="form-group text-center">
-                                <button href="<?php echo site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="submit"><i class="fas fa-search"></i> Tampilkan</button>
-                                <button href="<?php echo site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak</button>
-                                <br><br>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Seluruh Penjualan</h6>
-                        <!-- <button href="<?php echo site_url('admin/penjualan/cetak_penjualan_semua') ?>" class="btn btn-primary btn-sm" type="submit" name="cetak"><i class="fas fa-print"></i> Cetak Semua</button> -->
-                        <p align="right"><a href="<?php echo site_url('admin/penjualan/cetak_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Semua </a> &emsp; &emsp;</p>
+                        <p align="right"><a href="<?php echo site_url('admin/penjualan') ?>" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Kembali </a> &emsp; &emsp;</p>
 
                     </div>
                 </div>
@@ -62,6 +30,7 @@
                                     <th>Total Bayar</th>
                                     <th>Uang Muka</th>
                                     <th>Sisa</th>
+                                    <th>Status</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
@@ -74,10 +43,31 @@
                                         <td width=2%><?= $data->kd_penjualan ?></td>
                                         <td class="text-center" value="<?= $data->id_pembeli ?>"><?= $data->nama_pembeli ?></td>
                                         <td class="text-center" value="<?= $data->id_user ?>"><?= $data->nama_user ?></td>
+
                                         <td class="text-center" width=10%><?= $data->tgl_penjualan ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->tot_bayar, 0, ',', '.') ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->dp_awal, 0, ',', '.') ?></td>
                                         <td class="text-center">Rp. <?= number_format($data->sisa, 0, ',', '.') ?></td>
+                                        <!-- <td class="text-center"><?= $data->status_jual ?></td> -->
+                                        <td class="text-center" width=3%>
+
+                                            <?php if ($data->status_jual == '0') { ?>
+                                                <span class="badge badge-primary">Proses</span>
+                                                <a href='' class="btn btn-success btn-circle btn-sm" class="d-inline" data-target="#staticBackdrop<?php echo $data->kd_penjualan ?>" data-toggle="modal">
+
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            <?php } else if ($data->status_jual == '1') { ?>
+                                                <span class="badge badge-success">Selesai</span>
+                                            <?php } else { ?>
+                                                <span class="badge badge-danger">Batal</span>
+                                                <a href='' class="btn btn-success btn-circle btn-sm" class="d-inline" data-target="#staticBackdrop<?php echo $data->kd_penjualan ?>" data-toggle="modal">
+
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            <?php } ?>
+                                            <!-- <a href='' id='btn-edit' class="btn btn-outline btn-circle btn-md purple" data-id='<?php echo $data->kd_penjualan; ?>'><i class="fa fa-edit"></i> </a> -->
+                                        </td>
                                         <td class="text-center">
                                             <a href="<?= site_url('admin/penjualan/detail/' . $data->kd_penjualan) ?>" class="btn btn-info btn-sm">
                                                 <i class="fas fa-info"></i> <b>Detail</b> </a>

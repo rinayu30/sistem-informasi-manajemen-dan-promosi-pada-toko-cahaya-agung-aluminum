@@ -81,7 +81,7 @@ class Produk_model extends CI_Model
         $produk = $this->data['produk'];
         if (file_exists($produk . $id))
             if ($id != $this->data['gambar']) {
-                $target_file = '.uploads/produk/' . $produk->gambar[0];
+                $target_file = 'uploads/produk/' . $produk->gambar[0];
                 unlink($produk . $id);
                 $filename = explode(".", $produk->gambar)[0];
                 return array_map('unlink', glob(FCPATH . $target_file));
@@ -173,7 +173,7 @@ class Produk_model extends CI_Model
     public function hapus_data($id)
     {
         $this->db->where('kd_produk', $id);
-        $this->_deleteImage($id);
+        $this->_deleteImage1($id);
         $this->db->delete('produk');
     }
     //untuk website

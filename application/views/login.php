@@ -46,9 +46,13 @@
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Kata sandi..." required>
                     </div>
-                    <button type="submit" name="login" class="btn btn-primary btn-user btn-block">
-                      Masuk
+                    <button type="submit" name="login" class="btn btn-primary form-control">
+                      Login
                     </button>
+                    <hr>
+                    <div class="text-center">
+                      <a href="<?= site_url('auth/register') ?>">Belum punya akun? Daftar sekarang</a>
+                    </div>
                   </form>
 
                 </div>
