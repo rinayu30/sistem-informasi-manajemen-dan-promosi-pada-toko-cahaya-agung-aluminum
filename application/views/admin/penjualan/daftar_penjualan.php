@@ -67,7 +67,46 @@
 
                                     </td>
                                 </tr>
-                            <?php } ?>
+                                <div class="modal fade" id="staticBackdrop<?php echo $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Edit Status</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label for="status_jual">Ubah Status Penjualan</label>
+                                                        <select name="status_jual" class="form-control text-sm">
+                                                            <option value="">--Pilih--</option>
+                                                            <?php if ($data->status_jual == '-1') : ?>
+                                                                <option value="-1" selected>Batal</option>
+                                                                <option value="0">Proses</option>
+                                                                <option value="1">Selesai</option>
+
+                                                            <?php elseif ($data->status_jual == '0') : ?>
+                                                                <option value="-1">Batal</option>
+                                                                <option value="0" selected>Proses</option>
+                                                                <option value="1">Selesai</option>
+                                                            <?php else : ?>
+                                                                <option value="-1">Batal</option>
+                                                                <option value="0">Proses</option>
+                                                                <option value="1" selected>Selesai</option>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
+                                                        <button class="btn btn-info btn-sm" id="btn_update">Ubah Status</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> <!-- Akhir Modal Edit Status--->
+                                <?php } ?>
 
                         </tbody>
                     </table><br><small><i>*PJ : Penanggung Jawab</i></small>
@@ -83,51 +122,9 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<?php foreach ($record->result() as $key => $data) { ?>
+<script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.js' ?>"></script>
+<script type="text/javascript" src="<?php echo base_url() . 'assets/js/bootstrap.js' ?>"></script>
+<script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.dataTables.js' ?>"></script>
+<script type="text/javascript">
 
-    <div class="modal fade" id="staticBackdrop<?php echo $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Edit Status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="status_jual">Ubah Status Penjualan</label>
-                            <select name="status_jual" class="form-control text-sm">
-                                <option value="">--Pilih--</option>
-                                <?php if ($data->status_jual == '-1') : ?>
-                                    <option value="-1" selected>Batal</option>
-                                    <option value="0">Proses</option>
-                                    <option value="1">Selesai</option>
-
-                                <?php elseif ($data->status_jual == '0') : ?>
-                                    <option value="-1">Batal</option>
-                                    <option value="0" selected>Proses</option>
-                                    <option value="1">Selesai</option>
-                                <?php else : ?>
-                                    <option value="-1">Batal</option>
-                                    <option value="0">Proses</option>
-                                    <option value="1" selected>Selesai</option>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
-                            <button class="btn btn-info btn-sm" id="btn_update">Ubah Status</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> <!-- Akhir Modal Edit Status--->
-    <?php } ?>
-    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.js' ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/bootstrap.js' ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url() . 'assets/js/jquery.dataTables.js' ?>"></script>
-    <script type="text/javascript">
-
-    </script>
+</script>

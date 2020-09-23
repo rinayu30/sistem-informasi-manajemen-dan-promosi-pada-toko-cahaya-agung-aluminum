@@ -24,7 +24,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost/cahayaagungaluminium';
-$config['base_url'] = 'http://localhost/tokocahayaagung';
+// $config['base_url'] = 'http://localhost/tokocahayaagung';
+// $config['base_url'] = 'http://localhost/rina_ta';
+
+$root = "http://" . $_SERVER['HTTP_HOST'];
+$root .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+$config['base_url']    = "$root";
 
 /*
 |--------------------------------------------------------------------------
