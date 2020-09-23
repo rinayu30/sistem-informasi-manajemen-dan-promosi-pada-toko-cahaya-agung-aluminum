@@ -77,7 +77,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-horizontal">
+                                                <form class="form-horizontal" action="<?= base_url('admin/penjualan/edit_status/' . $data->kd_penjualan) ?>" method="post">
                                                     <div class="form-group">
                                                         <label for="status_jual">Ubah Status Penjualan</label>
                                                         <select name="status_jual" class="form-control text-sm">
@@ -100,7 +100,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
-                                                        <button class="btn btn-info btn-sm" id="btn_update">Ubah Status</button>
+                                                        <button class="btn btn-info btn-sm" id="btn_update" type="submit">Ubah Status</button>
                                                     </div>
                                                 </form>
                                             </div>

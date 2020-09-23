@@ -124,14 +124,14 @@ class Penjualan_model extends CI_Model
             return $sisa;
         }
     }
-    public function edit_status($status_jual, $kode)
+    public function edit_status($status_jual, $id)
     {
 
         $params = [
             'status_jual' => $status_jual,
             'updated' => date('Y-m-d H:i:s')
         ];
-        $this->db->where('kd_penjualan', $kode);
+        $this->db->where('kd_penjualan', $id);
         $this->db->update('penjualan', $params);
         return TRUE;
     }

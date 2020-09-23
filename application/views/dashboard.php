@@ -10,8 +10,8 @@
                  <div class="row">
                      <div class="col-lg-5">
                          <!-- <span>Bag,kids</span> -->
-                         <h1> Toko Cahaya Agung Aluminium</h1>
-                         <p>Kami menyediakan lemari aluminium khususnya etalase, lemari piring, lemari pakaian, tempat jualan dan jemuran pakaian</p>
+                         <h2> Toko Cahaya Agung Aluminium</h2><br>
+                         <p class="lead">Kami menyediakan lemari aluminium khususnya etalase, lemari piring, lemari pakaian, tempat jualan dan jemuran pakaian</p>
                          <p class="lead">Khusus kota Pekanbaru </p>
 
                          <!-- <a href="#" class="primary-btn">Shop Now</a> -->
@@ -28,7 +28,7 @@
                      <div class="col-lg-5">
                          <!-- <h3> Selamat Datang di Toko Cahaya Agung Aluminium <br />
                          </h3> -->
-                         <h1> Toko Cahaya Agung Aluminium</h1>
+                         <h2> Toko Cahaya Agung Aluminium</h2>
                          <br>
                          <p class="lead">Menjual dan menerima jasa pembuatan perabot aluminium untuk menghiasi rumah atau toko Anda. </p>
                          <p class="lead">Khusus kota Pekanbaru </p>

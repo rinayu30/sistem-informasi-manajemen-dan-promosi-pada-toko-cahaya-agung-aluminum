@@ -82,7 +82,7 @@ class Penjualan extends CI_Controller
     {
         // $id = $this->penjualan_model->buat_kode_penjualan();
         $status = $this->input->post('status_jual');
-        $data = $this->penjualan_model->edit_status($id);
+        $data = $this->penjualan_model->edit_status($id, $status);
         echo json_encode($data);
     }
 
@@ -101,14 +101,14 @@ class Penjualan extends CI_Controller
         redirect('admin/penjualan');
     }
 
-    public function edit_status()
+    public function edit_status($id)
     {
 
-        $kode = $this->input->post('kd_penjualan');
+        // $id = $this->input->post('kd_penjualan');
         $status_jual = $this->input->post('status_jual');
-        $this->penjualan_model->edit_status($status_jual, $kode);
+        $this->penjualan_model->edit_status($status_jual, $id);
         // echo json_encode($data);
-        redirect('admin/penjualan/laporan');
+        redirect('admin/penjualan/daftar_penjualan');
         // $post = $this->input->post(null, TRUE);
         // if (isset($_POST['submit'])) {
         //     $this->penjualan_model->edit_status($post);
