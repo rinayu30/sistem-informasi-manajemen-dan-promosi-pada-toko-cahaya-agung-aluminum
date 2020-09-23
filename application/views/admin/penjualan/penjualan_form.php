@@ -202,15 +202,15 @@
                             <div class="card-body" style="height: 100px;">
                                 <div class="box-body table-responsive">
                                     <div class="row">
-                                        <div class="form-group col-md-5">
+                                        <div class="form-group col-md-4">
                                             <!-- value="<?= $row->dp_awal ?>"  -->
                                             <input type="number" min="1" name="uang_m" class="form-control form-control-sm">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-md-5">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
                                             <input type="date" name="tgl_pej" class="form-control form-control-sm">
                                         </div>
-                                        <div class="form-group col-md-5">
+                                        <div class="form-group col-md-3">
                                             <input type="submit" name="hitung" value="Selesai" class="btn btn-success btn-sm">
                                         </div>
                                     </div>

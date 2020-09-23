@@ -49,10 +49,10 @@
                     <button type="submit" name="login" class="btn btn-primary form-control">
                       Login
                     </button>
-                    <hr>
+                    <!-- <hr>
                     <div class="text-center">
                       <a href="<?= site_url('auth/register') ?>">Belum punya akun? Daftar sekarang</a>
-                    </div>
+                    </div> -->
                   </form>
 
                 </div>
