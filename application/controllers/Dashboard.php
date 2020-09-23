@@ -13,17 +13,17 @@ class Dashboard extends CI_Controller
     }
     public function index()
     {
-        $this->load->view('user/templates/header');
+        $this->load->view('user/template/header');
         $this->load->view('dashboard');
-        $this->load->view('user/templates/footer');
-        $this->load->view('user/templates/sidebar');
+        // $this->load->view('user/template/sidebar');
+        $this->load->view('user/template/footer');
     }
 
     public function kontak()
     {
-        $this->load->view('user/templates/header');
+        $this->load->view('user/template/header');
         $this->load->view('user/kontak');
-        $this->load->view('user/templates/footer');
+        $this->load->view('user/template/footer');
         // $this->load->view('user/templates/sidebar');
     }
 

@@ -1,45 +1,43 @@
-<div class="row headline">
-    <!-- Begin Headline -->
+ <!-- Page Preloder -->
+ <div id="preloder">
+     <div class="loader"></div>
+ </div>
+ <!-- Hero Section Begin -->
+ <section class="hero-section">
+     <div class="hero-items owl-carousel">
+         <div class="single-hero-items set-bg" data-setbg="<?= base_url() ?>assets_user/copy/img/hero-caa2.png">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-lg-5">
+                         <!-- <span>Bag,kids</span> -->
+                         <h1> Toko Cahaya Agung Aluminium</h1>
+                         <p>Kami menyediakan lemari aluminium khususnya etalase, lemari piring, lemari pakaian, tempat jualan dan jemuran pakaian</p>
 
-    <!-- Slider Carousel
-        ================================================== -->
-    <div class="span8 ">
-        <div class="flexslider">
-            <ul class="slides">
-                <li><img src="<?= base_url() ?>assets_user/img/gallery/caa2.svg" alt="slider" /></a></li>
-                <li><img src="<?= base_url() ?>assets_user/img/gallery/caa3.svg" alt="slider" /></a></li>
-                <li><img src="<?= base_url() ?>assets_user/img/gallery/fur.svg" alt="slider" /></a></li>
+                         <!-- <a href="#" class="primary-btn">Shop Now</a> -->
+                     </div>
+                 </div>
+                 <!-- <div class="off-card">
+                     <h2>Sale <span>50%</span></h2>
+                 </div> -->
+             </div>
+         </div>
+         <div class="single-hero-items set-bg" data-setbg="<?= base_url() ?>assets_user/copy/img/hero-fur.png">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-lg-5">
+                         <!-- <h3> Selamat Datang di Toko Cahaya Agung Aluminium <br />
+                         </h3> -->
+                         <h1> Toko Cahaya Agung Aluminium</h1>
+                         <br>
+                         <p class="lead">Menjual dan menerima jasa pembuatan perabot aluminium untuk menghiasi rumah atau toko Anda.</p>
 
-            </ul>
-        </div>
-    </div>
-
-    <!-- Headline Text
-        ================================================== -->
-    <div class="span4">
-        <h3> Selamat Datang di Toko Cahaya Agung Aluminium <br />
-        </h3>
-        <p class="lead">Menjual dan menerima pembuatan perabot aluminium untuk menghiasi rumah atau toko Anda.</p>
-        <p>Kami menyediakan lemari aluminium khususnya etalase, lemari piring, lemari pakaian, tempat jualan dan jemuran pakaian</p>
-
-    </div>
-</div><!-- End Headline -->
-
-<!-- <div class="row gallery-row">
-     Begin Gallery Row 
-
-    <div class="span12">
-        <h5 class="title-bg">Produk Kami :
-            <small>Silahkan klik tombol disamping untuk melihat produk</small>
-            <button class="btn btn-mini btn-inverse hidden-phone" type="button">Lihat Produk</button>
-        </h5>
-
-         Client Area
-        ================================================== 
-
-
-    </div> -->
-
-</div><!-- End Bottom Section -->
-
-</div> <!-- End Container -->
+                         <!-- <a href="#" class="primary-btn">Shop Now</a> -->
+                     </div>
+                 </div>
+                 <!-- <div class="off-card">
+                      <h2>Sale <span>50%</span></h2> 
+                 </div> -->
+             </div>
+         </div>
+     </div>
+ </section>
