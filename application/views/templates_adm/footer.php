@@ -29,6 +29,14 @@
 
 <script src="<?php echo base_url() ?>asset/js/demo/datatables-demo.js"></script>
 
+<script src="<?php echo base_url() ?>asset/vendor/chosen/chosen.jquery.js" type="text/javascript"></script>
+
+<script>
+  var select = $('.chosen-select')
+  select.chosen()
+
+</script>
+
 <footer class="sticky-footer">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">

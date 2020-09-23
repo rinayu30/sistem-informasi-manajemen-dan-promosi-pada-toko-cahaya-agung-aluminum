@@ -13,7 +13,6 @@ class Produk extends CI_Controller
 
     public function index()
     {
-
         $data['row'] = $this->produk_model->get_produkb();
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
@@ -90,10 +89,11 @@ class Produk extends CI_Controller
         } else if (isset($_POST['edit'])) {
 
             $produk = $this->produk_model->get($post['kode'])->row();
-            if ($produk->gambar != null) {
-                $this->produk_model->_deleteImage($post['gambar']);
+            if($_FILES['gambar']['size'] > 0) if ($produk->gambar != null) {
+                // $this->produk_model->_deleteImage($post['gambar']);
+                $kdProduk = $post['kode'];
+                $post['gambar'] = $this->produk_model->_uploadImage($kdProduk);
             }
-            $post['gambar'] = $this->produk_model->_uploadImage();
 
             $this->produk_model->edit($post);
         }

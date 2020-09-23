@@ -71,7 +71,7 @@ class Produk_model extends CI_Model
         return $query;
     }
 
-    public function _uploadImage()
+    public function _uploadImage($kdProduk=null)
     {
         $config['upload_path']          = './uploads/produk/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
@@ -83,6 +83,7 @@ class Produk_model extends CI_Model
 
         $this->load->library('upload', $config);
 
+        if ($kdProduk != null) $this->_deleteImage($kdProduk);
         if ($this->upload->do_upload('gambar')) {
             return $this->upload->data("file_name");
         }
@@ -103,13 +104,17 @@ class Produk_model extends CI_Model
 
             }
     }
-    public function _deleteImage($id)
+    public function _deleteImage($kdProduk)
     {
-        $produk = $this->data['produk'];
-        if (file_exists($produk->gambar . $id))
-            if ($produk->gambar  != null) {
-                unlink($produk->gambar . $id);
-            }
+        $produk = $this->db->where('kd_produk', $kdProduk)->get('produk')->row();
+        $gambarProduk = './uploads/produk/'.$produk->gambar ;
+        if (file_exists($gambarProduk)) if ($produk->gambar  != null && $produk->gambar != 'default.jpg') {
+            unlink($gambarProduk);
+        }
+        // $produk = $this->data['produk'];
+        // if (file_exists($produk->gambar . $id)) if ($produk->gambar  != null) {
+        //     unlink($produk->gambar . $id);
+        // }
     }
 
     public function buat_kode()
@@ -186,8 +191,8 @@ class Produk_model extends CI_Model
 
     public function hapus_data($id)
     {
+        $this->_deleteImage($id);
         $this->db->where('kd_produk', $id);
-        $this->_deleteImage1($id);
         $this->db->delete('produk');
     }
     //untuk website

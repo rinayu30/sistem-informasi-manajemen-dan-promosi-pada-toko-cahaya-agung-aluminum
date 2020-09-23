@@ -24,7 +24,7 @@
                                     <button type="submit" class="btn btn-success btn-sm">Cari produk</button>
                                     <?= form_close() ?>
                                 </div> -->
-                                <select id="kd_produk" type="search" class="form-control form-control-sm" name="kd_produk" required>
+                                <select data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
                                     <option value="">--Pilih--</option>
                                     <?php
                                     $db = $this->db->get('produk');
