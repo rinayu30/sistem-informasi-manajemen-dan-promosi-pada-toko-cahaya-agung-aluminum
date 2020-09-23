@@ -30,6 +30,7 @@ class Dashboard extends CI_Controller
     public function produk()
     {
         $data['row'] = $this->produk_model->get();
+        $data['categories'] = $this->produk_model->get_kategori();
         $this->load->view('user/template/header');
         $this->load->view('user/produk/data_produk', $data);
         $this->load->view('user/template/footer');
@@ -99,6 +100,15 @@ class Dashboard extends CI_Controller
         $this->load->view('user/template/header');
         // $this->load->view('user/templates/sidebar');
         $this->load->view('user/auth/register');
+        $this->load->view('user/template/footer');
+    }
+
+    public function kategori($id)
+    {
+        $data['row'] = $this->produk_model->get_($id);
+        $data['categories'] = $this->produk_model->get_kategori();
+        $this->load->view('user/template/header');
+        $this->load->view('user/produk/data_produk', $data);
         $this->load->view('user/template/footer');
     }
 }

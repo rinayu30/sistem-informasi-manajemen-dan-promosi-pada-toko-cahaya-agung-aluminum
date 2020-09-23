@@ -63,5 +63,6 @@ $route['home/pemesanan'] = 'dashboard/pembayaran';
 $route['home/hapus_keranjang'] = 'dashboard/hapus_keranjang';
 $route['home/produks'] = 'dashboard/get_produk';
 $route['home/detail/(:num)'] = 'dashboard/detail/$1';
+$route['home/kategori/(:num)'] = 'dashboard/kategori/$1';
 $route['home/tambah_keranjang/(:num)'] = 'dashboard/tambah_keranjang/$1';
 $route['admin'] = 'admin/overview';

@@ -6,12 +6,11 @@
                  <div class="filter-widget">
                      <h4 class="fw-title">Kategori</h4>
                      <ul class="filter-catagories">
-                         <li><a href="#">Men</a></li>
-                         <li><a href="#">Women</a></li>
-                         <li><a href="#">Kids</a></li>
+                         <?php foreach ($categories as $cat) { ?>
+                             <li><a href="<?= site_url('dashboard/kategori/' . $cat->id_kategori) ?>"><?= $cat->nama_kategori ?></a></li>
+                         <?php } ?>
                      </ul>
                  </div>
-
                  <div class="filter-widget">
                      <h4 class="fw-title">Price</h4>
                      <div class="filter-range-wrap">
@@ -33,29 +32,14 @@
 
              </div>
              <div class="col-lg-9 order-1 order-lg-2">
-                 <div class="product-show-option">
-                     <div class="row">
-                         <div class="col-lg-7 col-md-7">
-                             <div class="select-option">
-                                 <select class="sorting">
-                                     <option value="">Default Sorting</option>
-                                 </select>
-                                 <select class="p-show">
-                                     <option value="">Show:</option>
-                                 </select>
-                             </div>
-                         </div>
-                         <div class="col-lg-5 col-md-5 text-right">
-                             <p>Show 01- 09 Of 36 Product</p>
-                         </div>
-                     </div>
-                 </div>
+
 
 
                  <div class="product-list">
                      <div class="row">
-                         <?php foreach ($row->result() as $key => $data) : ?>
+                         <?php foreach ($row->result() as $key => $data) :
 
+                            ?>
                              <div class="col-lg-4 col-sm-6">
                                  <div class="product-item">
                                      <div class="pi-pic">
@@ -84,7 +68,8 @@
                                      </div>
                                  </div>
                              </div>
-                         <?php endforeach; ?>
+                         <?php
+                            endforeach; ?>
                      </div>
                  </div>
                  <!-- <div class="loading-more">

@@ -26,7 +26,21 @@ class Produk_model extends CI_Model
         return $query;
     }
 
+    public function get_($id = null)
+    {
+        // $produk = $this->data['produk'];
+        // untuk mendapatkan harga produk pada detail
 
+        // $this->db->select('kategori'.*,'produk'.*);
+        $this->db->from('produk');
+        $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
+        $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
+        if ($id != null) {
+            $this->db->where('produk.id_kategori', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
     public function get_produk($id = null)
     {
         //untuk tampilan di website
@@ -189,4 +203,29 @@ class Produk_model extends CI_Model
             return array();
         }
     }
+    //untuk kategori pada website
+    public function get_kategori()
+    {
+        $this->db->select('*');
+        $this->db->from('kategori');
+        $categories = $this->db->get()->result();
+        // $i = 0;
+        // foreach ($categories as $cat) {
+        //     $categories[$i]->sub = $this->get_sub_cat($cat->id_kategori);
+        //     $i++;
+        // }
+        return $categories;
+    }
+    // public function get_sub_cat($id)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('kategori');
+    //     $categories = $this->db->get()->result();
+    //     $i = 0;
+    //     foreach ($categories as $cat) {
+    //         $categories[$i]->sub = $this->get_sub_cat($cat->id_kategori);
+    //         $i++;
+    //     }
+    //     return $categories;
+    // }
 }
