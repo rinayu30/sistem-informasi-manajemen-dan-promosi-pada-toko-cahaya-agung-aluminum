@@ -82,6 +82,10 @@ class Produk extends CI_Controller
         // $this->form_validation->set_error_delimiters('<small><span class="text-danger">', '</span></small>');
 
         $post = $this->input->post(null, TRUE);
+
+        // print_r($post);
+        // return;
+
         if (isset($_POST['tambah'])) {
             // if ($this->form_validation->run() == FALSE) {
             //     $this->load->view('admin/pengguna/produk_form');
@@ -90,10 +94,11 @@ class Produk extends CI_Controller
         } else if (isset($_POST['edit'])) {
 
             $produk = $this->produk_model->get($post['kode'])->row();
-            if ($produk->gambar != null) {
-                $this->produk_model->_deleteImage($post['gambar']);
+            if ($_FILES['gambar']['size'] > 0) if ($produk->gambar != null) {
+                // $this->produk_model->_deleteImage($post['kode']);
+                $post['gambar'] = $this->produk_model->_uploadImage();
             }
-            $post['gambar'] = $this->produk_model->_uploadImage();
+
 
             $this->produk_model->edit($post);
         }
@@ -131,6 +136,7 @@ class Produk extends CI_Controller
     public function delete($id)
     {
         $this->produk_model->hapus_data($id);
+        $this->produk_model->_deleteImage($id);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
         }

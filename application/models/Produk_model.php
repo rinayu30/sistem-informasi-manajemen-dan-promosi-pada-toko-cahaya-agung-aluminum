@@ -105,11 +105,17 @@ class Produk_model extends CI_Model
     }
     public function _deleteImage($id)
     {
-        $produk = $this->data['produk'];
-        if (file_exists($produk->gambar . $id))
+        $produk = $this->db->where('kd_produk', $id)->get('produk')->row();
+        $gambar = './uploads/produk/' . $produk->gambar;
+        if (file_exists($gambar))
             if ($produk->gambar  != null) {
-                unlink($produk->gambar . $id);
+                unlink($gambar);
             }
+        // $produk = $this->data['produk'];
+        // if (file_exists($produk->gambar . $id))
+        //     if ($produk->gambar  != null) {
+        //         unlink($produk->gambar . $id);
+        //     }
     }
 
     public function buat_kode()

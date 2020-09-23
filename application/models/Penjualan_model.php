@@ -30,7 +30,8 @@ class Penjualan_model extends CI_Model
         $hasil = $this->db->query("SELECT detail_penjualan.*, produk.*
          FROM detail_penjualan
          LEFT OUTER JOIN produk ON detail_penjualan.kd_produk=produk.kd_produk
-          WHERE detail_penjualan.status ='1'");
+          WHERE detail_penjualan.status ='1'
+        ");
         return $hasil->result();
     }
 
@@ -133,6 +134,39 @@ class Penjualan_model extends CI_Model
         $this->db->where('kd_penjualan', $id);
         $this->db->update('penjualan', $params);
         return TRUE;
+    }
+
+    public function findNameOrCode($produkOrCode, $kdProduk)
+    {
+        $penjualan = $this->db->query("
+            select * from produk
+            where nama_produk like '%{$produkOrCode}%'
+            or kd_produk like '%{$produkOrCode}%'
+            or kd_produk = '{$kdProduk}'
+            limit 1
+        ")->row();
+        return $penjualan;
+    }
+
+    public function addDetailPenjualan($data)
+    {
+        $kdProduk = $data['kd_produk'];
+        $jumProduk = $data['jumlah'];
+
+        // $produk = $this->db->where('kd_produk', $kdProduk)->get('produk')->row();   
+        $kalkulasi = $this->db->where('kd_produk', $kdProduk)->get('kalkulasi')->row();
+
+        $hargaProduk = $kalkulasi->harga_jual;
+        $subTotal = $jumProduk * $hargaProduk;
+
+        $this->db->insert('detail_penjualan', [
+            'kd_penjualan' => $this->buat_kode_penjualan(),
+            'kd_produk' => $kdProduk,
+            'harga_jual' => $hargaProduk,
+            'jumlah' => $jumProduk,
+            'subtotal' => $subTotal,
+            'status' => '1',
+        ]);
     }
 
     public function add($post)
