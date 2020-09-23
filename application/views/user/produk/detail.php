@@ -1,38 +1,65 @@
-<div class="span12 gallery-single">
-
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text product-more">
+                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <a href="#">Produk</a>
+                    <span>Detail</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section Begin -->
+<div class="container">
     <div class="row">
         <?php foreach ($row->result() as $key => $data) : ?>
-            <div class="span6">
-                <img src="<?php echo base_url('uploads/produk/' . $data->gambar) ?>" class="card-img-top">
-            </div>
-            <div class="span6">
-                <h2>Detail Produk</h2>
-                <p class="lead"><?= $data->nama_produk ?></p>
-                <p class="lead">
-                    <div class="btn btn-sm btn-success">Rp. <?= number_format($data->harga_jual, 0, ',', '.') ?></div>
-                </p>
-                <ul class="project-info">
-                    <li>
-                        <h6>Kategori:</h6> <?php echo $data->nama_kategori ?>
-                    </li>
-                    <li>
-                        <h6>Keterangan:</h6> <?php echo $data->detail ?>
-                    </li>
+            <div class="col-lg-6">
+                <div class="product-details">
+                    <div class="pd-title">
+                        <span>Gambar Produk</span>
+                        <div class="pd-desc">
+                            <img src="<?php echo base_url('uploads/produk/' . $data->gambar) ?>" class="card-img-top">
+                        </div>
+                    </div>
+                </div>
 
-                </ul>
-            <?php endforeach; ?>
-            <!-- <button class="btn btn-inverse pull-left" type="button"></button> -->
-            <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" onclick="return confirm('Tambahkan item ke keranjang?')" class="btn btn-success pull-left">
-                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang</a>
-            <a href="<?= site_url('dashboard/produk') ?>" class="btn btn-sm pull-right">
-                <i class="icon-arrow-left"></i> Kembali</a>
-
-            </a>
             </div>
+            <div class="col-lg-6">
+                <div class="product-details">
+                    <div class="pd-title">
+                        <br>
+                        <span>
+                            <h4><?= $data->nama_produk ?></h4>
+                        </span>
+                    </div>
+
+                    <div class="pd-desc">
+                        <p><span>Deskripsi :</span> <?php echo $data->detail ?></p>
+                        <h4>Rp. <?= number_format($data->harga_jual, 0, ',', '.') ?></h4>
+                    </div>
+                    <ul class="pd-tags">
+                        <li><span>Kategori :</span> <?php echo $data->nama_kategori ?></li>
+                    </ul>
+
+                </div>
+                <div class="order-btn">
+                    <a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>" onclick="return confirm('Tambahkan item ke keranjang?')" class="site-btn place-btn pd-cart">Tambah ke Keranjang</a>
+                    <a href="<?= site_url('home/produk') ?>" class="site-btn place-btn">Kembali</a>
+
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
+</div>
 
-</div><!-- End gallery-single-->
 
-</div><!-- End container row -->
+</div>
 
-</div> <!-- End Container -->
+</div>
+</div>
+</div>
+</section>
+<!-- Product Shop Section End -->

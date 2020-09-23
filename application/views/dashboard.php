@@ -12,6 +12,7 @@
                          <!-- <span>Bag,kids</span> -->
                          <h1> Toko Cahaya Agung Aluminium</h1>
                          <p>Kami menyediakan lemari aluminium khususnya etalase, lemari piring, lemari pakaian, tempat jualan dan jemuran pakaian</p>
+                         <p class="lead">Khusus kota Pekanbaru </p>
 
                          <!-- <a href="#" class="primary-btn">Shop Now</a> -->
                      </div>
@@ -29,7 +30,9 @@
                          </h3> -->
                          <h1> Toko Cahaya Agung Aluminium</h1>
                          <br>
-                         <p class="lead">Menjual dan menerima jasa pembuatan perabot aluminium untuk menghiasi rumah atau toko Anda.</p>
+                         <p class="lead">Menjual dan menerima jasa pembuatan perabot aluminium untuk menghiasi rumah atau toko Anda. </p>
+                         <p class="lead">Khusus kota Pekanbaru </p>
+
 
                          <!-- <a href="#" class="primary-btn">Shop Now</a> -->
                      </div>

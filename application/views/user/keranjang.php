@@ -1,42 +1,80 @@
-<div class="container-fluid">
-    <h4>Detail Keranjang</h4>
-    <table class="table table-bordered table-striped table-hover">
-        <tr>
-            <th>No</th>
-            <th>Nama Produk</th>
-            <th>Jumlah</th>
-            <th>Harga</th>
-            <th>Sub-Total</th>
-        </tr>
-        <?php
-        $no = 1;
-        foreach ($this->cart->contents() as $item) : ?>
-            <tr>
-                <td><?= $no++ ?></td>
-                <td><?= $item['name'] ?></td>
-                <td><?= $item['qty'] ?></td>
-                <td>Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
-                <td>Rp. <?= number_format($item['subtotal'], 0, ',', '.') ?></td>
-            </tr>
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="3"> </td>
-            <td colspan="1" style="font-size: 12pt;"><b>T O T A L</b> </td>
-            <td style="font-size: 11pt;"><b>Rp. <?= number_format($this->cart->total(), 0, ',', '.') ?></b></td>
-        </tr>
-    </table>
-    <div class="pull-right">
-        <a href="<?= site_url('dashboard/hapus_keranjang') ?>" onclick="return confirm('Anda yakin menghapus daftar keranjang?')">
-            <div class="btn btn-sm btn-danger">Hapus Keranjang</div>
-        </a>
-        <a href="<?= site_url('dashboard/produk') ?>">
-            <div class="btn btn-sm btn-primary">Lanjut Belanja</div>
-        </a>
-        <a href="<?= site_url('dashboard/pembayaran') ?>">
-            <div class="btn btn-sm btn-success">Pembayaran</div>
-        </a>
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text product-more">
+                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <a href="#">Keranjang saya</a>
+                    <span>Detail Keranjang</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <br><br><br />
+</div>
+<!-- Breadcrumb Section Begin -->
 
-</div>
-</div>
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cart-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th class="p-name">Nama Produk</th>
+                                <th>Harga</th>
+                                <th>Jumlah</th>
+                                <th>Total</th>
+                                <th><i class="ti-close"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($this->cart->contents() as $item) : ?>
+                                <tr>
+                                    <td class="cart-pic first-row"><?= $no++ ?></td>
+                                    <td class="cart-title first-row">
+                                        <h5><?= $item['name'] ?></h5>
+                                    </td>
+                                    <td class="p-price first-row">Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
+                                    <td class="qua-col first-row">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="<?= $item['qty'] ?>">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="total-price first-row">Rp. <?= number_format($item['subtotal'], 0, ',', '.') ?></td>
+                                    <td class="close-td first-row"><i class="ti-close"></i></td>
+                                </tr>
+                            <?php endforeach; ?>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="cart-buttons">
+                            <a href="<?= site_url('home/produk') ?>" class="primary-btn continue-shop">Lanjut Belanja</a>
+                            <a href="<?= site_url('home/hapus_keranjang') ?>" onclick="return confirm('Anda yakin menghapus daftar keranjang?')" class="primary-btn up-cart">Hapus Keranjang</a>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 offset-lg-2">
+                        <div class="proceed-checkout">
+                            <ul>
+                                <li class="cart-total">Total <span>Rp. <?= number_format($this->cart->total(), 0, ',', '.') ?></span></li>
+                            </ul>
+                            <a href="<?= site_url('home/pemesanan') ?>" class="proceed-btn">Proses Pesanan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->

@@ -69,20 +69,20 @@
 				<ul>
 					<li class="active"><a href="<?= site_url('home') ?>">Home</a></li>
 
-					<li><a href="#">Produk</a>
-						<ul class="dropdown">
+					<li><a href="<?= site_url('home/produk') ?>">Produk</a>
+						<!-- <ul class="dropdown">
 							<li><a href="#">Men's</a></li>
 							<li><a href="#">Women's</a></li>
 							<li><a href="#">Kid's</a></li>
-						</ul>
+						</ul> -->
 					</li>
 					<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
-					<li><a href="./blog.html">Login</a></li>
+					<li><a href="<?= site_url('home/login') ?>">Login</a></li>
 					<li>
 						<?php
 						$keranjang = '<i class="icon_bag_alt"></i> Keranjang saya : ' . $this->cart->total_items() . ' item'
 						?>
-						<?php echo  anchor('dashboard/detail_keranjang', $keranjang) ?></li>
+						<?php echo  anchor('home/detail_keranjang', $keranjang) ?></li>
 
 
 				</ul>

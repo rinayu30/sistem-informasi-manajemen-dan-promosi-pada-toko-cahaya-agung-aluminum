@@ -30,17 +30,17 @@ class Dashboard extends CI_Controller
     public function produk()
     {
         $data['row'] = $this->produk_model->get();
-        $this->load->view('user/templates/header');
+        $this->load->view('user/template/header');
         $this->load->view('user/produk/data_produk', $data);
-        $this->load->view('user/templates/footer');
+        $this->load->view('user/template/footer');
     }
     public function detail($id)
     {
         $data['row'] = $this->produk_model->get($id);
-        $this->load->view('user/templates/header');
-        $this->load->view('user/templates/sidebar');
+        $this->load->view('user/template/header');
+        // $this->load->view('user/template/sidebar');
         $this->load->view('user/produk/detail', $data);
-        $this->load->view('user/templates/footer');
+        $this->load->view('user/template/footer');
     }
 
     public function tambah_keranjang($id)
@@ -50,6 +50,7 @@ class Dashboard extends CI_Controller
         $produk = $this->produk_model->find($id);
         $data = array(
             'id'      => $produk->kd_produk,
+            'gbr'      => $produk->gambar,
             'qty'     => 1,
             'price'   =>  $produk->harga_jual, //atur nnti sepertidiatas
             'name'    =>  $produk->nama_produk,
@@ -64,10 +65,10 @@ class Dashboard extends CI_Controller
     public function detail_keranjang()
     {
         // check_not_login();
-        $this->load->view('user/templates/header');
-        $this->load->view('user/templates/sidebar');
+        $this->load->view('user/template/header');
+        // $this->load->view('user/template/sidebar');
         $this->load->view('user/keranjang');
-        $this->load->view('user/templates/footer');
+        $this->load->view('user/template/footer');
     }
     public function hapus_keranjang()
     {
@@ -78,9 +79,26 @@ class Dashboard extends CI_Controller
     public function pembayaran()
     {
         // check_not_login();
-        $this->load->view('user/templates/header');
-        $this->load->view('user/templates/sidebar');
+        $this->load->view('user/template/header');
+        // $this->load->view('user/templates/sidebar');
         $this->load->view('user/pembayaran');
-        $this->load->view('user/templates/footer');
+        $this->load->view('user/template/footer');
+    }
+
+    public function login_user()
+    {
+        // check_not_login();
+        $this->load->view('user/template/header');
+        // $this->load->view('user/templates/sidebar');
+        $this->load->view('user/auth/login');
+        $this->load->view('user/template/footer');
+    }
+    public function register()
+    {
+        // check_not_login();
+        $this->load->view('user/template/header');
+        // $this->load->view('user/templates/sidebar');
+        $this->load->view('user/auth/register');
+        $this->load->view('user/template/footer');
     }
 }
