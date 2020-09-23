@@ -126,7 +126,6 @@ class Penjualan_model extends CI_Model
     }
     public function edit_status($status_jual, $id)
     {
-
         $params = [
             'status_jual' => $status_jual,
             'updated' => date('Y-m-d H:i:s')

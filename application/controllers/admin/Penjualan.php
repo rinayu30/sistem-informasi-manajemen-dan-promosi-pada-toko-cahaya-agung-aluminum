@@ -77,14 +77,7 @@ class Penjualan extends CI_Controller
         $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
         redirect('admin/penjualan/daftar_penjualan');
     }
-    //ubah status jual pake ajax
-    function edit_status_jual($id)
-    {
-        // $id = $this->penjualan_model->buat_kode_penjualan();
-        $status = $this->input->post('status_jual');
-        $data = $this->penjualan_model->edit_status($id, $status);
-        echo json_encode($data);
-    }
+
 
     public function proses()
     {
@@ -103,19 +96,12 @@ class Penjualan extends CI_Controller
 
     public function edit_status($id)
     {
-
-        // $id = $this->input->post('kd_penjualan');
         $status_jual = $this->input->post('status_jual');
         $this->penjualan_model->edit_status($status_jual, $id);
-        // echo json_encode($data);
-        redirect('admin/penjualan/daftar_penjualan');
-        // $post = $this->input->post(null, TRUE);
-        // if (isset($_POST['submit'])) {
-        //     $this->penjualan_model->edit_status($post);
-        // }
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Status penjualan berhasil diubah');
         }
+        redirect('admin/penjualan/daftar_penjualan');
     }
 
     public function detail($id)
