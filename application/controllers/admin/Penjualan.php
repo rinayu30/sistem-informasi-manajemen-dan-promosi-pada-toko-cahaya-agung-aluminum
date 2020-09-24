@@ -153,6 +153,7 @@ class Penjualan extends CI_Controller
         redirect('admin/penjualan');
     }
 
+
     public function laporan()
     {
 
@@ -386,7 +387,7 @@ class Penjualan extends CI_Controller
         $pdf->Cell(25, 6, 'Sisa', 1, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
 
-        $record = $this->penjualan_model->laporan_default()->result();
+        $record = $this->penjualan_model->laporan_default_selesai()->result();
         $byr = 0;
         $awal = 0;
         $sisa = 0;

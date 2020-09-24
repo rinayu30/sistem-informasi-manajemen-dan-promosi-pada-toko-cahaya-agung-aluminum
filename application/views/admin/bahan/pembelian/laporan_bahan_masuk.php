@@ -79,14 +79,12 @@
                                     </tr>
                                 <?php
                                     $total = $total + $data->total_harga;
-                                    $jumlah = $jumlah + $data->jumlah;
                                 }
                                 ?>
 
                             </tbody>
                             <tr>
-                                <td align="center" colspan="5"><b>Total</b></td>
-                                <td colspan="1" align="center"><?php echo $jumlah ?></td>
+                                <td align="center" colspan="6"><b>Total</b></td>
                                 <td colspan="1">Rp. <?= number_format($total, 0, ',', '.') ?></td>
 
                             </tr>

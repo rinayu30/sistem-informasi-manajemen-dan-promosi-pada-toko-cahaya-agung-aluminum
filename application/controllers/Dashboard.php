@@ -85,6 +85,19 @@ class Dashboard extends CI_Controller
         $this->load->view('user/pembayaran');
         $this->load->view('user/template/footer');
     }
+    public function proses_pesanan()
+    {
+        // check_not_login();
+        $is_processed = $this->penjualanonline_model->pesan_produk();
+        if ($is_processed) {
+            $this->cart->destroy();
+            $this->load->view('user/template/header');
+            $this->load->view('user/proses_pesanan');
+            $this->load->view('user/template/footer');
+        } else {
+            echo "<alert>Maaf, Pesanan Anda Gagal Diproses !</alert>";
+        }
+    }
 
     public function login_user()
     {

@@ -11,18 +11,17 @@ class Penjualan_model extends CI_Model
             $this->db->where('kd_penjualan', $id);
         }
         $query = $this->db->get();
-        // $query1 = $this->db->first();
         return $query;
     }
 
-    public function get_keyword($key)
-    {
-        $this->db->select('*');
-        $this->db->from('produk');
-        $this->db->like('kd_produk', $key);
-        $this->db->or_like('nama_produk', $key);
-        return $this->db->get()->result();
-    }
+    // public function get_keyword($key)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('produk');
+    //     $this->db->like('kd_produk', $key);
+    //     $this->db->or_like('nama_produk', $key);
+    //     return $this->db->get()->result();
+    // }
 
     public function get_Dpenjualan()
     {
@@ -46,7 +45,7 @@ class Penjualan_model extends CI_Model
 
     public function buat_kode_penjualan()
     {
-        $dateKodeNow = "PJ" . date('ymd') ;
+        $dateKodeNow = "PJ" . date('ymd');
         $this->db->select('
             Right(penjualan.kd_penjualan,2) as kode,
             substring(penjualan.kd_penjualan, 1, 8) as date_kode
@@ -56,12 +55,6 @@ class Penjualan_model extends CI_Model
         $this->db->having('date_kode', $dateKodeNow);
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
-        // $sql = "SELECT RIGHT(penjualan.kd_penjualan,1) as kode
-        // FROM penjualan
-        // WHERE MID(kd_penjualan,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
-        // $query = $this->db->query($sql);
-
-        // ---
         if ($query->num_rows() <> 0) {
             $data = $query->row();
             $kode = intval($data->kode) + 1;
@@ -73,7 +66,7 @@ class Penjualan_model extends CI_Model
         $kodejadi  = "PJ" . date('ymd') . $kodemax;
 
         // $data=$query->row();
-        
+
         // if($data == NULL) $no = "01";
         // else $no = sprintf("%'.02d", intval($data->kode) + 1);
 
@@ -155,7 +148,6 @@ class Penjualan_model extends CI_Model
     public function add($post)
     {
         $params = [
-
             'kd_penjualan' => $this->buat_kode_penjualan(),
             'kd_produk' => $post['kd_produk'],
             'harga_jual' => $this->getHargaJual(),
@@ -174,11 +166,9 @@ class Penjualan_model extends CI_Model
     }
     public function edit($post)
     {
-
         $params = [
             'kd_penjualan' => $post['kode'],
             'nama_penjualan' => $post['nama'],
-            // 'gambar' => $this->cek_gambar($post),
             'stok' => $post['stok'],
             'kategori' => $post['kategori'],
             'detail' => empty($post['ket']) ? null : $post['ket'],
@@ -228,6 +218,7 @@ class Penjualan_model extends CI_Model
                 FROM penjualan
                 LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
                 LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
+                WHERE status_jual ='0' OR status_jual ='-1'
                 order by tgl_penjualan desc";
         return $this->db->query($query);
     }
@@ -251,7 +242,6 @@ class Penjualan_model extends CI_Model
 				order by tgl_penjualan desc";
         return $this->db->query($query);
     }
-
 
     function laporan_periode($tanggal1, $tanggal2)
     {

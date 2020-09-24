@@ -22,7 +22,7 @@
                                 <th>Uang Muka</th>
                                 <th>Sisa</th>
                                 <th>Status</th>
-                                <th>Detail</th>
+
                             </tr>
                         </thead>
                         <tbody id="show_data">
@@ -59,13 +59,7 @@
                                         <?php } ?>
                                         <!-- <a href='' id='btn-edit' class="btn btn-outline btn-circle btn-md purple" data-id='<?php echo $data->kd_penjualan; ?>'><i class="fa fa-edit"></i> </a> -->
                                     </td>
-                                    <td class="text-center">
-                                        <a href="<?= site_url('admin/penjualan/detail/' . $data->kd_penjualan) ?>" class="btn btn-info btn-sm">
-                                            <i class="fas fa-info"></i> <b>Detail</b> </a>
 
-
-
-                                    </td>
                                 </tr>
                                 <div class="modal fade" id="staticBackdrop<?php echo $data->kd_penjualan ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">

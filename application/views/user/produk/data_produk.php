@@ -1,11 +1,11 @@
  <!-- Product Shop Section Begin -->
- <?php
+ <!-- <?php
 
-    $minimum_range = 100000;
+        $minimum_range = 100000;
 
-    $maximum_range = 3000000;
+        $maximum_range = 3000000;
 
-    ?>
+        ?>
  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -14,7 +14,7 @@
 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
  <section class="product-shop spad">
      <div class="container">
          <div class="row">
@@ -32,8 +32,8 @@
                      <div class="filter-range-wrap">
                          <div class="range-slider">
                              <div class="price-input">
-                                 <input type="text" name="minimum_range" id="minimum_range" class="form-control" value="Rp. <?php echo $minimum_range; ?>" />
-                                 <input type="text" name="maximum_range" id="maximum_range" class="form-control" value="Rp. <?php echo $maximum_range; ?>" />
+                                 <!-- <input type="text" name="minimum_range" id="minimum_range" class="form-control" value="Rp. <?php echo $minimum_range; ?>" />
+                                 <input type="text" name="maximum_range" id="maximum_range" class="form-control" value="Rp. <?php echo $maximum_range; ?>" /> -->
                              </div>
                          </div>
                          <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="100000" data-max="4000000">
@@ -55,12 +55,8 @@
                                  <div class="product-item">
                                      <div class="pi-pic">
                                          <?php if ($data->gambar != null) { ?>
-                                             <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" alt="">
+                                             <img src="<?= base_url('uploads/produk/' . $data->gambar) ?>" style="height:20em;width:20em" alt="">
                                          <?php } ?>
-                                         <!-- <div class="sale pp-sale">Sale</div> -->
-                                         <!-- <div class="icon">
-                                             <i class="icon_heart_alt"></i>
-                                         </div> -->
                                          <ul>
                                              <li class="w-icon active"><a href="<?= site_url('dashboard/tambah_keranjang/' . $data->kd_produk) ?>">+ <i class="icon_bag_alt"></i></a></li>
                                              <li class="quick-view"><a href="<?= site_url('dashboard/detail/' . $data->kd_produk) ?>">Detail Produk</a></li>
