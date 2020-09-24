@@ -83,7 +83,7 @@ class Item_model extends CI_Model
 
     function update_kurang_stok($post)
     {
-        $jumlah = $this->bahan_perabot_model->get_jumlah();;
+        $jumlah = $this->bahan_perabot_model->get_jumlah();
         $id = $post['item'];
         $sql = "UPDATE item SET stok = stok - '$jumlah' WHERE id_item='$id'";
         $this->db->query($sql);

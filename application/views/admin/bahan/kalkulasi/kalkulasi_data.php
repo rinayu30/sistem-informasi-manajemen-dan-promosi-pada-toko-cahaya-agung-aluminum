@@ -1,9 +1,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h5 mb-0 text-gray-800">Form Hitung Harga Produk</h1><br />
-        <!-- <a href="<?= site_url('admin/kalkulasi/') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus fa-sm"></i> Tambah Data</a> -->
         <!-- Page Heading -->
-
         <a href="<?= site_url('admin/produk') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
     </div>
     <div class="card shadow mb-4">
@@ -23,8 +21,7 @@
                                     });
                                 });
                             </script>
-
-                            <select name="jenis_bahan" id="jenis_bahan" class="form-control" required>
+                            <select name="jenis_bahan" id="jenis_bahan" onChange="opsi(this)" class="form-control" required>
                                 <option value="0">--Pilih--</option>
                                 <?php foreach ($data->result() as $row) : ?>
                                     <option value="<?php echo $row->id_jenis; ?>"><?php echo $row->nama_jenis; ?></option>
@@ -51,16 +48,16 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran">Ukuran *<small> (Isi jika bahan tidak memiliki dimensi)</small></label>
-                            <input type="number" min="1" name="ukuran" value="<?= set_value('ukuran') ?>" class="form-control">
+                            <input type="number" min="1" name="ukuran" id="ukuran" value="<?= set_value('ukuran') ?>" class="form-control">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
+                            <input type="number" min="-1" name="ukuran_p" id="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
+                            <input type="number" min="-1" name="ukuran_l" id="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
@@ -131,8 +128,6 @@
                                     <td class="text-center"><?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
                                     <td class="text-center"><?= number_format($data->jumlah_harga, 0, ',', '.') ?></td>
                                     <td class="text-center" width=20%>
-                                        <!-- <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i> Edit</a> -->
                                         <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin membatalkan data bahan?')" class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i> Batal</a>
 
@@ -157,11 +152,6 @@
         </div>
     </div>
     <div class="container">
-
-        <!-- <div class="card-header py-3"> -->
-
-        <!-- <h6 class="m-0 font-weight-bold text-primary">Form <?= ucfirst($page) ?> Hitung</h6> -->
-        <!-- </div> -->
         <!-- Outer Row -->
         <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
 
@@ -197,7 +187,7 @@
 
                     <div class="card shadow mb-4 card-header py-3">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"><label for="persentase"><small>(Masukkan persentase keuntungan)</small></label></h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><label for="persentase"><small>(Masukkan persentase keuntungan : 1-100)</small></label></h6>
                         </div>
                         <div class="card-body" style="height: 100px;">
                             <div class="box-body table-responsive">
@@ -220,56 +210,6 @@
 
     </div>
 </section>
-<!-- Modal Tambah Data-->
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-    Launch static backdrop modal
-</button> -->
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="" class="btn btn-primary">Tambahkan</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- Button trigger modal -->
-
-
-
-<!-- /.container-fluid -->
-<!-- End of Page Wrapper
-   <?= site_url('admin/kalkulasi/edit/' . $data->id_kalkulasi) ?> -->
-
-
-<!--// function validasi_selesai(form){
-// if (form.nama_pelanggan.value == ""){
-// alert("Nama Pelanggan Masih Kosong!");
-// form.nama_pelanggan.focus();
-// return (false);
-// }
-
-
-// return (true);
-// }
-
-function deleteConfirm(url){
-$('#btn-delete').attr('href', url);
-$('#deleteModal').modal();
-}
 </script> -->
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js') ?>"></script>
@@ -355,17 +295,24 @@ $('#deleteModal').modal();
         return false;
     }
 </script>
-<!-- <script type="text/javascript">
-    document.onload = disable_enable();
+<script type="text/javascript">
+    function opsi(value) {
+        var st = $("#jenis_bahan").val();
+        if (st == "9") {
+            document.getElementById("ukuran_p").disabled = true;
+            document.getElementById("ukuran_l").disabled = true;
+            document.getElementById("ukuran").disabled = false;
 
-    function disable_enable(pilihan) {
+        } else if (st == "8" || st == "7" || st == "3") {
+            document.getElementById("ukuran").disabled = true;
+            document.getElementById("ukuran_p").disabled = false;
+            document.getElementById("ukuran_l").disabled = false;
 
-        if (pilihan == "aluminium" || pilihan == "karet" || document.forms[0].jenis_bahan.nama_jenis == "aluminium" || document.forms[0].jenis_bahan.nama_jenis == "karet") {
-            document.forms[0].ukuran_p.enabled = true;
-            document.forms[0].ukuran_l.enabled = true;
+        } else {
+            document.getElementById("ukuran_p").disabled = true;
+            document.getElementById("ukuran_l").disabled = true;
+            document.getElementById("ukuran").disabled = true;
 
-        } else if (pilihan == "plat" || pilihan == "kaca" || document.forms[0].jenis_bahan.nama_jenis == "plat" || document.forms[0].jenis_bahan.nama_jenis == "kaca") {
-            document.forms[0].ukuran.enabled = true;
         }
     }
-</script> -->
+</script>

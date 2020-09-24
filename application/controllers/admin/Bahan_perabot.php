@@ -50,9 +50,6 @@ class Bahan_perabot extends CI_Controller
         redirect('admin/kalkulasi');
     }
 
-
-
-
     public function delete($id)
     {
         $this->bahan_perabot_model->hapus_data($id);
