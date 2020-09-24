@@ -49,7 +49,7 @@ class Penjualan_model extends CI_Model
         $dateKodeNow = "PJ" . date('ymd') ;
         $this->db->select('
             Right(penjualan.kd_penjualan,2) as kode,
-            substring(penjualan.kd_penjualan, 3, 6) as date_kode
+            substring(penjualan.kd_penjualan, 1, 8) as date_kode
         ', false);
         // $this->db->where('Mid(penjualan.kd_penjualan,3,6)', DATE('d/M/y'));
         $this->db->order_by('kd_penjualan', 'desc');
@@ -60,6 +60,8 @@ class Penjualan_model extends CI_Model
         // FROM penjualan
         // WHERE MID(kd_penjualan,3,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
         // $query = $this->db->query($sql);
+
+        // ---
         if ($query->num_rows() <> 0) {
             $data = $query->row();
             $kode = intval($data->kode) + 1;
@@ -69,6 +71,16 @@ class Penjualan_model extends CI_Model
         }
         $kodemax = str_pad($no, 2, "0", STR_PAD_LEFT);
         $kodejadi  = "PJ" . date('ymd') . $kodemax;
+
+        // $data=$query->row();
+        
+        // if($data == NULL) $no = "01";
+        // else $no = sprintf("%'.02d", intval($data->kode) + 1);
+
+        // $kodejadi = $dateKodeNow.$no ;
+
+        // var_dump($dateKodeNow);
+
         return $kodejadi;
     }
 
