@@ -46,9 +46,14 @@ class Penjualan_model extends CI_Model
 
     public function buat_kode_penjualan()
     {
-        $this->db->select('Right(penjualan.kd_penjualan,2) as kode ', false);
+        $dateKodeNow = "PJ" . date('ymd') ;
+        $this->db->select('
+            Right(penjualan.kd_penjualan,2) as kode,
+            substring(penjualan.kd_penjualan, 3, 6) as date_kode
+        ', false);
         // $this->db->where('Mid(penjualan.kd_penjualan,3,6)', DATE('d/M/y'));
         $this->db->order_by('kd_penjualan', 'desc');
+        $this->db->having('date_kode', $dateKodeNow);
         $this->db->limit(1);
         $query = $this->db->get('penjualan');
         // $sql = "SELECT RIGHT(penjualan.kd_penjualan,1) as kode
