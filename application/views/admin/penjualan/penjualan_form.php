@@ -17,13 +17,6 @@
                         <form action="<?= site_url('admin/penjualan/proses') ?>" method="post">
                             <div class="form-group">
                                 <label for="kd_produk">Kode Produk*</label>
-                                <!-- <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label> -->
-                                <!-- <div class="navbar-form">
-                                    <?= form_open('admin/penjualan/search') ?>
-                                    <input type="text" name="keyword" class="form-control form-control-sm" placeholder="cari produk berdasarkan kode atau nama ...">
-                                    <button type="submit" class="btn btn-success btn-sm">Cari produk</button>
-                                    <?= form_close() ?>
-                                </div> -->
                                 <select data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
                                     <option value="">--Pilih--</option>
                                     <?php
@@ -53,27 +46,7 @@
                             <label for="tgl_pej"></label>
                             <input type="date" name="tgl_pej" class="form-control form-control-sm" hidden>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="uang_dp">Uang Muka</label>
-                            <input type="number" id="uang" min="0" name="uang_dp" value="<?= $row->dp_awal ?>" class="form-control">
 
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                                <label for="harga_jual">Harga Jual <small>(Rp)</small></label>
-                                <input type="number" id="harga_jual" name="harga_jual" value="<?= number_format($row->harga_jual, 0, ',', '.')  ?>" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="nama">Total Bayar <small>(Rp)</small></label>
-                                <input type="text" id="bayar" name="bayar" value="<?= $row->tot_bayar ?>" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="sisa">Sisa Bayar <small>(Rp)</small></label>
-                                <input type="text" id="sisa" name="sisa" value="<?= $row->sisa ?>" class="form-control" readonly>
-                            </div> -->
-                        <!-- <div class="form-group">
-
-                        </div> -->
                         <div class="form-group ">
                             <button type="submit" name="tambah_jual" class="btn btn-success btn-sm">Tambah</button>
                             <button type="reset" class="btn btn-danger btn-sm">Reset</button>
@@ -225,7 +198,6 @@
 </div>
 </section>
 </div>
-<!-- /.container-fluid -->
 <!-- End of Page Wrapper -->
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
 

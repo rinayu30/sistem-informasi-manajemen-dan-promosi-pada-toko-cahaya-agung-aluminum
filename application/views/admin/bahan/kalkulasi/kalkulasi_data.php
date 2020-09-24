@@ -210,7 +210,7 @@
 
     </div>
 </section>
-</script> -->
+</script>
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js') ?>"></script>
 
