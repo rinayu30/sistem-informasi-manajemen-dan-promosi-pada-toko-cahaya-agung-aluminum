@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="box-body table-responsive justify-content-center">
-                <form action="<?php echo base_url('admin/bahan_perabot/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input();">
+                <form action="<?php echo base_url('admin/bahan_perabot/proses_bahan') ?>" method="post" onsubmit="return validasi_form_input(this)">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Jenis Bahan*</label>
@@ -61,11 +61,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
-                            <input type="number" min="1" name="banyak" value="<?= set_value('banyak') ?>" class="form-control" required>
+                            <input type="number" min="1" name="banyak" value="<?= set_value('banyak') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="harga_s">Harga/Satuan *<small>(Jika ada bahan yang sama, harga harus sama)</small></label>
-                            <input type="number" min="1" name="harga_s" value="<?= set_value('harga_s') ?>" class="form-control" required>
+                            <input type="number" min="1" name="harga_s" value="<?= set_value('harga_s') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label"><br></label>
@@ -153,7 +153,7 @@
     </div>
     <div class="container">
         <!-- Outer Row -->
-        <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
+        <form action="<?php echo base_url('admin/kalkulasi/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung(this)">
 
             <div class="row justify-content-left">
                 <div class="col-lg-6 justify-content-left">
@@ -164,7 +164,7 @@
                         <div class="card-body" style="height: 100px;">
                             <div class="box-body table-responsive">
                                 <div class="form-group ">
-                                    <select id="kd_produk" class="form-control" name="kd_produk" required>
+                                    <select id="kd_produk" class="form-control" name="kd_produk">
                                         <option value="" selected hidden>---Pilih---</option>
                                         <?php
                                         $db = $this->db->query("SELECT * FROM produk where updated='1'");
@@ -193,7 +193,7 @@
                             <div class="box-body table-responsive">
                                 <div class="row">
                                     <div class="form-group col-md-5">
-                                        <input type="number" min="1" name="persentase" class="form-control" required>
+                                        <input type="number" min="1" name="persentase" class="form-control">
                                     </div>
                                     <div class="form-group col-md-5">
                                         <input type="submit" name="hitung" value="Hitung Harga" class="btn btn-success btn-sm">
@@ -258,41 +258,41 @@
     });
 </script>
 <script type="text/javascript">
-    function validasi_form_input() {
-        // var kd_produk = document.getElementById('kd_produk').value;
-        var jenis_bahan = document.getElementById('id_jenis').value;
-        var id_item = document.getElementById('id_item').value;
-        // if (kd_produk == "") {
-        //     alert("Kode Produk Masih Kosong!");
-        //     document.getElementById('kd_produk').focus();
-        //     // return (false);
-        // }
-        if (jenis_bahan.value == "") {
+    function validasi_form_input(form) {
+        if (form.jenis_bahan.value == "") {
             alert("Jenis Bahan masih kosong!");
-            document.getElementById('id_jenis').focus();
-            // return (false);
-        } else if (form.id_item.value == "") {
-            alert("Nama Bahan masih kosong!");
-            document.getElementById('id_item').focus();
-            // return (false);
+            form.jenis_bahan.focus();
+            return (false);
+        } else if (form.item.value == "") {
+            alert("Item Bahan masih kosong!");
+            form.item.focus();
+            return (false);
+        } else if (form.banyak.value == "") {
+            alert("Field Banyak masih kosong!");
+            form.item.focus();
+            return (false);
+        } else if (form.harga_s.value == "") {
+            alert("Field Harga Bahan masih kosong!");
+            form.item.focus();
+            return (false);
+        } else {
+            return (true);
         }
-        return false;
     }
 </script>
 <script type="text/javascript">
-    function validasi_hitung() {
-        var kd_produk = document.getElementById('kd_produk').value;
-        var persentase = document.getElementById('persentase').value;
-        if (kd_produk == "") {
-            alert("Kode Produk Masih Kosong!");
-            document.getElementById('kd_produk').focus();
-            // return (false);
-        } else if (persentase.value == "") {
-            alert("Jenis Bahan masih kosong!");
-            document.getElementById('persentase').focus();
-            // return (false);
+    function validasi_hitung(form) {
+        if (form.kd_produk.value == "") {
+            alert("Kode Produk masih kosong!");
+            form.kd_produk.focus();
+            return (false);
+        } else if (form.persentase.value == "") {
+            alert("Angka Persentase keuntungan masih kosong!");
+            form.persentase.focus();
+            return (false);
+        } else {
+            return (true);
         }
-        return false;
     }
 </script>
 <script type="text/javascript">
