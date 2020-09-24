@@ -81,7 +81,6 @@
                                     $total = $total + $data->total_harga;
                                 }
                                 ?>
-
                             </tbody>
                             <tr>
                                 <td align="center" colspan="6"><b>Total</b></td>
