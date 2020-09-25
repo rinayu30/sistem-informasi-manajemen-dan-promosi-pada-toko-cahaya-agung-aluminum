@@ -111,7 +111,6 @@ class Dashboard extends CI_Controller
     {
         // check_not_login();
         $this->load->view('user/template/header');
-        // $this->load->view('user/templates/sidebar');
         $this->load->view('user/auth/register');
         $this->load->view('user/template/footer');
     }

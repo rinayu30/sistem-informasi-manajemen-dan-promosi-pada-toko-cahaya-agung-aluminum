@@ -75,7 +75,6 @@
                                         <td><?= $data->jumlah ?></td>
                                         <td>Rp. <?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
                                         <td>Rp. <?= number_format($data->total_harga, 0, ',', '.') ?></td>
-
                                     </tr>
                                 <?php
                                     $total = $total + $data->total_harga;

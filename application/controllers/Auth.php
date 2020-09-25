@@ -2,6 +2,13 @@
 
 class Auth extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        // check_not_login();
+        // $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model', 'kalkulasi_model']);
+        $this->load->library('form_validation');
+    }
     public function login()
     {
         check_already_login();
@@ -73,5 +80,59 @@ class Auth extends CI_Controller
         $params = array('userid', 'level');
         $this->session->unset_userdata($params);
         redirect('auth/login');
+    }
+
+    public function proses_register()
+    {
+        // check_not_login();
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
+        $this->form_validation->set_rules('pass', 'Password', 'required|min_length[6]');
+        $this->form_validation->set_rules('passconf', 'Konfirmasi Password', 'required|matches[pass]');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+
+        $this->form_validation->set_message('required', '%s harus diisi');
+        $this->form_validation->set_message('matches', '%s tidak cocok');
+        $this->form_validation->set_message('is_unique', '%s sudah ada, silahkan ganti');
+        $this->form_validation->set_message('min_length', '%s minimal 6 karakter');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('user/template/header');
+            $this->load->view('user/auth/register');
+            $this->load->view('user/template/footer');
+        } else {
+            $data = [
+                'nama_user' => htmlspecialchars($this->input->post('nama', true)),
+                'email' => htmlspecialchars($this->input->post('email', true)),
+                'password' => sha1($this->input->post('passconf')),
+                'level' => '3',
+                'created' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->insert('user', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Daftar akun berhasil, silahkan login</div>');
+            redirect('home/login');
+        }
+    }
+    public function proses_login()
+    {
+        // check_not_login();
+        $this->form_validation->set_rules('pass', 'Password', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_message('required', '%s harus diisi');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('user/template/header');
+            $this->load->view('user/auth/login');
+            $this->load->view('user/template/footer');
+        } else {
+            //jika sukses
+            $this->_login();
+        }
+    }
+    private function _login()
+    {
+        $email = $this->input->post('email');
+        $pass = $this->input->post('pass');
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
     }
 }

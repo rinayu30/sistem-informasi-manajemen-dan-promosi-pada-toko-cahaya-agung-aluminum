@@ -77,7 +77,14 @@
 						</ul> -->
 					</li>
 					<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
-					<li><a href="<?= site_url('home/login') ?>">Login</a></li>
+					<li> <a href="<?= site_url('home/login') ?>">Login</a>
+
+						<!-- <?php if ($this->fungsi->user_login()->nama_user) { ?>
+							<a href="<?= site_url('auth/logout') ?>">Logout</a>
+						<?php } else { ?>
+							<a href="<?= site_url('home/login') ?>">Login</a>
+						<?php } ?> -->
+					</li>
 					<li>
 						<?php
 						$keranjang = '<i class="icon_bag_alt"></i> Keranjang saya : ' . $this->cart->total_items() . ' item'

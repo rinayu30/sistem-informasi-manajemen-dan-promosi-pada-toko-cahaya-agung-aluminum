@@ -16,7 +16,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Produk</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Stok Produk</div>
               <div class="h6 mb-0 font-weight-bold text-gray-800">
                 <?php
                 $db = $this->db->get('produk');
@@ -24,7 +24,6 @@
                 foreach ($query as $rw) {
                   echo number_format($rw->total, 0, ',', '.');
                 }
-
                 ?>
               </div>
 

@@ -164,10 +164,11 @@
                   <span class="mr-2 d-none d-lg-inline font-weight-bold text-gray-600 medium ">Selamat Datang <?= ucfirst($this->fungsi->user_login()->nama_user) ?></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">
+                <a class="dropdown-item" href="<?= site_url('auth/logout') ?>" data-toggle="modal" data-target="#logoutModal1">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
+
               </div>
               <!-- <?php } else { ?>
                 <a class="dropdown-item" href="<?= site_url('auth/login') ?>">

@@ -20,7 +20,7 @@
                                 <select data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
                                     <option value="">--Pilih--</option>
                                     <?php
-                                    $db = $this->db->get('produk');
+                                    $db = $this->db->where('updated', '0')->get('produk');
                                     foreach ($db->result() as $data) {
                                     ?>
                                         <option value="<?php echo $data->kd_produk; ?>">
@@ -112,7 +112,6 @@
                                 <tr class="gradeA">
                                     <td colspan="4" align="center">T O T A L</td>
                                     <td>Rp. <?php
-
                                             echo number_format($total, 0, ',', '.'); ?></td>
                                     <td></td>
                                 </tr>
@@ -177,7 +176,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <!-- value="<?= $row->dp_awal ?>"  -->
-                                            <input type="number" min="1" name="uang_m" class="form-control form-control-sm">
+                                            <input type="number" min="1" id="uang_m" name="uang_m" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
@@ -200,7 +199,7 @@
 </div>
 <!-- End of Page Wrapper -->
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
-
+<script src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js') ?>"></script>
 <script>
     $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
         $("#check-all").click(function() { // Ketika user men-cek checkbox all
@@ -217,4 +216,22 @@
                 $("#form-delete").submit(); // Submit form
         });
     });
+</script>
+<script type="text/javascript">
+    function validasi_hitung(form) {
+        <?php
+        $min = $this->db->query("select_sum('subtotal')");
+        ?>
+        if (form.uang_m.value == "") {
+            alert("Kode Produk masih kosong!");
+            form.kd_produk.focus();
+            return (false);
+        } else if (form.persentase.value == "") {
+            alert("Angka Persentase keuntungan masih kosong!");
+            form.persentase.focus();
+            return (false);
+        } else {
+            return (true);
+        }
+    }
 </script>

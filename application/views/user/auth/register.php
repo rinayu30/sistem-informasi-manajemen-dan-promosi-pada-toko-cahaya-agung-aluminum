@@ -20,22 +20,26 @@
           <div class="col-lg-6 offset-lg-3">
             <div class="register-form">
               <h2>Daftar Akun</h2>
-              <form action="#">
+              <form action="<?= site_url('auth/proses_register') ?>" method="post">
                 <div class="group-input">
                   <label for="nama">Nama Lengkap *</label>
-                  <input type="text" name="nama">
+                  <input type="text" name="nama" value="<?= set_value('nama') ?>" placeholder="Nama lengkap...">
+                  <?= form_error('nama', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <div class="group-input">
-                  <label for="username">Username *</label>
-                  <input type="text" name="username">
+                  <label for="email">Email *</label>
+                  <input type="text" name="email" value="<?= set_value('email') ?>" placeholder="Email...">
+                  <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <div class="group-input">
                   <label for="pass">Password *</label>
-                  <input type="text" name="pass">
+                  <input type="password" name="pass" placeholder="Password...">
+                  <?= form_error('pass', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <div class="group-input">
-                  <label for="con-pass">Konfirmasi Password *</label>
-                  <input type="text" name="con-pass">
+                  <label for="passconf">Konfirmasi Password *</label>
+                  <input type="password" name="passconf" placeholder="Ulangi Password...">
+                  <?= form_error('passconf', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <button type="submit" class="site-btn register-btn">DAFTAR</button>
               </form>
