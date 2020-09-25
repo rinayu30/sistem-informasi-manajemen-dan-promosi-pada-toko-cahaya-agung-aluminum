@@ -77,6 +77,7 @@
 						</ul> -->
 					</li>
 					<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
+					<li> <a href="<?= site_url('home/profile') ?>">My Profile</a>
 					<li> <a href="<?= site_url('home/login') ?>">Login</a>
 
 						<!-- <?php if ($this->fungsi->user_login()->nama_user) { ?>

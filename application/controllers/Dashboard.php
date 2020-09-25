@@ -85,6 +85,14 @@ class Dashboard extends CI_Controller
         $this->load->view('user/pembayaran');
         $this->load->view('user/template/footer');
     }
+    public function profil()
+    {
+        // check_not_login();
+        $this->load->view('user/template/header');
+        // $this->load->view('user/templates/sidebar');
+        $this->load->view('user/profil');
+        $this->load->view('user/template/footer');
+    }
     public function proses_pesanan()
     {
         // check_not_login();

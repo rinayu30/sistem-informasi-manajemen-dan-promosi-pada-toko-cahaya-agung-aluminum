@@ -60,8 +60,6 @@ class Penjualan extends CI_Controller
         $dp_awal    =  $this->input->post('uang_m');
         $tgl_penjualan    =  $this->input->post('tgl_pej');
         // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
-
-
         $data = array(
             'kd_penjualan' => $data['kd_penjualan'],
             'id_pembeli' => $id_pembeli,
@@ -72,10 +70,24 @@ class Penjualan extends CI_Controller
             'tgl_penjualan' => $tgl_penjualan,
             'status_jual' => '0',
         );
+        // $this->load->library('user_agent');
+        $data1 = $this->penjualan_model->get_bayar($id);;
+        $uang = 1 / 2 * $data1;
+        if ($dp_awal < $uang) {
 
-        $this->penjualan_model->selesai_hitung($data);
-        $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
-        redirect('admin/penjualan/daftar_penjualan');
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Uang muka/pembayaran minimal 50% dari total bayar!!!<button type="button" class="close" data-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span></button></div>');
+            redirect('admin/penjualan');
+        } else if ($dp_awal > $data1) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Uang muka/pembayaran melebihi dari total bayar!!!<button type="button" class="close" data-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span></button></div>');
+            redirect('admin/penjualan');
+        } else {
+            $this->penjualan_model->selesai_hitung($data);
+            $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
+            redirect('admin/penjualan/daftar_penjualan');
+        }
     }
 
 

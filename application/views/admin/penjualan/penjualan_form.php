@@ -128,6 +128,7 @@
         <div class="container">
             <!-- Outer Row -->
             <?php $this->view('messages') ?>
+            <?= $this->session->flashdata('pesan') ?>
             <form action="<?php echo base_url('admin/penjualan/selesai_hitung') ?>" method='post' onsubmit="return validasi_hitung();">
 
                 <div class="row justify-content-left">
@@ -175,11 +176,11 @@
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <!-- value="<?= $row->dp_awal ?>"  -->
-                                            <input type="number" min="1" name="uang_m" class="form-control form-control-sm">
+                                            <input type="number" min="1" value="<?= set_value('uang_m') ?>" name="uang_m" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
-                                            <input type="date" name="tgl_pej" class="form-control form-control-sm">
+                                            <input type="date" name="tgl_pej" value="<?= set_value('tgl_pej') ?>" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <input type="submit" name="hitung" value="Selesai" class="btn btn-success btn-sm">
