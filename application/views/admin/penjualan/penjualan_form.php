@@ -20,7 +20,7 @@
                                 <select data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
                                     <option value="">--Pilih--</option>
                                     <?php
-                                    $db = $this->db->where('updated', '0')->get('produk');
+                                    $db = $this->db->get_where('produk', array('updated' => '0'));
                                     foreach ($db->result() as $data) {
                                     ?>
                                         <option value="<?php echo $data->kd_produk; ?>">
@@ -112,6 +112,7 @@
                                 <tr class="gradeA">
                                     <td colspan="4" align="center">T O T A L</td>
                                     <td>Rp. <?php
+
                                             echo number_format($total, 0, ',', '.'); ?></td>
                                     <td></td>
                                 </tr>
@@ -135,12 +136,12 @@
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary"><label for="pembeli">Nama pembeli*</label></h6>
                             </div>
-                            <div class="card-body" style="height: 100px;">
+                            <div class="card-body" style="height: 150px;">
                                 <div class="box-body table-responsive">
                                     <div class="form-group ">
                                         <div class="row">
-                                            <div class="col-lg-10">
-                                                <select id="pembeli" class="form-control form-control-sm" name="pembeli" required>
+                                            <div class="col-lg-10" style="height: 100px;">
+                                                <select data-placeholder="Pembeli" id="pembeli" class="form-control form-control-sm chosen-select" name="pembeli" required>
                                                     <option value="" selected hidden>---Pilih---</option>
                                                     <?php
                                                     $db = $this->db->get('pembeli');
@@ -157,8 +158,6 @@
 
                                             </div>
                                         </div>
-
-
                                     </div>
 
                                 </div>
@@ -171,12 +170,12 @@
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary"><label for="uang_m"><small>(Uang dp jika ada / dibayar) | (Masukkan tanggal penjualan)</small></label></h6>
                             </div>
-                            <div class="card-body" style="height: 100px;">
+                            <div class="card-body" style="height: 150px;">
                                 <div class="box-body table-responsive">
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <!-- value="<?= $row->dp_awal ?>"  -->
-                                            <input type="number" min="1" id="uang_m" name="uang_m" class="form-control form-control-sm">
+                                            <input type="number" min="1" name="uang_m" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
@@ -199,7 +198,7 @@
 </div>
 <!-- End of Page Wrapper -->
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
-<script src="<?php echo base_url('asset/vendor/jquery/jquery-2.2.3.min.js') ?>"></script>
+
 <script>
     $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
         $("#check-all").click(function() { // Ketika user men-cek checkbox all
@@ -216,22 +215,4 @@
                 $("#form-delete").submit(); // Submit form
         });
     });
-</script>
-<script type="text/javascript">
-    function validasi_hitung(form) {
-        <?php
-        $min = $this->db->query("select_sum('subtotal')");
-        ?>
-        if (form.uang_m.value == "") {
-            alert("Kode Produk masih kosong!");
-            form.kd_produk.focus();
-            return (false);
-        } else if (form.persentase.value == "") {
-            alert("Angka Persentase keuntungan masih kosong!");
-            form.persentase.focus();
-            return (false);
-        } else {
-            return (true);
-        }
-    }
 </script>

@@ -13,15 +13,15 @@ class Penjualan extends CI_Controller
         $this->load->library('pdf');
     }
 
-    public function search()
-    {
-        $key = $this->input->post('keyword');
-        $data['produk'] = $this->penjualan_model->get_keyword($key);
-        $this->load->view('templates_adm/header');
-        $this->load->view('templates_adm/sidebar');
-        $this->load->view('admin/penjualan/penjualan_form', $data);
-        $this->load->view('templates_adm/footer');
-    }
+    // public function search()
+    // {
+    //     $key = $this->input->post('keyword');
+    //     $data['produk'] = $this->penjualan_model->get_keyword($key);
+    //     $this->load->view('templates_adm/header');
+    //     $this->load->view('templates_adm/sidebar');
+    //     $this->load->view('admin/penjualan/penjualan_form', $data);
+    //     $this->load->view('templates_adm/footer');
+    // }
     public function index()
     {
         $id = $this->input->post('kd_produk');
