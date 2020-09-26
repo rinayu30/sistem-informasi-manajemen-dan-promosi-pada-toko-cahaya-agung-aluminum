@@ -73,16 +73,17 @@
 
 					<!-- <li> <a href="<?= site_url('auth/logout') ?>">My </a> -->
 					<?php if (isset($this->session->userdata()['userid'])) { ?>
-						<li> <a href="<?= site_url('home/profile') ?>">My Profile</a>
+						<li>
+							<?php
+							$keranjang = '<i class="icon_bag_alt"></i> Keranjang saya : ' . $this->cart->total_items() . ' item'
+							?>
+							<?php echo  anchor('home/detail_keranjang', $keranjang) ?></li>
+						<li> <a href="<?= site_url('home/profile') ?>">My Profile</a></li>
 						<li> <a href="<?= site_url('auth/logout') ?>">Logout</a></li>
 					<?php } else { ?>
 						<li><a href="<?= site_url('home/login') ?>">Login</a></li>
 					<?php } ?>
-					<li>
-						<?php
-						$keranjang = '<i class="icon_bag_alt"></i> Keranjang saya : ' . $this->cart->total_items() . ' item'
-						?>
-						<?php echo  anchor('home/detail_keranjang', $keranjang) ?></li>
+
 
 
 				</ul>

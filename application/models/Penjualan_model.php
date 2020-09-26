@@ -157,7 +157,7 @@ class Penjualan_model extends CI_Model
         ];
         $this->db->insert('detail_penjualan', $params);
     }
-    public function add_ol($post)
+    public function add_ol($post, $alamat)
     {
 
         $subtotal = $post['jumlah'] * $this->getHargaJual();
@@ -170,6 +170,15 @@ class Penjualan_model extends CI_Model
             'status' => '0',
         ];
         $this->db->insert('detail_penjualan', $params);
+        $params1 = [
+            'kd_penjualan' => $this->buat_kode_penjualan(),
+            'kd_produk' => $post['kd_produk'],
+            'harga_jual' => $this->getHargaJual(),
+            'jumlah' => $post['jumlah'],
+            'subtotal' => $subtotal,
+            'status' => '0',
+        ];
+        $this->db->insert('penjualan', $params1);
     }
     function selesai_hitung($data)
     {
@@ -178,19 +187,19 @@ class Penjualan_model extends CI_Model
         $this->db->query("update detail_penjualan set kd_penjualan='" . $last_id['kd_penjualan'] . "' where status='1' ");
         $this->db->query("update detail_penjualan set status='0' where status='1'");
     }
-    public function edit($post)
-    {
-        $params = [
-            'kd_penjualan' => $post['kode'],
-            'nama_penjualan' => $post['nama'],
-            'stok' => $post['stok'],
-            'kategori' => $post['kategori'],
-            'detail' => empty($post['ket']) ? null : $post['ket'],
-            'updated' => date('Y-m-d H:i:s')
-        ];
-        $this->db->where('kd_penjualan', $post['kode']);
-        $this->db->update('penjualan', $params);
-    }
+    // public function edit($post)
+    // {
+    //     $params = [
+    //         'kd_penjualan' => $post['kode'],
+    //         'nama_penjualan' => $post['nama'],
+    //         'stok' => $post['stok'],
+    //         'kategori' => $post['kategori'],
+    //         'detail' => empty($post['ket']) ? null : $post['ket'],
+    //         'updated' => date('Y-m-d H:i:s')
+    //     ];
+    //     $this->db->where('kd_penjualan', $post['kode']);
+    //     $this->db->update('penjualan', $params);
+    // }
     public function hapus_data($id)
     {
         $this->db->where('id_detail', $id);

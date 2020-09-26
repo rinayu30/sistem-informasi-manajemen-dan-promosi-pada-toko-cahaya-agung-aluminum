@@ -17,15 +17,24 @@
 <section class="checkout-section spad">
     <div class="container">
         <?= $this->session->flashdata('pesan') ?>
-
         <form method="post" action="<?= site_url('dashboard/proses_pesanan') ?>" class="checkout-form">
             <div class="row">
-                <div class="col-lg-3">
-
+                <div class="onset-lg-1 col-lg-7 ">
+                    <div class="contact-form">
+                        <div class="leave-comment">
+                            <h4>Alamat Pengiriman</h4>
+                            <p>Isi kolom dibawah jika ingin menggunakan alamat baru
+                                <br>
+                                Atau biarkan kosong jika alamat sesuai dengan profile</p>
+                            <div class="col-lg-12">
+                                <!-- <input type="text" name="alamat" value="<?= set_value('alamat') ?>" class="street-first"> -->
+                                <textarea name="alamat" placeholder="Biarkan kosong jika tidak ingin mengganti alamat..." cols="59" rows="5" class="street-first"><?= set_value('alamat') ?></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="place-order">
-
                         <h4>Total Pesanan</h4>
                         <div class="order-total">
                             <ul class="order-table">
@@ -52,9 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
 
-                </div>
             </div>
         </form>
     </div>

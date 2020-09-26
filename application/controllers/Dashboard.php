@@ -1,5 +1,8 @@
 <?php
 //untuk website
+
+use phpDocumentor\Reflection\Types\False_;
+
 class Dashboard extends CI_Controller
 {
     public function __construct()
@@ -43,7 +46,7 @@ class Dashboard extends CI_Controller
 
     public function tambah_keranjang($id)
     {
-        // check_not_login();
+        check_not_login();
         $produk = $this->produk_model->find($id);
         $data = array(
             'id'      => $produk->kd_produk,
@@ -105,8 +108,27 @@ class Dashboard extends CI_Controller
                 // 'harga_jual' => $value['price'],
                 // 'subtotal' => $value['subtotal']
             );
+
             $this->penjualan_model->add_ol($data);
         }
+        $alamat = $this->input->post('alamat');
+        $user =  $this->fungsi->user_login()->id_user;
+        // $id = $this->penjualan_model->buat_kode_penjualan();
+        // $bayar = $this->penjualan_model->get_bayar($id);
+        // $id_pembeli    =  $this->input->post('pembeli');
+        // $tgl_penjualan    =  date('Y-m-d');
+        // // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
+        // $data = array(
+        //     'kd_penjualan' => $data['kd_penjualan'],
+        //     'id_pembeli' => $id_pembeli,
+        //     'id_user' => $user,
+        //     'tot_bayar' => $data['bayar'],
+        //     'dp_awal' => $dp_awal,
+        //     'sisa' => $data['sisa'],
+        //     'tgl_penjualan' => $tgl_penjualan,
+        //     'status_jual' => '0',
+        // );
+
         $this->cart->destroy();
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Pesanan berhasil, admin kami akan segera menghubungi Anda.
@@ -117,8 +139,8 @@ class Dashboard extends CI_Controller
 
     public function proses_identitas()
     {
-        // check_not_login();
-        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
+        check_not_login();
+        // $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('notel', 'Nomor WA/HP', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
@@ -131,7 +153,8 @@ class Dashboard extends CI_Controller
             $this->load->view('user/template/footer');
         } else {
             $data = [
-                'nama_pembeli' => $this->input->post('nama', true),
+                'id_user' => $this->session->userdata()['userid'],
+                'nama_pembeli' =>  $this->session->userdata()['nama_user'],
                 'jk' => $this->input->post('jk', true),
                 'no_telp' => $this->input->post('notel', true),
                 'alamat' => $this->input->post('alamat', true),

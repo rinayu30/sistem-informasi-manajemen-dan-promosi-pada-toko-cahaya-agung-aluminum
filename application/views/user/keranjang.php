@@ -23,7 +23,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th>Gambar</th>
                                 <th class="p-name">Nama Produk</th>
                                 <th>Harga</th>
                                 <th>Jumlah</th>
@@ -36,16 +36,16 @@
                             $no = 1;
                             foreach ($this->cart->contents() as $item) : ?>
                                 <tr>
-                                    <td class="cart-pic first-row"><?= $no++ ?></td>
+                                    <td class="cart-pic first-row"> <img src="<?= base_url('uploads/produk/' . $item['gbr']) ?>" style="width : 100px"></td>
                                     <td class="cart-title first-row">
                                         <h5><?= $item['name'] ?></h5>
                                     </td>
                                     <td class="p-price first-row">Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
                                     <td class="qua-col first-row">
                                         <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="<?= $item['qty'] ?>">
-                                            </div>
+                                            <!-- <div class="pro-qty"> -->
+                                            <?= $item['qty'] ?>
+                                            <!-- </div> -->
                                         </div>
                                     </td>
                                     <td class="total-price first-row">Rp. <?= number_format($item['subtotal'], 0, ',', '.') ?></td>

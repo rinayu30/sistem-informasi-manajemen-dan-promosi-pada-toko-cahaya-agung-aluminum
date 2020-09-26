@@ -52,7 +52,7 @@ class Penjualan extends CI_Controller
         // $id_user =  $this->db->get_where('user', array('username' => $user))->row_array();
 
         // $kd_produk =  $this->input->post('kd_produk');
-        $data['kd_penjualan'] = $this->penjualan_model->buat_kode_penjualan();
+        // $data['kd_penjualan'] = $this->penjualan_model->buat_kode_penjualan();
         $id = $this->penjualan_model->buat_kode_penjualan();
         $data['bayar'] = $this->penjualan_model->get_bayar($id);
         $data['sisa'] = $this->penjualan_model->get_sisa($id);
@@ -61,7 +61,7 @@ class Penjualan extends CI_Controller
         $tgl_penjualan    =  $this->input->post('tgl_pej');
         // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
         $data = array(
-            'kd_penjualan' => $data['kd_penjualan'],
+            'kd_penjualan' => $id,
             'id_pembeli' => $id_pembeli,
             'id_user' => $user,
             'tot_bayar' => $data['bayar'],
@@ -71,10 +71,11 @@ class Penjualan extends CI_Controller
             'status_jual' => '0',
         );
         // $this->load->library('user_agent');
-        $data1 = $this->penjualan_model->get_bayar($id);;
-        $uang = 1 / 2 * $data1;
-        if ($dp_awal < $uang) {
+        $data1 = $this->penjualan_model->get_bayar($id);
+        $uang = (1 / 2) * $data1;
+        // return var_dump($data);
 
+        if ($dp_awal < $uang) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Uang muka/pembayaran minimal 50% dari total bayar!!!<button type="button" class="close" data-dismiss="alert" arial-label="Close">
             <span aria-hidden="true">&times;</span></button></div>');
