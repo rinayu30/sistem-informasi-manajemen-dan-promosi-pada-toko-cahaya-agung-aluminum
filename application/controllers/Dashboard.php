@@ -102,33 +102,44 @@ class Dashboard extends CI_Controller
         }
         // return var_dump($cartData);
         foreach ($cartData as $key => $value) {
-            $data = array(
+            $data1 = array(
                 'kd_produk' => $value['id'],
                 'jumlah' => $value['qty'],
                 // 'harga_jual' => $value['price'],
                 // 'subtotal' => $value['subtotal']
             );
 
-            $this->penjualan_model->add_ol($data);
+            $this->penjualan_model->add_ol($data1);
         }
-        $alamat = $this->input->post('alamat');
         $user =  $this->fungsi->user_login()->id_user;
-        // $id = $this->penjualan_model->buat_kode_penjualan();
-        // $bayar = $this->penjualan_model->get_bayar($id);
-        // $id_pembeli    =  $this->input->post('pembeli');
-        // $tgl_penjualan    =  date('Y-m-d');
-        // // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
-        // $data = array(
-        //     'kd_penjualan' => $data['kd_penjualan'],
-        //     'id_pembeli' => $id_pembeli,
-        //     'id_user' => $user,
-        //     'tot_bayar' => $data['bayar'],
-        //     'dp_awal' => $dp_awal,
-        //     'sisa' => $data['sisa'],
-        //     'tgl_penjualan' => $tgl_penjualan,
-        //     'status_jual' => '0',
-        // );
 
+        $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$user'")->row()->id_pembeli;
+        $alamat = $this->input->post('alamat');
+        $alamat1 = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$user'")->row();
+        if (!empty($alamat)) {
+            $ala = $alamat;
+        } else {
+            $ala = $alamat1;
+        }
+        // return $ala;
+        // return var_dump($ala);
+        $id = $this->penjualan_model->buat_kode_penjualan();
+        $bayar = $this->penjualan_model->get_bayar($id);
+
+        $tgl_penjualan    =  date('Y-m-d');
+        $data = array(
+            'kd_penjualan' => $id,
+            'id_pembeli' => $id_pembeli,
+            'id_user' => $user,
+            'tot_bayar' => $bayar,
+            'dp_awal' => null,
+            'sisa' => null,
+            'tgl_penjualan' => $tgl_penjualan,
+            'alamat_kirim' => $ala,
+            'status_jual' => '0',
+        );
+        // return var_dump($data);
+        $this->penjualan_model->selesai_hitung_ol($data);
         $this->cart->destroy();
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Pesanan berhasil, admin kami akan segera menghubungi Anda.

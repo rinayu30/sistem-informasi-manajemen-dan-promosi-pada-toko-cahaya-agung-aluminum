@@ -157,9 +157,8 @@ class Penjualan_model extends CI_Model
         ];
         $this->db->insert('detail_penjualan', $params);
     }
-    public function add_ol($post, $alamat)
+    public function add_ol($post)
     {
-
         $subtotal = $post['jumlah'] * $this->getHargaJual();
         $params = [
             'kd_penjualan' => $this->buat_kode_penjualan(),
@@ -170,15 +169,10 @@ class Penjualan_model extends CI_Model
             'status' => '0',
         ];
         $this->db->insert('detail_penjualan', $params);
-        $params1 = [
-            'kd_penjualan' => $this->buat_kode_penjualan(),
-            'kd_produk' => $post['kd_produk'],
-            'harga_jual' => $this->getHargaJual(),
-            'jumlah' => $post['jumlah'],
-            'subtotal' => $subtotal,
-            'status' => '0',
-        ];
-        $this->db->insert('penjualan', $params1);
+    }
+    function selesai_hitung_ol($data)
+    {
+        $this->db->insert('penjualan', $data);
     }
     function selesai_hitung($data)
     {
@@ -237,7 +231,7 @@ class Penjualan_model extends CI_Model
 
     public function laporan_default()
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.*,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual,alamat_kirim
                 FROM penjualan
                 LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
                 LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
@@ -248,7 +242,7 @@ class Penjualan_model extends CI_Model
 
     public function laporan_default_selesai()
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.*,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual,alamat_kirim
                 FROM penjualan
                 LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
                 LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
