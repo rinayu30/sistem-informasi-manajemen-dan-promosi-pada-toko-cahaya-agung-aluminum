@@ -116,12 +116,12 @@ class Dashboard extends CI_Controller
         $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$user'")->row()->id_pembeli;
         $alamat = $this->input->post('alamat');
         $alamat1 = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$user'")->row();
-        if (!empty($alamat)) {
+        if (!empty($alamat) > 0) {
             $ala = $alamat;
         } else {
             $ala = $alamat1;
         }
-        // return $ala;
+        return $ala;
         // return var_dump($ala);
         $id = $this->penjualan_model->buat_kode_penjualan();
         $bayar = $this->penjualan_model->get_bayar($id);

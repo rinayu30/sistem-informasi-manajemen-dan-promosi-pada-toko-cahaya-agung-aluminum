@@ -29,7 +29,7 @@
                                 <div class="form-group col-md-2">
                                     <label>:</label> </div>
                                 <div class="form-group col-md-5">
-                                    <?= $data->nama_user ?> </div>
+                                    <?= $data->level == '3' ? 'Online' : $data->nama_user ?> </div>
                             </div>
                         </div>
                     </div>

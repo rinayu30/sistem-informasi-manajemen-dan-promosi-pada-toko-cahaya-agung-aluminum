@@ -43,7 +43,7 @@ class Auth extends CI_Controller
                 } elseif ($this->session->userdata("level") == "2") {
                     redirect('admin/dashboard/');
                 } else {
-                    redirect('dashboard');
+                    redirect('home');
                 }
             } else {
 
