@@ -16,37 +16,12 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
+        <?= $this->session->flashdata('pesan') ?>
+
         <form method="post" action="<?= site_url('dashboard/proses_pesanan') ?>" class="checkout-form">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="checkout-content">
-                        <a href="<?= site_url('home/login') ?>" class="content-btn">Klik disini untuk Login agar pemesanan dapat dilakukan</a>
-                    </div>
-                    <h4>Identitas Pemesan</h4>
+                <div class="col-lg-3">
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label for="nama_lengkap">Nama Lengkap<span>*</span></label>
-                            <input type="text" name="nama_lengkap" placeholder="Nama lengkap Anda..." required>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <label for="jk">Jenis Kelamin <span>*</span></label>
-                            <select name="jk" class="form-control" required>
-                                <option value="">--Pilih--</option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                            </select><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="notel">No WA/HP<span>*</span></label>
-                            <input type="text" name="notel" placeholder="Nomor WA/HP Anda..." required>
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="alamat">Alamat Pemesan<span>*</span></label>
-                            <input type="text" name="alamat" class="street-first" placeholder="Alamat lengkap Anda..." required>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="place-order">
@@ -76,6 +51,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-3">
+
                 </div>
             </div>
         </form>

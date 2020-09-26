@@ -157,6 +157,20 @@ class Penjualan_model extends CI_Model
         ];
         $this->db->insert('detail_penjualan', $params);
     }
+    public function add_ol($post)
+    {
+
+        $subtotal = $post['jumlah'] * $this->getHargaJual();
+        $params = [
+            'kd_penjualan' => $this->buat_kode_penjualan(),
+            'kd_produk' => $post['kd_produk'],
+            'harga_jual' => $this->getHargaJual(),
+            'jumlah' => $post['jumlah'],
+            'subtotal' => $subtotal,
+            'status' => '0',
+        ];
+        $this->db->insert('detail_penjualan', $params);
+    }
     function selesai_hitung($data)
     {
         $this->db->insert('penjualan', $data);

@@ -68,24 +68,16 @@
 			<nav class="nav-menu mobile-menu">
 				<ul>
 					<li class="active"><a href="<?= site_url('home') ?>">Home</a></li>
-
-					<li><a href="<?= site_url('home/produk') ?>">Produk</a>
-						<!-- <ul class="dropdown">
-							<li><a href="#">Men's</a></li>
-							<li><a href="#">Women's</a></li>
-							<li><a href="#">Kid's</a></li>
-						</ul> -->
-					</li>
+					<li><a href="<?= site_url('home/produk') ?>">Produk</a></li>
 					<li><a href="<?= site_url('home/kontak') ?>">Kontak</a></li>
-					<li> <a href="<?= site_url('home/profile') ?>">My Profile</a>
-					<li> <a href="<?= site_url('home/login') ?>">Login</a>
 
-						<!-- <?php if ($this->fungsi->user_login()->nama_user) { ?>
-							<a href="<?= site_url('auth/logout') ?>">Logout</a>
-						<?php } else { ?>
-							<a href="<?= site_url('home/login') ?>">Login</a>
-						<?php } ?> -->
-					</li>
+					<!-- <li> <a href="<?= site_url('auth/logout') ?>">My </a> -->
+					<?php if (isset($this->session->userdata()['userid'])) { ?>
+						<li> <a href="<?= site_url('home/profile') ?>">My Profile</a>
+						<li> <a href="<?= site_url('auth/logout') ?>">Logout</a></li>
+					<?php } else { ?>
+						<li><a href="<?= site_url('home/login') ?>">Login</a></li>
+					<?php } ?>
 					<li>
 						<?php
 						$keranjang = '<i class="icon_bag_alt"></i> Keranjang saya : ' . $this->cart->total_items() . ' item'

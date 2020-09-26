@@ -7,9 +7,8 @@ class Dashboard extends CI_Controller
         parent::__construct();
         // check_not_login();
         // cek_admin();
-        // check_not_login();
-        $this->load->model(['produk_model', 'kategori_model']);
-        // $this->load->library('form_validation');
+        $this->load->model(['produk_model', 'kategori_model', 'penjualan_model']);
+        $this->load->library('form_validation');
     }
     public function index()
     {
@@ -24,7 +23,6 @@ class Dashboard extends CI_Controller
         $this->load->view('user/template/header');
         $this->load->view('user/kontak');
         $this->load->view('user/template/footer');
-        // $this->load->view('user/templates/sidebar');
     }
 
     public function produk()
@@ -39,7 +37,6 @@ class Dashboard extends CI_Controller
     {
         $data['row'] = $this->produk_model->get($id);
         $this->load->view('user/template/header');
-        // $this->load->view('user/template/sidebar');
         $this->load->view('user/produk/detail', $data);
         $this->load->view('user/template/footer');
     }
@@ -47,7 +44,6 @@ class Dashboard extends CI_Controller
     public function tambah_keranjang($id)
     {
         // check_not_login();
-        // cek_pengunjung();
         $produk = $this->produk_model->find($id);
         $data = array(
             'id'      => $produk->kd_produk,
@@ -67,7 +63,6 @@ class Dashboard extends CI_Controller
     {
         // check_not_login();
         $this->load->view('user/template/header');
-        // $this->load->view('user/template/sidebar');
         $this->load->view('user/keranjang');
         $this->load->view('user/template/footer');
     }
@@ -81,7 +76,6 @@ class Dashboard extends CI_Controller
     {
         // check_not_login();
         $this->load->view('user/template/header');
-        // $this->load->view('user/templates/sidebar');
         $this->load->view('user/pembayaran');
         $this->load->view('user/template/footer');
     }
@@ -89,21 +83,64 @@ class Dashboard extends CI_Controller
     {
         // check_not_login();
         $this->load->view('user/template/header');
-        // $this->load->view('user/templates/sidebar');
         $this->load->view('user/profil');
         $this->load->view('user/template/footer');
     }
     public function proses_pesanan()
     {
+        check_not_login();
+        $cartData = $this->cart->contents();
+        if (count($cartData) <= 0) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+               Maaf, Anda belum menambahkan produk apapun, silahkan pilih produk terlebih dahulu!
+                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>');
+            return redirect('home/pemesanan');
+        }
+        // return var_dump($cartData);
+        foreach ($cartData as $key => $value) {
+            $data = array(
+                'kd_produk' => $value['id'],
+                'jumlah' => $value['qty'],
+                // 'harga_jual' => $value['price'],
+                // 'subtotal' => $value['subtotal']
+            );
+            $this->penjualan_model->add_ol($data);
+        }
+        $this->cart->destroy();
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Pesanan berhasil, admin kami akan segera menghubungi Anda.
+                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>');
+        return redirect('home/pemesanan');
+    }
+
+    public function proses_identitas()
+    {
         // check_not_login();
-        $is_processed = $this->penjualanonline_model->pesan_produk();
-        if ($is_processed) {
-            $this->cart->destroy();
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
+        $this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('notel', 'Nomor WA/HP', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+
+        $this->form_validation->set_message('required', '%s harus diisi');
+
+        if ($this->form_validation->run() == FALSE) {
             $this->load->view('user/template/header');
-            $this->load->view('user/proses_pesanan');
+            $this->load->view('user/profil');
             $this->load->view('user/template/footer');
         } else {
-            echo "<alert>Maaf, Pesanan Anda Gagal Diproses !</alert>";
+            $data = [
+                'nama_pembeli' => $this->input->post('nama', true),
+                'jk' => $this->input->post('jk', true),
+                'no_telp' => $this->input->post('notel', true),
+                'alamat' => $this->input->post('alamat', true),
+                'created' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->insert('pembeli', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data pengguna berhasil disimpan</div>');
+            redirect('home/produk');
         }
     }
 
@@ -111,7 +148,6 @@ class Dashboard extends CI_Controller
     {
         // check_not_login();
         $this->load->view('user/template/header');
-        // $this->load->view('user/templates/sidebar');
         $this->load->view('user/auth/login');
         $this->load->view('user/template/footer');
     }

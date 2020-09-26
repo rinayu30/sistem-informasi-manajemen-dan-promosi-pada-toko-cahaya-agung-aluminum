@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use phpDocumentor\Reflection\Types\Object_;
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
@@ -8,6 +12,8 @@ class Auth extends CI_Controller
         // check_not_login();
         // $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model', 'kalkulasi_model']);
         $this->load->library('form_validation');
+        $this->load->library('session');
+        $this->load->model('auth_model');
     }
     public function login()
     {
@@ -17,7 +23,6 @@ class Auth extends CI_Controller
 
     public function proses()
     {
-
         $post = $this->input->post(null, TRUE);
         if (isset($post['login'])) {
             $this->load->model('auth_model');
@@ -53,9 +58,14 @@ class Auth extends CI_Controller
 
     public function logout()
     {
-        $params = array('userid', 'level');
-        $this->session->unset_userdata($params);
-        redirect('auth/login');
+        // $params = array('userid', 'level');
+        // $this->session->unset_userdata($params);
+
+        $userdata = (object) $this->session->userdata();
+        $redirect = $userdata->level == 3 ? '/home/login' : '/auth/login';
+
+        $this->auth_model->logout();
+        redirect(base_url($redirect));
     }
 
     public function proses_register()
@@ -95,20 +105,40 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('pass', 'Password', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_message('required', '%s harus diisi');
-
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('user/template/header');
             $this->load->view('user/auth/login');
             $this->load->view('user/template/footer');
         } else {
-            //jika sukses
-            $this->_login();
+            $post = $this->input->post(null, TRUE);
+            if (isset($post['submit'])) {
+                $this->load->model('auth_model');
+                $query = $this->auth_model->login_web($post);
+                // print_r($this->session->userdata);
+                // return;
+                if ($query->num_rows() > 0) {
+                    $row = $query->row();
+                    $params = array(
+                        'userid' => $row->id_user,
+                        'level' => $row->level
+                    );
+                    $this->session->set_userdata($params);
+                    redirect('home/produk');
+                } else {
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Username atau password Anda Salah!
+                    <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                    <span aria-hidden="true">&times;</span></button></div>');
+                    redirect('home/login');
+                }
+            }
         }
     }
-    private function _login()
-    {
-        $email = $this->input->post('email');
-        $pass = $this->input->post('pass');
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
-    }
+
+    // private function _login()
+    // {
+    //     $email = $this->input->post('email');
+    //     $pass = $this->input->post('pass');
+    //     $user = $this->db->get_where('user', ['email' => $email])->row_array();
+    // }
 }

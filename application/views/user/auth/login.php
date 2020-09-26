@@ -22,16 +22,14 @@
           <h2>Login</h2>
           <?= $this->session->flashdata('pesan') ?>
           <?= $this->session->flashdata('message') ?>
-          <form action="<?= site_url('auth/proses_login') ?>" method="post">
+          <form action="<?= base_url('auth/proses_login') ?>" method="post">
             <div class="group-input">
-              <label for="email">Email *</label>
+              <label for="email">Email * <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?></label>
               <input type="text" name="email" value="<?= set_value('email') ?>" placeholder="Email...">
-              <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
             </div>
             <div class="group-input">
-              <label for="pass">Password *</label>
+              <label for="pass">Password * <?= form_error('pass', '<small class="text-danger pl-3">', '</small>') ?></label>
               <input type="password" name="pass" placeholder="Kata sandi...">
-              <?= form_error('pass', '<small class="text-danger pl-3">', '</small>') ?>
             </div>
             <div class="group-input gi-check">
               <div class="gi-more">
@@ -40,10 +38,10 @@
                   <input type="checkbox" id="save-pass">
                   <span class="checkmark"></span>
                 </label> -->
-                <a href="#" class="forget-pass">Lupa Password ?</a>
+                <!-- <a href="#" class="forget-pass">Lupa Password ?</a> -->
               </div>
             </div>
-            <button type="submit" class="site-btn login-btn">LOGIN</button>
+            <button type="submit" name='submit' class="site-btn login-btn">LOGIN</button>
           </form>
           <div class="switch-login">
             <a href="<?= site_url('home/register') ?>" class="or-login">Daftarkan Akun?</a>
