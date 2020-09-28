@@ -82,12 +82,28 @@ class Dashboard extends CI_Controller
         $this->load->view('user/pembayaran');
         $this->load->view('user/template/footer');
     }
+
+    public function getIdentitas()
+    {
+        $user =  $this->fungsi->user_login();
+        $id = $user->id_user;
+        $this->db->from('pembeli');
+        if ($id != null) {
+            $this->db->where('id_user', $id);
+        }
+        $query = $this->db->get()->result();
+        // return var_dump($id);
+        return $query;
+    }
+
     public function profil()
     {
         // check_not_login();
         $showEdit = $this->input->get('show_edit');
         $data = [
             'showEdit' => false,
+            'row' => $this->getIdentitas(),
+            // 'page' => 'edit',
         ];
         if (isset($showEdit)) $data['showEdit'] = true;
         $this->load->view('user/template/header');
@@ -124,7 +140,7 @@ class Dashboard extends CI_Controller
 
         if ($user->level != '3') {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-               Login terlebih dahulu !
+               Login terlebih dahulu sebagai user website !
                 <button type="button" class="close" data-dismiss="alert" arial-label="Close">
                 <span aria-hidden="true">&times;</span></button></div>');
             return redirect('home/pemesanan');
@@ -137,17 +153,7 @@ class Dashboard extends CI_Controller
         $alamat = $this->input->post('alamat');
         $alamat = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$userId'")->row();
         $alamat = $alamat->alamat;
-        // return var_dump($id_pembeli);
 
-        // if ($alamat2->num_rows() > 0) {
-        //     $alamat1 = $alamat2->row();
-        // } else {
-        //     $this->session->set_flashdata('pesan1', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        //     Alamat belum ada silahkan lakukan pengisian alamat pengiriman.
-        //     <button type="button" class="close" data-dismiss="alert" arial-label="Close">
-        //     <span aria-hidden="true">&times;</span></button></div>');
-        //     redirect('home/pemesanan');
-        // }
         if (empty($alamat)) {
             $ala = $alamat;
         } else {
@@ -174,9 +180,9 @@ class Dashboard extends CI_Controller
         $this->penjualan_model->selesai_hitung_ol($data);
         $this->cart->destroy();
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                Pesanan berhasil, admin kami akan segera menghubungi Anda.
-                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
-                <span aria-hidden="true">&times;</span></button></div>');
+        Pesanan berhasil, Admin kami akan segera menghubungi Anda.
+        <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+        <span aria-hidden="true">&times;</span></button></div>');
         return redirect('home/pemesanan');
     }
 
@@ -191,10 +197,16 @@ class Dashboard extends CI_Controller
         $this->form_validation->set_message('required', '%s harus diisi');
 
         if ($this->form_validation->run() == FALSE) {
+            $showEdit = $this->input->get('show_edit');
+            $data = [
+                'showEdit' => false,
+            ];
+            if (isset($showEdit)) $data['showEdit'] = true;
             $this->load->view('user/template/header');
-            $this->load->view('user/profil');
+            $this->load->view('user/profil', $data);
             $this->load->view('user/template/footer');
         } else {
+            // if (empty($this->input->post('alamat'))) {
             $data = [
                 'id_user' => $this->session->userdata()['userid'],
                 'nama_pembeli' =>  $this->session->userdata()['nama_user'],
@@ -202,10 +214,26 @@ class Dashboard extends CI_Controller
                 'no_telp' => $this->input->post('notel', true),
                 'alamat' => $this->input->post('alamat', true),
                 'created' => date('Y-m-d H:i:s'),
+                'updated' => '0',
             ];
             $this->db->insert('pembeli', $data);
+
+            // else {
+            //     $data = [
+            //         'id_user' => $this->session->userdata()['userid'],
+            //         'nama_pembeli' =>  $this->session->userdata()['nama_user'],
+            //         'jk' => $this->input->post('jk', true),
+            //         'no_telp' => $this->input->post('notel', true),
+            //         'alamat' => $this->input->post('alamat', true),
+            //         'created' => date('Y-m-d H:i:s'),
+            //         'updated' => '1',
+            //     ];
+            //     $this->db->update('pembeli', $data);
+            //     $this->db->where('updated', '1');
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Data pengguna berhasil disimpan</div>');
+            Data pengguna berhasil diubah
+                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>');
             redirect('home/produk');
         }
     }

@@ -62,6 +62,8 @@ class Auth extends CI_Controller
         // $this->session->unset_userdata($params);
 
         $userdata = (object) $this->session->userdata();
+        // $this->cart->destroy();
+
         $redirect = $userdata->level == 3 ? '/home/login' : '/auth/login';
 
         $this->auth_model->logout();
@@ -86,14 +88,22 @@ class Auth extends CI_Controller
             $this->load->view('user/auth/register');
             $this->load->view('user/template/footer');
         } else {
+            $nama = htmlspecialchars($this->input->post('nama', true));
             $data = [
-                'nama_user' => htmlspecialchars($this->input->post('nama', true)),
+                'nama_user' =>  $nama,
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'password' => sha1($this->input->post('passconf')),
                 'level' => '3',
                 'created' => date('Y-m-d H:i:s'),
             ];
             $this->db->insert('user', $data);
+
+            // $data1 = [
+            //     'id_user' => $this->session->userdata()['id_user'],
+            //     'nama_pembeli' => $nama,
+            // ];
+            // return var_dump($data1);
+            // $this->db->insert('pembeli', $data1);
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Daftar akun berhasil, silahkan login</div>');
             redirect('home/login');
