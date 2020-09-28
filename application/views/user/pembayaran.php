@@ -17,6 +17,8 @@
 <section class="checkout-section spad">
     <div class="container">
         <?= $this->session->flashdata('pesan') ?>
+        <?= $this->session->flashdata('pesan1') ?>
+
         <form method="post" action="<?= site_url('dashboard/proses_pesanan') ?>" class="checkout-form">
             <div class="row">
                 <div class="onset-lg-1 col-lg-7 ">

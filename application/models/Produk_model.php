@@ -71,7 +71,7 @@ class Produk_model extends CI_Model
         return $query;
     }
 
-    public function _uploadImage($kdProduk=null)
+    public function _uploadImage($kdProduk = null)
     {
         $config['upload_path']          = './uploads/produk/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
@@ -91,30 +91,26 @@ class Produk_model extends CI_Model
         return "default.jpg";
     }
 
-    public function _deleteImage1($id)
-    {
-        $produk = $this->data['produk'];
-        if (file_exists($produk . $id))
-            if ($id != $this->data['gambar']) {
-                $target_file = 'uploads/produk/' . $produk->gambar[0];
-                unlink($produk . $id);
-                $filename = explode(".", $produk->gambar)[0];
-                return array_map('unlink', glob(FCPATH . $target_file));
-                // return array_map('unlink', glob(FCPATH . "uploads/produk/$filename.*"));
+    // public function _deleteImage1($id)
+    // {
+    //     $produk = $this->data['produk'];
+    //     if (file_exists($produk . $id))
+    //         if ($id != $this->data['gambar']) {
+    //             $target_file = 'uploads/produk/' . $produk->gambar[0];
+    //             unlink($produk . $id);
+    //             $filename = explode(".", $produk->gambar)[0];
+    //             return array_map('unlink', glob(FCPATH . $target_file));
+    //             // return array_map('unlink', glob(FCPATH . "uploads/produk/$filename.*"));
 
-            }
-    }
+    //         }
+    // }
     public function _deleteImage($kdProduk)
     {
         $produk = $this->db->where('kd_produk', $kdProduk)->get('produk')->row();
-        $gambarProduk = './uploads/produk/'.$produk->gambar ;
+        $gambarProduk = './uploads/produk/' . $produk->gambar;
         if (file_exists($gambarProduk)) if ($produk->gambar  != null && $produk->gambar != 'default.jpg') {
             unlink($gambarProduk);
         }
-        // $produk = $this->data['produk'];
-        // if (file_exists($produk->gambar . $id)) if ($produk->gambar  != null) {
-        //     unlink($produk->gambar . $id);
-        // }
     }
 
     public function buat_kode()
@@ -147,15 +143,7 @@ class Produk_model extends CI_Model
         ];
         $this->db->insert('produk', $params);
     }
-    // public function cek_gambar($post)
-    // {
-    //     if (!empty($_FILES['gambar']['nama_produk'])) {
-    //         $gbr =  $this->_uploadImage();
-    //     } else {
-    //         $gbr = $post['gambar_lama'];
-    //     }
-    //     return $gbr;
-    // }
+
 
     public function edit($post)
     {
@@ -175,18 +163,13 @@ class Produk_model extends CI_Model
         $this->db->where('kd_produk', $post['kode']);
         $this->db->update('produk', $params);
     }
-    // public function cekHarga($id){
-    //     $this->db->from('produk');
-    //     $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori');
-    //     $this->db->join('kalkulasi', 'kalkulasi.kd_produk = produk.kd_produk');
-    //     if ($id != null) {
-    //         $this->db->where('produk.kd_produk', $id);
-    //     }
-    //     $query = $this->db->get();
-    //     return $query;
-    //     $d = $this->db->get('kalkulasi');
-
-    // }
+    function update_min_stok($post)
+    {
+        $jumlah = $post['jumlah'];
+        $id = $post['kd_produk'];
+        $sql = "UPDATE produk SET stok = stok - '$jumlah' WHERE kd_produk='$id'";
+        $this->db->query($sql);
+    }
 
 
     public function hapus_data($id)
@@ -221,16 +204,4 @@ class Produk_model extends CI_Model
         // }
         return $categories;
     }
-    // public function get_sub_cat($id)
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('kategori');
-    //     $categories = $this->db->get()->result();
-    //     $i = 0;
-    //     foreach ($categories as $cat) {
-    //         $categories[$i]->sub = $this->get_sub_cat($cat->id_kategori);
-    //         $i++;
-    //     }
-    //     return $categories;
-    // }
 }

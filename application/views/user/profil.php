@@ -19,33 +19,25 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="contact-form">
-                    <div class="leave-comment">
-                        <h4>Leave A Comment</h4>
-                        <p>Our staff will call back later and answer your questions.</p>
-                        <form action="#" class="comment-form">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Your name">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Your email">
-                                </div>
-                                <div class="col-lg-12">
-                                    <textarea placeholder="Your message"></textarea>
-                                    <button type="submit" class="site-btn">Send message</button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="leave-comment ">
+                        <h4>Selamat Datang <?= $this->fungsi->user_login()->nama_user ?> di website Toko Cahaya Agung Aluminium </h4>
+                        <p><br>
+                            Silahkan lengkapi data Anda, jika masih ada yang kosong pada form disamping</p>
+                        <p>Identitas tersebut akan kami gunakan untuk keperluan pengiriman produk ke lokasi Anda <br><br><small>Klik tombol <i class="fa fa-edit fa-lg"></i> untuk mengubah informasi data diri </small> </p>
+
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 ">
-                <h4>Identitas Pengguna</h4><br>
-                <form method="post" action="<?= site_url('dashboard/proses_identitas') ?>" class="checkout-form">
+                <!-- <h4>Identitas Pengguna
+                    <button type="submit" id="edit" class="btn btn-default btn-lg"><i class="fa fa-edit" onChange="opsi(this)"></i></button></h4><br> -->
+                <h4>Identitas Pengguna
+                    <button type="submit" id="edit" class="btn btn-default btn-lg"><i class="fa fa-edit" onclick="enable_text(this.checked)"></i></button></h4><br>
+                <form method="post" action="<?= site_url('dashboard/proses_identitas') ?>" class="checkout-form" onload=enable_text(false);>
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="nama">Nama Lengkap <span>*</span><?= form_error('nama', '<small class="text-danger pl-3">', '</small>') ?></label>
-                            <input type="text" name="nama" value="<?= $this->fungsi->user_login()->nama_user ?>" disabled />
+                            <input type="text" name="nama" value="<?= $this->fungsi->user_login()->nama_user ?>" />
                         </div>
 
                         <div class="col-lg-12">
@@ -69,8 +61,8 @@
                             <textarea name="alamat" placeholder="Alamat lengkap Anda..." cols="59" rows="5" class="street-first"><?= set_value('alamat') ?></textarea>
                         </div>
                         <div class="col-lg-12">
-                            <div class="order-btn text-center">
-                                <br> <button type="submit" class="site-btn place-btn">edit profile</button>
+                            <div class="order-btn text-center" id="button" style="visibility:hidden;">
+                                <br> <button type="submit" class="site-btn place-btn">Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -82,3 +74,23 @@
     </div>
 </section>
 <!-- Shopping Cart Section End -->
+<script type="text/javascript">
+    function opsi(value) {
+        var st = $("#edit").val();
+        document.getElementById("jk").disabled = false;
+        document.getElementById("notel").disabled = false;
+        document.getElementById("alamat").disabled = false;
+        document.getElementById("edit").visible = true;
+
+
+
+    }
+</script>
+<script language="JavaScript">
+    function enable_text(status) {
+        status = !status;
+        document.f1.jk.disabled = status;
+        document.f1.notel.disabled = status;
+        document.f1.alamat.disabled = status;
+    }
+</script>

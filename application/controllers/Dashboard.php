@@ -115,13 +115,22 @@ class Dashboard extends CI_Controller
 
         $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$user'")->row()->id_pembeli;
         $alamat = $this->input->post('alamat');
-        $alamat1 = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$user'")->row();
-        if (!empty($alamat) > 0) {
-            $ala = $alamat;
+        $alamat2 = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$user'");
+        if ($alamat2->num_rows() > 0) {
+            $alamat1 = $alamat2->row();
         } else {
-            $ala = $alamat1;
+            $this->session->set_flashdata('pesan1', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Alamat belum ada silahkan lakukan pengisian alamat pengiriman.
+            <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span></button></div>');
+            redirect('home/pemesanan');
         }
-        return $ala;
+        if (empty($alamat)) {
+            $ala = $alamat1;
+        } else {
+            $ala = $alamat;
+        }
+        // return $ala;
         // return var_dump($ala);
         $id = $this->penjualan_model->buat_kode_penjualan();
         $bayar = $this->penjualan_model->get_bayar($id);
@@ -138,7 +147,7 @@ class Dashboard extends CI_Controller
             'alamat_kirim' => $ala,
             'status_jual' => '0',
         );
-        // return var_dump($data);
+        return var_dump($data);
         $this->penjualan_model->selesai_hitung_ol($data);
         $this->cart->destroy();
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">

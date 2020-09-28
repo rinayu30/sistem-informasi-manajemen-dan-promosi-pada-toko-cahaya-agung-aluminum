@@ -100,24 +100,7 @@ class Bahan_perabot_model extends CI_Model
         $sub2 = $jumlah + $sub;
         return $sub2;
     }
-    // public function tambahKalkulasi($post)
-    // {
-    //     $kd_produk    =  $this->input->post('kd_produk');
-    //     $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
 
-    //     $params = [
-    //         'id_kalkulasi' => $this->kode_kalkulasi(),
-    //         'kd_produk' => $post['kd_produk'],
-    //         'harga_modal' => $this->get_subharga(),
-    //         'harga_jual' => $this->get_hargaJual(),
-
-    //     ];
-    //     $this->db->insert('kalkulasi', $params);
-    //     // $this->db->select('jumlah_harga')->from('bahan_perabot')->where('id_kalkulasi', $subharga);
-    //     // $query = $this->db->get();
-    //     // return $query;
-
-    // }
     function selesai_hitung($data)
     {
         $id = $this->input->post('kd_produk');

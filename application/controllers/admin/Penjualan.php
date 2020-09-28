@@ -7,21 +7,13 @@ class Penjualan extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model('penjualan_model');
+        $this->load->model(['penjualan_model', 'produk_model']);
         // $this->load->library('form_validation');
         $this->load->library('form_validation');
         $this->load->library('pdf');
     }
 
-    // public function search()
-    // {
-    //     $key = $this->input->post('keyword');
-    //     $data['produk'] = $this->penjualan_model->get_keyword($key);
-    //     $this->load->view('templates_adm/header');
-    //     $this->load->view('templates_adm/sidebar');
-    //     $this->load->view('admin/penjualan/penjualan_form', $data);
-    //     $this->load->view('templates_adm/footer');
-    // }
+
     public function index()
     {
         $id = $this->input->post('kd_produk');
@@ -97,6 +89,7 @@ class Penjualan extends CI_Controller
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah_jual'])) {
             $this->penjualan_model->add($post);
+            $this->produk_model->update_min_stok($post);
         }
         // if (isset($_POST['edit_status'])) {
         //     $this->penjualan_model->edit_status($post);

@@ -111,18 +111,19 @@ class Kalkulasi extends CI_Controller
     //     }
     // }
 
-    public function proses_bahan()
-    {
-        $post = $this->input->post(null, TRUE);
-        if (isset($_POST['tambah_bahan'])) {
-            $this->bahan_perabot_model->add_bahan($post);
-        }
+    // public function proses_bahan()
+    // {
+    //     $post = $this->input->post(null, TRUE);
+    //     if (isset($_POST['tambah_bahan'])) {
+    //         $this->bahan_perabot_model->add_bahan($post);
+    //         $this->item_model->update_kurang_stok($post);
+    //     }
 
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', ' Data berhasil disimpan');
-        }
-        redirect('admin/kalkulasi');
-    }
+    //     if ($this->db->affected_rows() > 0) {
+    //         $this->session->set_flashdata('success', ' Data berhasil disimpan');
+    //     }
+    //     redirect('admin/kalkulasi');
+    // }
 
     // public function proses()
     // {

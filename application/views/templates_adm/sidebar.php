@@ -46,15 +46,18 @@
           <span>Produk</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/bahan_masuk') ?>">
-          <i class="fas fa-fw fa-inbox"></i>
-          <span>Pembelian</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/penjualan') ?>">
-          <i class="fas fa-fw fa-hand-holding-usd"></i>
-          <span>Penjualan</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Transaksi</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"><a href="<?= site_url('admin/bahan_masuk') ?>"> <i class="fas fa-fw fa-inbox"></i>
+                <span>Pembelian Bahan </span></a></h6>
+            <h6 class="collapse-header"><a href="<?= site_url('admin/penjualan') ?>"><i class="fas fa-fw fa-hand-holding-usd"></i>
+                <span>Penjualan Produk</span></a></h6>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('admin/pembeli') ?>">
@@ -73,9 +76,9 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?= site_url('admin/penjualan/laporan_b') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Pembatalan</a>
-            <a class="collapse-item" href="<?= site_url('admin/penjualan/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Penjualan</a>
-            <a class="collapse-item" href="<?= site_url('admin/bahan_masuk/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Bahan Masuk</a>
+            <h6 class="collapse-header"><a href="<?= site_url('admin/penjualan/laporan_b') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Pembatalan</a></h6>
+            <h6 class="collapse-header"> <a href="<?= site_url('admin/penjualan/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Penjualan</a></h6>
+            <h6 class="collapse-header"><a href="<?= site_url('admin/bahan_masuk/laporan') ?>"><i class="fas fa-fw fa-folder"></i> Laporan Bahan Masuk</a></h6>
           </div>
         </div>
       </li>
@@ -92,9 +95,9 @@
           </a>
           <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="<?= site_url('admin/jenis') ?>"><i class="fas fa-fw fa-folder"></i> Jenis Bahan</a>
-              <a class="collapse-item" href="<?= site_url('admin/item') ?>"><i class="fas fa-fw fa-folder"></i> Item Bahan</a>
-              <a class="collapse-item" href="<?= site_url('admin/kalkulasi') ?>"><i class="fas fa-fw fa-folder"></i> Kalkulasi Harga</a>
+              <h6 class="collapse-header"><a href="<?= site_url('admin/jenis') ?>"><i class="fas fa-fw fa-folder"></i> Jenis Bahan</a></h6>
+              <h6 class="collapse-header"><a href="<?= site_url('admin/item') ?>"><i class="fas fa-fw fa-folder"></i> Item Bahan</a></h6>
+              <h6 class="collapse-header"><a href="<?= site_url('admin/kalkulasi') ?>"><i class="fas fa-fw fa-folder"></i> Kalkulasi Harga</a></h6>
             </div>
           </div>
         </li>
