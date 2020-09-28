@@ -85,8 +85,13 @@ class Dashboard extends CI_Controller
     public function profil()
     {
         // check_not_login();
+        $showEdit = $this->input->get('show_edit');
+        $data = [
+            'showEdit' => false,
+        ];
+        if (isset($showEdit)) $data['showEdit'] = true;
         $this->load->view('user/template/header');
-        $this->load->view('user/profil');
+        $this->load->view('user/profil', $data);
         $this->load->view('user/template/footer');
     }
     public function proses_pesanan()
@@ -100,6 +105,7 @@ class Dashboard extends CI_Controller
                 <span aria-hidden="true">&times;</span></button></div>');
             return redirect('home/pemesanan');
         }
+        $mData = [];
         // return var_dump($cartData);
         foreach ($cartData as $key => $value) {
             $data1 = array(
@@ -108,25 +114,42 @@ class Dashboard extends CI_Controller
                 // 'harga_jual' => $value['price'],
                 // 'subtotal' => $value['subtotal']
             );
-
+            $mData[] = $data1;
             $this->penjualan_model->add_ol($data1);
         }
-        $user =  $this->fungsi->user_login()->id_user;
 
-        $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$user'")->row()->id_pembeli;
-        $alamat = $this->input->post('alamat');
-        $alamat2 = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$user'");
-        if ($alamat2->num_rows() > 0) {
-            $alamat1 = $alamat2->row();
-        } else {
-            $this->session->set_flashdata('pesan1', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Alamat belum ada silahkan lakukan pengisian alamat pengiriman.
-            <button type="button" class="close" data-dismiss="alert" arial-label="Close">
-            <span aria-hidden="true">&times;</span></button></div>');
-            redirect('home/pemesanan');
+        // return var_dump($cartData);
+
+        $user =  $this->fungsi->user_login();
+
+        if ($user->level != '3') {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+               Login terlebih dahulu !
+                <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>');
+            return redirect('home/pemesanan');
         }
+
+        $userId = $user->id_user;
+
+        $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$userId'")->row();
+        $id_pembeli = $id_pembeli->id_pembeli;
+        $alamat = $this->input->post('alamat');
+        $alamat = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$userId'")->row();
+        $alamat = $alamat->alamat;
+        // return var_dump($id_pembeli);
+
+        // if ($alamat2->num_rows() > 0) {
+        //     $alamat1 = $alamat2->row();
+        // } else {
+        //     $this->session->set_flashdata('pesan1', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        //     Alamat belum ada silahkan lakukan pengisian alamat pengiriman.
+        //     <button type="button" class="close" data-dismiss="alert" arial-label="Close">
+        //     <span aria-hidden="true">&times;</span></button></div>');
+        //     redirect('home/pemesanan');
+        // }
         if (empty($alamat)) {
-            $ala = $alamat1;
+            $ala = $alamat;
         } else {
             $ala = $alamat;
         }
@@ -139,7 +162,7 @@ class Dashboard extends CI_Controller
         $data = array(
             'kd_penjualan' => $id,
             'id_pembeli' => $id_pembeli,
-            'id_user' => $user,
+            'id_user' => $userId,
             'tot_bayar' => $bayar,
             'dp_awal' => null,
             'sisa' => null,
@@ -147,7 +170,7 @@ class Dashboard extends CI_Controller
             'alamat_kirim' => $ala,
             'status_jual' => '0',
         );
-        return var_dump($data);
+        // return var_dump($data);
         $this->penjualan_model->selesai_hitung_ol($data);
         $this->cart->destroy();
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">

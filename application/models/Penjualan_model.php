@@ -157,13 +157,19 @@ class Penjualan_model extends CI_Model
         ];
         $this->db->insert('detail_penjualan', $params);
     }
+    public function hargaProdukByKd($kdProduk)
+    {
+        $kalkulasi = $this->db->where('kd_produk', $kdProduk)->get('kalkulasi')->row();
+        return $kalkulasi->harga_jual;
+    }
     public function add_ol($post)
     {
-        $subtotal = $post['jumlah'] * $this->getHargaJual();
+        $hargaJual = $this->hargaProdukByKd($post['kd_produk']);
+        $subtotal = $post['jumlah'] * $hargaJual;
         $params = [
             'kd_penjualan' => $this->buat_kode_penjualan(),
             'kd_produk' => $post['kd_produk'],
-            'harga_jual' => $this->getHargaJual(),
+            'harga_jual' => $hargaJual,
             'jumlah' => $post['jumlah'],
             'subtotal' => $subtotal,
             'status' => '0',

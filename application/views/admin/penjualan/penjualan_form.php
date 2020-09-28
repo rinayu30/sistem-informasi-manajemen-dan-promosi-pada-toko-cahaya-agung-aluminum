@@ -30,9 +30,16 @@
                                     <?php } ?>
                                 </select>
                             </div>
+                            <!-- <div class="form-group" hidden>
+                                <label class="col-sm-2 control-label"><b>Stok</b></label>
+                                <div class="col-sm-10">
+                                    <input type="text" onkeyup="sum();" id="stok" name="stok" class="form-control">
+
+                                </div> -->
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
-                                <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control form-control-sm">
+                                <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" onkeyup="sum();" class="form-control form-control-sm">
+                                <p id="ket"></p>
                             </div>
 
 
@@ -216,4 +223,24 @@
                 $("#form-delete").submit(); // Submit form
         });
     });
+</script>
+<script type="text/javascript">
+    <?php echo $jsArray; ?>
+
+    function changeValue(id) {
+        document.getElementById('stok').value = prdName[id].stok;
+        // document.getElementById('harga_brg').value = prdName[id].harga_brg;
+    };
+
+    function sum() {
+        var stok = document.getElementById('stok').value;
+        var jumlah = document.getElementById('jumlah').value;
+        if (stok < jumlah) {
+            document.getElementById('ket').innerHTML = "Stok produk tidak Mencukupi !";
+        } else {
+            document.getElementById('ket').innerHTML = "";
+        }
+
+
+    }
 </script>
