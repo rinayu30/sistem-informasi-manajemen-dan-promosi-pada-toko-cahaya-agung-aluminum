@@ -14,15 +14,6 @@ class Penjualan_model extends CI_Model
         return $query;
     }
 
-    // public function get_keyword($key)
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('produk');
-    //     $this->db->like('kd_produk', $key);
-    //     $this->db->or_like('nama_produk', $key);
-    //     return $this->db->get()->result();
-    // }
-
     public function get_Dpenjualan()
     {
 
@@ -79,10 +70,7 @@ class Penjualan_model extends CI_Model
 
     public function getHargaJual()
     {
-        // $id = $this->input->post('kd_produk');
-        // $hasil = $this->db->query("SELECT kalkulasi.harga_jual FROM kalkulasi WHERE kd_produk.kalkulasi='$id'");
-        // return $hasil->result();
-        // $satuan = $this->db->query("SELECT jenis_bahan.nilai_satuan FROM jenis_bahan left outer join item ON  item.id_jenis = jenis_bahan.id_jenis WHERE item.id_item=$id ");
+
         $id = $this->input->post('kd_produk');
         $this->db->select('kalkulasi.harga_jual');
         $this->db->from('kalkulasi');

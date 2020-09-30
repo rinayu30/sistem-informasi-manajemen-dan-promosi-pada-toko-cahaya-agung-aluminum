@@ -127,7 +127,6 @@ class Auth extends CI_Controller
                 $this->load->model('auth_model');
                 $query = $this->auth_model->login_web($post);
                 // print_r($this->session->userdata);
-                // return;
                 if ($query->num_rows() > 0) {
                     $row = $query->row();
                     $params = array(
