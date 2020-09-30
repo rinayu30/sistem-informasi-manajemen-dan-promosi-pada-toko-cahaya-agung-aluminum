@@ -36,7 +36,7 @@
                     <a href="<?= base_url("/home/profile" . ($showEdit ? "" : "?show_edit=1")) ?>" class="btn btn-default btn-lg"><i class="fa fa-edit"></i></a>
                     <?php foreach ($row as $key => $data) :
                     ?>
-                        <form method="post" action="<?= site_url('dashboard/proses_identitas/' . $data->id_user) ?>" class="checkout-form">
+                        <form method="post" action="<?= site_url('dashboard/proses_identitas') ?>" class="checkout-form">
                             <div class="row">
 
                                 <div class="col-lg-12">
