@@ -34,14 +34,14 @@
                 <h4>Identitas Pengguna
                     <!-- <button type="submit" id="edit" class="btn btn-default btn-lg"><i class="fa fa-edit" onclick="enable_text(this.checked)"></i></button></h4><br> -->
                     <a href="<?= base_url("/home/profile" . ($showEdit ? "" : "?show_edit=1")) ?>" class="btn btn-default btn-lg"><i class="fa fa-edit"></i></a>
-                    <form method="post" action="<?= site_url('dashboard/proses_identitas') ?>" class="checkout-form">
-                        <div class="row">
-                            <?php foreach ($row as $key => $data) :
+                    <?php foreach ($row as $key => $data) :
+                    ?>
+                        <form method="post" action="<?= site_url('dashboard/proses_identitas/' . $data->id_user) ?>" class="checkout-form">
+                            <div class="row">
 
-                            ?>
                                 <div class="col-lg-12">
                                     <label for="nama">Nama Lengkap <span>*</span><?= form_error('nama', '<small class="text-danger pl-3">', '</small>') ?></label>
-                                    <input type="text" name="nama" class="form-control" value="<?= $this->fungsi->user_login()->nama_user ?>" <?= !$showEdit ? "disabled" : "" ?> />
+                                    <input type="text" name="nama" class="form-control" value="<?= $data->nama_pembeli ?>" <?= !$showEdit ? "disabled" : "" ?> />
                                 </div>
 
                                 <div class="col-lg-12">
@@ -64,8 +64,7 @@
                                     <!-- <input type="text" name="alamat" value="<?= set_value('alamat') ?>" class="street-first"> -->
                                     <textarea <?= !$showEdit ? "disabled" : "" ?> name="alamat" placeholder="Alamat lengkap Anda..." class="form-control" cols="59" rows="5" class="street-first"><?= $data->alamat ?>"</textarea>
                                 </div>
-                            <?php
-                            endforeach; ?>
+                            <?php endforeach; ?>
                             <div class="col-lg-12">
                                 <?php if ($showEdit) { ?>
                                     <div class="order-btn text-center" id="button">
@@ -74,8 +73,8 @@
                                 <?php } ?>
 
                             </div>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
             </div>
 
         </div>

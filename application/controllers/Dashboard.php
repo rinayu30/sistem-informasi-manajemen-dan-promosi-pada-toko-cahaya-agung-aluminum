@@ -186,7 +186,7 @@ class Dashboard extends CI_Controller
         return redirect('home/pemesanan');
     }
 
-    public function proses_identitas()
+    public function proses_identitas($id)
     {
         check_not_login();
         // $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
@@ -208,15 +208,18 @@ class Dashboard extends CI_Controller
         } else {
             // if (empty($this->input->post('alamat'))) {
             $data = [
-                'id_user' => $this->session->userdata()['userid'],
-                'nama_pembeli' =>  $this->session->userdata()['nama_user'],
+                'nama_pembeli' => $this->input->post('nama', true),
                 'jk' => $this->input->post('jk', true),
                 'no_telp' => $this->input->post('notel', true),
                 'alamat' => $this->input->post('alamat', true),
                 'created' => date('Y-m-d H:i:s'),
-                'updated' => '0',
             ];
-            $this->db->insert('pembeli', $data);
+            // if (empty($data)) {
+            $this->db->update('pembeli', $data);
+            $this->db->where('id_user', $id);
+            // } else {
+            //     $this->db->update('pembeli', $data, $this->session->userdata()['userid']);
+            // }
 
             // else {
             //     $data = [

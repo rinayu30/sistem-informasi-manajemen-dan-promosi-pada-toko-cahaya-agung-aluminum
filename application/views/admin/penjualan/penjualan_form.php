@@ -30,16 +30,12 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <!-- <div class="form-group" hidden>
-                                <label class="col-sm-2 control-label"><b>Stok</b></label>
-                                <div class="col-sm-10">
-                                    <input type="text" onkeyup="sum();" id="stok" name="stok" class="form-control">
 
-                                </div> -->
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
                                 <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" onkeyup="sum();" class="form-control form-control-sm">
-                                <p id="ket"></p>
+                                <!-- <p id="ket"><span style="color:#888;"></p>
+                                <input type="hidden" onkeyup="sum();" name="stok" id="stok" value="<?php echo $total; ?>" required="" class="form-control"> -->
                             </div>
 
 
@@ -233,14 +229,19 @@
     };
 
     function sum() {
-        var stok = document.getElementById('stok').value;
-        var jumlah = document.getElementById('jumlah').value;
+        var stok = parseInt(document.getElementById('stok').value);
+        var jumlah = parseInt(document.getElementById('jumlah').value);
         if (stok < jumlah) {
-            document.getElementById('ket').innerHTML = "Stok produk tidak Mencukupi !";
+            $('#insert').show();
+            document.getElementById('ket').innerHTML = "<span style='color:#888;'>Stok Tidak Mencukupi! Tambahkan stok produk</span>";
+            document.getElementById("insert").disabled = true;
+        } else if (jumlah < 0) {
+            $('#insert').show();
+            document.getElementById('ket').innerHTML = "<span style='color:#888;'>Jumlah tidak sesuai !</span>";
+            document.getElementById("insert").disabled = true;
         } else {
+            $('#insert').show();
             document.getElementById('ket').innerHTML = "";
         }
-
-
     }
 </script>
