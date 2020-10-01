@@ -37,7 +37,7 @@
                                             <td><?= $data->kontak ?></td>
                                             <td><?= $data->alamat ?></td>
                                             <td><?= $data->keterangan ?></td>
-                                            <td class="text-center">
+                                            <td width="22%" class="text-center">
                                                 <a href="<?= site_url('admin/pemasok/edit/' . $data->id_pemasok) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Edit</a>
                                                 <a href="<?= site_url('admin/pemasok/delete/' . $data->id_pemasok) ?>" onclick="return confirm('Anda yakin menghapus data?')" class="btn btn-danger btn-sm">

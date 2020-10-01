@@ -21,6 +21,12 @@ class Auth extends CI_Controller
         $this->load->view('login');
     }
 
+    // public function login_website()
+    // {
+    //     check_already_login();
+    //     redirect('home/login');
+    // }
+
     public function proses()
     {
         $post = $this->input->post(null, TRUE);

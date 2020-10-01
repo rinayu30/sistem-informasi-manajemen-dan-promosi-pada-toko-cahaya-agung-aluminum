@@ -54,8 +54,9 @@
                   <select name="satuan" class="form-control text-sm">
                     <?php $satuan = $this->input->post('satuan') ?? $row->satuan ?>
                     <option value="">--Pilih--</option>
-                    <option value="1">meter</option>
+                    <option value="1" <?= $satuan == 1 ? 'selected' : null ?>>cm</option>
                     <option value="2" <?= $satuan == 2 ? 'selected' : null ?>>pcs</option>
+                    <option value="3" <?= $satuan == 3 ? 'selected' : null ?>>box</option>
                   </select>
                   <!-- <input type="text" name="satuan" value="<?= $row->satuan ?>" class="form-control" required> -->
                 </div>

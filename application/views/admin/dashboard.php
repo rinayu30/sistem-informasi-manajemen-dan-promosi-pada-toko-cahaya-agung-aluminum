@@ -122,66 +122,42 @@
         </div>
       </div>
     </div>
+    <?php if ($this->fungsi->user_login()->level == 1) { ?>
+      <!-- Pending Requests Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">User </div>
+                <div class="h6 mb-0 font-weight-bold text-gray-800">
+                  <?php
+                  $db = $this->db->get('user');
+                  $query = $this->db->query("select count(id_user) as total from user")->result();
+                  foreach ($query as $rw) {
+                    echo number_format($rw->total, 0, ',', '.');
+                  }
 
-    <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-warning shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">User </div>
-              <div class="h6 mb-0 font-weight-bold text-gray-800">
-                <?php
-                $db = $this->db->get('user');
-                $query = $this->db->query("select count(id_user) as total from user")->result();
-                foreach ($query as $rw) {
-                  echo number_format($rw->total, 0, ',', '.');
-                }
-
-                ?>
+                  ?>
+                </div>
               </div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>
-            </div>
-          </div><br>
-          <div class="col mr-2 align-items-right">
-            <span class="float-right">
-              <div class="h6 mb-0 font-weight-italic text-gray-800">
-                <a href="<?php echo site_url('admin/pengguna') ?>"><i class="fas fa-angle-right"></i> Detail</a>
+              <div class="col-auto">
+                <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>
               </div>
-            </span>
+            </div><br>
+            <div class="col mr-2 align-items-right">
+              <span class="float-right">
+                <div class="h6 mb-0 font-weight-italic text-gray-800">
+                  <a href="<?php echo site_url('admin/pengguna') ?>"><i class="fas fa-angle-right"></i> Detail</a>
+                </div>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 
-
+<?php } ?>
 </div>
 <!-- /.container-fluid -->
 <!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
-      </div>
-    </div>
-  </div>
-</div>

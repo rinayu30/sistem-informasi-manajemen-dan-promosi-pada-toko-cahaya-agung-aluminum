@@ -91,9 +91,7 @@ class Penjualan extends CI_Controller
             $this->penjualan_model->add($post);
             $this->produk_model->update_min_stok($post);
         }
-        // if (isset($_POST['edit_status'])) {
-        //     $this->penjualan_model->edit_status($post);
-        // }
+
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Penjualan berhasil ditambahkan');
         }

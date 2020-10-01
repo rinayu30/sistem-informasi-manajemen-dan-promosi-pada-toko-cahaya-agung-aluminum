@@ -71,15 +71,17 @@ class Pengguna extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'required|callback_nama_cek');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[6]|callback_username_cek');
         if ($this->input->post('pass')) {
-            $this->form_validation->set_rules('pass', 'Password', 'min_length[6]');
-            $this->form_validation->set_rules('passconf', 'Konfirmasi Kata Sandi', 'matches[pass]');
+            $this->form_validation->set_rules('pass', 'Password', 'required|min_length[6]');
+            $this->form_validation->set_rules('passconf', 'Konfirmasi Kata Sandi', 'required|matches[pass]');
         }
         if ($this->input->post('passconf')) {
-            $this->form_validation->set_rules('passconf', 'Konfirmasi Kata Sandi', 'matches[pass]');
+            $this->form_validation->set_rules('passconf', 'Konfirmasi Kata Sandi', 'required|matches[pass]');
         }
         $this->form_validation->set_rules('kontak', 'Kontak', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('level', 'Level', 'required');
+        $this->form_validation->set_rules('pass', 'Password', 'required');
+        $this->form_validation->set_rules('passconf', 'Konfirmasi Kata Sandi', 'required');
 
         $this->form_validation->set_message('required', '%s harus diisi');
         $this->form_validation->set_message('matches', '%s tidak cocok');

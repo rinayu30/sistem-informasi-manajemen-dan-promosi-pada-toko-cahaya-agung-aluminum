@@ -103,7 +103,6 @@ class Dashboard extends CI_Controller
         $data = [
             'showEdit' => false,
             'row' => $this->getIdentitas(),
-            // 'page' => 'edit',
         ];
         if (isset($showEdit)) $data['showEdit'] = true;
         $this->load->view('user/template/header');
@@ -206,7 +205,6 @@ class Dashboard extends CI_Controller
             $this->load->view('user/profil', $data);
             $this->load->view('user/template/footer');
         } else {
-            // if (empty($this->input->post('alamat'))) {
             $data = [
                 'nama_pembeli' => $this->input->post('nama', true),
                 'jk' => $this->input->post('jk', true),
@@ -214,7 +212,6 @@ class Dashboard extends CI_Controller
                 'alamat' => $this->input->post('alamat', true),
                 'created' => date('Y-m-d H:i:s'),
             ];
-            // if (empty($data)) {
             $id = $this->session->userdata('userid');
             // return var_dump($id);
             $this->db->where('pembeli.id_user', $id)->update('pembeli', $data);

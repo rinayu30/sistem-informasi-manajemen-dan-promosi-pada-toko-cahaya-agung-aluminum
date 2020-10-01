@@ -13,6 +13,12 @@ function check_not_login()
 {
     $ci = &get_instance();
     $user_session = $ci->session->userdata('userid');
+    // $user_level = $ci->session->userdata('level');
+    // if (!$user_session && $user_level != '3') {
+    //     redirect('auth/login');
+    // } elseif (!$user_session && $user_level == '3') {
+    //     redirect('auth/login_website');
+    // }
     if (!$user_session) {
         redirect('auth/login');
     }
