@@ -27,14 +27,14 @@
                          <?php } ?>
                      </ul>
                  </div>
-                 <div class="filter-widget">
+                 <!-- <div class="filter-widget">
                      <h4 class="fw-title">Harga</h4>
                      <div class="filter-range-wrap">
                          <div class="range-slider">
                              <div class="price-input">
-                                 <!-- <input type="text" name="minimum_range" id="minimum_range" class="form-control" value="Rp. <?php echo $minimum_range; ?>" />
+                                  <input type="text" name="minimum_range" id="minimum_range" class="form-control" value="Rp. <?php echo $minimum_range; ?>" />
                                  <input type="text" name="maximum_range" id="maximum_range" class="form-control" value="Rp. <?php echo $maximum_range; ?>" /> -->
-                             </div>
+                 <!-- </div>
                          </div>
                          <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="100000" data-max="4000000">
                              <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
@@ -42,8 +42,8 @@
                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                          </div>
                      </div>
-                     <a href="#" class="filter-btn">Filter</a>
-                 </div>
+                     <a href="#" class="filter-btn">Filter</a> 
+                 </div> -->
              </div>
              <div class="col-lg-9 order-1 order-lg-2">
                  <?= $this->session->flashdata('message') ?>

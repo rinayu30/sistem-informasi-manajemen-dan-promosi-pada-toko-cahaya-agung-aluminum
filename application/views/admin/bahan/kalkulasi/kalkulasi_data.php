@@ -53,11 +53,11 @@
 
                         <div class="form-group col-md-6">
                             <label for="ukuran_p">Ukuran Panjang*<small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_p" id="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
+                            <input type="number" min="1" name="ukuran_p" id="ukuran_p" value="<?= set_value('ukuran_p') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ukuran_l">Ukuran Lebar* <small> (Isi jika bahan memiliki dimensi)</small></label>
-                            <input type="number" min="-1" name="ukuran_l" id="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
+                            <input type="number" min="1" name="ukuran_l" id="ukuran_l" value="<?= set_value('ukuran_l') ?>" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="banyak">Banyak *</label>
@@ -298,12 +298,12 @@
 <script type="text/javascript">
     function opsi(value) {
         var st = $("#jenis_bahan").val();
-        if (st == "9") {
+        if (st == "1" || st == "3") {
             document.getElementById("ukuran_p").disabled = true;
             document.getElementById("ukuran_l").disabled = true;
             document.getElementById("ukuran").disabled = false;
 
-        } else if (st == "8" || st == "7" || st == "3") {
+        } else if (st == "2" || st == "4") {
             document.getElementById("ukuran").disabled = true;
             document.getElementById("ukuran_p").disabled = false;
             document.getElementById("ukuran_l").disabled = false;

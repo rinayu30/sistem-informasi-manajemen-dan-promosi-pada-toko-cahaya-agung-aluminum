@@ -12,7 +12,12 @@ class Penjualan extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('pdf');
     }
-
+    function get_stok()
+    {
+        $id = $this->input->post('kd_produk');
+        $data = $this->penjualan_model->get_stok($id);
+        echo json_encode($data);
+    }
 
     public function index()
     {
@@ -65,7 +70,7 @@ class Penjualan extends CI_Controller
         // $this->load->library('user_agent');
         $data1 = $this->penjualan_model->get_bayar($id);
         $uang = (1 / 2) * $data1;
-        // return var_dump($data);
+        // return var_dump($id);
 
         if ($dp_awal < $uang) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -86,8 +91,14 @@ class Penjualan extends CI_Controller
 
     public function proses()
     {
+
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah_jual'])) {
+            $kdPenjualan = $post['kode'];
+            $penjualan = $this->db->where('kd_penjualan', $kdPenjualan)->get('penjualan')->row();
+            if (!isset($penjualan)) $this->db->insert('penjualan', [
+                'kd_penjualan' => $kdPenjualan,
+            ]);
             $this->penjualan_model->add($post);
             $this->produk_model->update_min_stok($post);
         }

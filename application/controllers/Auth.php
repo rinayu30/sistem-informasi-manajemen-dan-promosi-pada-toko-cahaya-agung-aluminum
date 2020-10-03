@@ -32,10 +32,6 @@ class Auth extends CI_Controller
         $post = $this->input->post(null, TRUE);
         if (isset($post['login'])) {
             $this->load->model('auth_model');
-            // $this->output->set_header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-            // $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
-            // $this->output->set_header("Cache-Control: post-check=0, pre-check=0", false);
-            // $this->output->set_header("Pragma: no-cache");
             $query = $this->auth_model->login($post);
             if ($query->num_rows() > 0) {
                 $row = $query->row();
@@ -48,11 +44,8 @@ class Auth extends CI_Controller
                     redirect('admin/dashboard/');
                 } elseif ($this->session->userdata("level") == "2") {
                     redirect('admin/dashboard/');
-                } else {
-                    redirect('home');
                 }
             } else {
-
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Username atau password Anda Salah!
                 <button type="button" class="close" data-dismiss="alert" arial-label="Close">
@@ -68,8 +61,6 @@ class Auth extends CI_Controller
         // $this->session->unset_userdata($params);
 
         $userdata = (object) $this->session->userdata();
-        // $this->cart->destroy();
-
         $redirect = $userdata->level == 3 ? '/home/produk' : '/auth/login';
 
         $this->auth_model->logout();

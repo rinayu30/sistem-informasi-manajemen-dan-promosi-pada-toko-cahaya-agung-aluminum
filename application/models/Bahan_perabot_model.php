@@ -112,18 +112,25 @@ class Bahan_perabot_model extends CI_Model
     }
     public function tambah_bahan($post)
     {
+
         $params = [
             'id_kalkulasi' => $this->kode_kalkulasi(),
             'id_item' => $post['item'],
             'banyak' => $post['banyak'],
-            'ukuran' => $post['ukuran'],
-            'uk_panjang' => $post['ukuran_p'],
-            'uk_lebar' => $post['ukuran_l'],
+            'ukuran' =>  isset($_POST['ukuran']) ? $_POST['ukuran'] : '',
+            'uk_panjang' => isset($_POST['ukuran_p']) ? $_POST['ukuran_p'] : '',
+            'uk_lebar' => isset($_POST['ukuran_l']) ? $_POST['ukuran_l'] : '',
             'jumlah' => $this->get_jumlah(),
             'harga_satuan' => $post['harga_s'],
             'jumlah_harga' => $this->get_subharga(),
             'status' => '1',
         ];
+        // print_r($params);
+        // $generate=
+        //         $data = ['id_kalkulasi' => $this->kode_kalkulasi()];
+        // if($data )
+        // $data = ['id_kalkulasi' => $this->kode_kalkulasi()];
+        // $this->db->insert('kalkulasi', $data);
         $this->db->insert('bahan_perabot', $params);
     }
     public function getKalkulasi($id = null)

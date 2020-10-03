@@ -17,13 +17,13 @@
                         <form action="<?= site_url('admin/penjualan/proses') ?>" method="post">
                             <div class="form-group">
                                 <label for="kd_produk">Kode Produk*</label>
-                                <select data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
+                                <select onchange="selectedProduk(this)" data-placeholder="Produk" id="kd_produk" type="search" class="form-control form-control-sm chosen-select" name="kd_produk" required>
                                     <option value="">--Pilih--</option>
                                     <?php
                                     $db = $this->db->get_where('produk', array('updated' => '0'));
                                     foreach ($db->result() as $data) {
                                     ?>
-                                        <option value="<?php echo $data->kd_produk; ?>">
+                                        <option data-stok="<?= $data->stok ?>" value="<?php echo $data->kd_produk; ?>">
                                             <?php echo $data->kd_produk; ?>&emsp;:&emsp;
                                             <?php echo $data->nama_produk; ?>
                                         </option>
@@ -31,13 +31,15 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="jumlah">Jumlah</label>
-                                <input type="number" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" onkeyup="sum();" class="form-control form-control-sm">
-                                <!-- <p id="ket"><span style="color:#888;"></p>
-                                <input type="hidden" onkeyup="sum();" name="stok" id="stok" value="<?php echo $total; ?>" required="" class="form-control"> -->
-                            </div>
 
+
+                            <div class="form-group">
+                                <input type="text" id="stok" name="stok" class="form-control" hidden>
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" onkeyup="sum();" id="jumlah" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control form-control-sm" required>
+
+                            </div>
+                            <p id="ket"></p>
 
                     </div>
                     <div class="col-md-5 justify-content-right">
@@ -57,7 +59,6 @@
                         </div>
                     </div>
                     </form>
-
                 </div>
             </div>
 
@@ -183,7 +184,7 @@
                                         </div>
                                         <div class="form-group col-md-5">
                                             <!-- <label for="tgl_pej">Tanggal Penjualan</label>value="<?= $row->tgl_penjualan ?>" -->
-                                            <input type="date" name="tgl_pej" value="<?= set_value('tgl_pej') ?>" class="form-control form-control-sm">
+                                            <input type="date" name="tgl_pej" value="<?= set_value(date('tgl_pej')) ?>" class="form-control form-control-sm">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <input type="submit" name="hitung" value="Selesai" class="btn btn-success btn-sm">
@@ -203,6 +204,32 @@
 <!-- End of Page Wrapper -->
 <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js'); ?>"></script>
 
+<script type="text/javascript">
+    function selectedProduk(el) {
+        var selected = el.selectedIndex
+        var jumStok = el.options[selected].getAttribute('data-stok');
+
+        sessionStorage.setItem('jumStok', jumStok);
+    }
+    $(document).ready(() => {
+        var jumInput = $('#jumlah')
+        jumInput.keyup(() => {
+            var valJumInput = jumInput.val()
+            var jumStok = sessionStorage.getItem('jumStok')
+            if (jumStok < valJumInput) {
+                document.getElementById('ket').innerHTML = "<span style='color:#888;'>Stok Tidak Mencukupi! Tambahkan stok produk</span>";
+                document.getElementById("insert").disabled = true();
+            } else if (valJumInput <= 0) {
+                $('#insert').show();
+                document.getElementById('ket').innerHTML = "<span style='color:#888;'>Jumlah tidak sesuai !</span>";
+                document.getElementById("insert").disabled = true;
+            } else {
+                $('#insert').show();
+                document.getElementById('ket').innerHTML = "";
+            }
+        })
+    })
+</script>
 <script>
     $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
         $("#check-all").click(function() { // Ketika user men-cek checkbox all
@@ -219,29 +246,4 @@
                 $("#form-delete").submit(); // Submit form
         });
     });
-</script>
-<script type="text/javascript">
-    <?php echo $jsArray; ?>
-
-    function changeValue(id) {
-        document.getElementById('stok').value = prdName[id].stok;
-        // document.getElementById('harga_brg').value = prdName[id].harga_brg;
-    };
-
-    function sum() {
-        var stok = parseInt(document.getElementById('stok').value);
-        var jumlah = parseInt(document.getElementById('jumlah').value);
-        if (stok < jumlah) {
-            $('#insert').show();
-            document.getElementById('ket').innerHTML = "<span style='color:#888;'>Stok Tidak Mencukupi! Tambahkan stok produk</span>";
-            document.getElementById("insert").disabled = true;
-        } else if (jumlah < 0) {
-            $('#insert').show();
-            document.getElementById('ket').innerHTML = "<span style='color:#888;'>Jumlah tidak sesuai !</span>";
-            document.getElementById("insert").disabled = true;
-        } else {
-            $('#insert').show();
-            document.getElementById('ket').innerHTML = "";
-        }
-    }
 </script>

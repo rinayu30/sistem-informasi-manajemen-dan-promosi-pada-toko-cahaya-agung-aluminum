@@ -42,7 +42,28 @@
                                             <td class="text-center" width="13%"><?= $data->nama_pemasok ?></td>
                                             <td class="text-center"><?= $data->nama_item ?></td>
                                             <td class="text-center"><?= $data->jumlah ?></td>
-                                            <td class="text-center"><?= $data->satuan == 1 ? "meter" : "pcs" ?></td>
+                                            <td class="text-center">
+                                                <?php switch ($data->satuan) {
+                                                    case 1:
+                                                        echo "batang";
+                                                        break;
+                                                    case 2:
+                                                        echo "pcs";
+                                                        break;
+                                                    case 3:
+                                                        echo "box";
+                                                        break;
+                                                    case 4:
+                                                        echo "cm";
+                                                        break;
+                                                    case 5:
+                                                        echo "m";
+                                                        break;
+                                                    case 6:
+                                                        echo "ft2";
+                                                        break;
+                                                } ?>
+                                            </td>
                                             <td class="text-center"><?= $data->harga_satuan ?></td>
                                             <td class="text-center"><?= $data->total_harga ?></td>
                                             <td class="text-center" width="20%">

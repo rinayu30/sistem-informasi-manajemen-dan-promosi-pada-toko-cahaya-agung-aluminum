@@ -94,11 +94,11 @@ class Penjualan_model extends CI_Model
     }
     public function get_bayar($id)
     {
-        $this->db->select_sum('subtotal');
+        $this->db->select_sum('tot_bayar');
         $this->db->where('kd_penjualan', $id);
-        $query = $this->db->get('detail_penjualan');
+        $query = $this->db->get('penjualan');
         if ($query->num_rows() > 0) {
-            return $query->row()->subtotal;
+            return $query->row()->tot_bayar;
         }
         return false;
     }
@@ -122,6 +122,11 @@ class Penjualan_model extends CI_Model
             return $sisa;
         }
     }
+    function get_stok($id)
+    {
+        $hasil = $this->db->query("SELECT stok FROM produk WHERE kd_produk='$id'");
+        return $hasil->row();
+    }
     public function edit_status($status_jual, $id)
     {
         $params = [
@@ -143,6 +148,7 @@ class Penjualan_model extends CI_Model
             'subtotal' => $this->getSub(),
             'status' => '1',
         ];
+        if (isset($post['kode'])) $params['kd_penjualan'] = $post['kode'];
         $this->db->insert('detail_penjualan', $params);
     }
     public function hargaProdukByKd($kdProduk)

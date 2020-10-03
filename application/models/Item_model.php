@@ -66,10 +66,17 @@ class Item_model extends CI_Model
         $sql = "UPDATE item SET stok = stok + '$jumlah' WHERE id_item='$id'";
         $this->db->query($sql);
     }
+    function update_tambah_stokedit($post)
+    {
+        $jml1 = $post['jumlah_lama'];
+        $jumlah = $post['jumlah'];
+        $id = $post['item'];
+        $sql = "UPDATE item SET stok = stok - '$jml1'+ '$jumlah' WHERE id_item='$id'";
+        $this->db->query($sql);
+    }
 
     function update_kurang_stok($post, $pos)
     {
-        // $jumlah = $this->bahan_perabot_model->get_jumlah();
         $id = $post['item'];
         $sql = "UPDATE item SET stok = stok - '$pos' WHERE id_item='$id'";
         $this->db->query($sql);

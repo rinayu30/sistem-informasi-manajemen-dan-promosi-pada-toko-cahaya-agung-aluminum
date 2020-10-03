@@ -1,6 +1,7 @@
 <?php $this->load->view('templates_adm/header') ?>
 <?php $this->load->view('templates_adm/sidebar') ?>
 <!-- End of Topbar -->
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -22,7 +23,8 @@
               <form action="<?= site_url('admin/bahan_masuk/proses') ?>" method="post">
                 <div class="form-group">
                   <label for="name">Tanggal Pembelian*</label>
-                  <input class="form-control" type="date" name="tgl_beli" value="<?= $row->tgl_beli ?>" required>
+                  <!-- <input class="form-control" type="date" name="tgl_beli" value="<?= date('Y-m-d', strtotime($row->tgl_beli)) ?>" required> -->
+                  <input class="form-control" type="date" name="tgl_beli" value="<?= date(strtotime($row->tgl_beli)) ?>" required>
                 </div>
                 <div class="form-group">
                   <label for="kode">Kode Bahan Masuk</label>
@@ -39,31 +41,35 @@
                   ); ?>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group ">
                   <label for="item">Nama item *</label>
                   <?php echo form_dropdown(
                     'item',
                     $item,
                     $selecteditem,
-                    ['class' => 'form-control', 'required' => 'required']
+                    ['class' => 'form-control chosen-select', 'required' => 'required']
                   ); ?>
                 </div>
 
                 <div class="form-group">
                   <label for="satuan">Satuan</label>
-                  <select name="satuan" class="form-control text-sm">
+                  <select name="satuan" class="form-control text-sm" required>
                     <?php $satuan = $this->input->post('satuan') ?? $row->satuan ?>
                     <option value="">--Pilih--</option>
-                    <option value="1" <?= $satuan == 1 ? 'selected' : null ?>>cm</option>
+                    <option value="1" <?= $satuan == 1 ? 'selected' : null ?>>batang</option>
                     <option value="2" <?= $satuan == 2 ? 'selected' : null ?>>pcs</option>
                     <option value="3" <?= $satuan == 3 ? 'selected' : null ?>>box</option>
+                    <option value="4" <?= $satuan == 4 ? 'selected' : null ?>>cm</option>
+                    <option value="5" <?= $satuan == 5 ? 'selected' : null ?>>m</option>
+                    <option value="6" <?= $satuan == 5 ? 'selected' : null ?>>ft2</option>
                   </select>
                   <!-- <input type="text" name="satuan" value="<?= $row->satuan ?>" class="form-control" required> -->
                 </div>
 
                 <div class="form-group">
                   <label for="jumlah">Jumlah</label>
-                  <input type="number" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control" required>
+                  <input type="number" min="0" name="jumlah_lama" value="<?= $row->jumlah ?>" class="form-control" hidden>
+                  <input type="number" min="0" name="jumlah" value="<?= $row->jumlah ?>" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -75,7 +81,6 @@
                         <label for="total">Total Harga</label>
                         <input type="number" min="0" name="total" value="<?= $row->total_harga ?>" class="form-control" required>
                         </div> -->
-                <br>
 
                 <div class="form-group text-center">
                   <button type="reset" class="btn btn-danger btn-sm">Reset</button>

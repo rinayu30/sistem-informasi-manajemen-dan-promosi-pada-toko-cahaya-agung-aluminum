@@ -62,7 +62,7 @@
                                     <label for="alamat">Alamat <span>*</span> <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>') ?>
                                     </label><br>
                                     <!-- <input type="text" name="alamat" value="<?= set_value('alamat') ?>" class="street-first"> -->
-                                    <textarea <?= !$showEdit ? "disabled" : "" ?> name="alamat" placeholder="Alamat lengkap Anda..." class="form-control" cols="59" rows="5" class="street-first"><?= $data->alamat ?>"</textarea>
+                                    <textarea <?= !$showEdit ? "disabled" : "" ?> name="alamat" placeholder="Alamat lengkap Anda..." class="form-control" cols="59" rows="5" class="street-first"><?= $data->alamat ?></textarea>
                                 </div>
                             <?php endforeach; ?>
                             <div class="col-lg-12">

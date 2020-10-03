@@ -101,9 +101,8 @@ class Bahan_masuk extends CI_Controller
             $this->item_model->update_tambah_stok($post);
         } else if (isset($_POST['edit'])) {
             $this->bahan_masuk_model->edit($post);
-            $this->item_model->update_tambah_stok($post);
+            $this->item_model->update_tambah_stokedit($post);
         }
-
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil disimpan');
         }
@@ -112,8 +111,9 @@ class Bahan_masuk extends CI_Controller
 
     public function delete($id)
     {
+
         $this->bahan_masuk_model->hapus_data($id);
-        // $this->item_model->update_minus_stok($id);
+        // $this->item_model->update_minus_stok($iditem);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', ' Data berhasil dihapus');
         }
