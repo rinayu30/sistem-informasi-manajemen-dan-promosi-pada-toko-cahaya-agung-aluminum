@@ -40,7 +40,7 @@ class Penjualan extends CI_Controller
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/penjualan/penjualan_form', $data);
-        $this->load->view('templates_adm/footer');
+        // $this->load->view('templates_adm/footer');
     }
 
     function selesai_hitung()
