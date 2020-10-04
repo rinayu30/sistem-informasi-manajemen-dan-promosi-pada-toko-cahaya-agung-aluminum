@@ -40,7 +40,7 @@ class Penjualan extends CI_Controller
         $this->load->view('templates_adm/header');
         $this->load->view('templates_adm/sidebar');
         $this->load->view('admin/penjualan/penjualan_form', $data);
-        // $this->load->view('templates_adm/footer');
+        $this->load->view('templates_adm/footer');
     }
 
     function selesai_hitung()
@@ -58,7 +58,7 @@ class Penjualan extends CI_Controller
         $tgl_penjualan    =  $this->input->post('tgl_pej');
         // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
         $data = array(
-            'kd_penjualan' => $id,
+            // 'kd_penjualan' => $id,
             'id_pembeli' => $id_pembeli,
             'id_user' => $user,
             'tot_bayar' => $data['bayar'],
@@ -70,7 +70,7 @@ class Penjualan extends CI_Controller
         // $this->load->library('user_agent');
         $data1 = $this->penjualan_model->get_bayar($id);
         $uang = (1 / 2) * $data1;
-        // return var_dump($id);
+        return var_dump($data1);
 
         if ($dp_awal < $uang) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -82,7 +82,7 @@ class Penjualan extends CI_Controller
             <span aria-hidden="true">&times;</span></button></div>');
             redirect('admin/penjualan');
         } else {
-            $this->penjualan_model->selesai_hitung($data);
+            $this->penjualan_model->selesai_hitung($data, $id);
             $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
             redirect('admin/penjualan/daftar_penjualan');
         }

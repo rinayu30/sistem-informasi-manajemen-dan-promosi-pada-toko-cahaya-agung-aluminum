@@ -94,11 +94,11 @@ class Penjualan_model extends CI_Model
     }
     public function get_bayar($id)
     {
-        $this->db->select_sum('tot_bayar');
+        $this->db->select_sum('subtotal');
         $this->db->where('kd_penjualan', $id);
-        $query = $this->db->get('penjualan');
+        $query = $this->db->get('detail_penjualan');
         if ($query->num_rows() > 0) {
-            return $query->row()->tot_bayar;
+            return $query->row()->subtotal;
         }
         return false;
     }
@@ -168,15 +168,17 @@ class Penjualan_model extends CI_Model
             'subtotal' => $subtotal,
             'status' => '0',
         ];
+        if (isset($post['kode'])) $params['kd_penjualan'] = $post['kode'];
         $this->db->insert('detail_penjualan', $params);
     }
     function selesai_hitung_ol($data)
     {
         $this->db->insert('penjualan', $data);
     }
-    function selesai_hitung($data)
+    function selesai_hitung($data, $id)
     {
-        $this->db->insert('penjualan', $data);
+        $this->db->where('kd_penjualan', $id);
+        $this->db->update('penjualan', $data);
         $last_id =  $this->db->query("select kd_penjualan from penjualan order by  kd_penjualan desc")->row_array();
         $this->db->query("update detail_penjualan set kd_penjualan='" . $last_id['kd_penjualan'] . "' where status='1' ");
         $this->db->query("update detail_penjualan set status='0' where status='1'");
