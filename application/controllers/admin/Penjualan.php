@@ -46,43 +46,34 @@ class Penjualan extends CI_Controller
     function selesai_hitung()
     {
         $user =  $this->fungsi->user_login()->id_user;
-        // $id_user =  $this->db->get_where('user', array('username' => $user))->row_array();
-
-        // $kd_produk =  $this->input->post('kd_produk');
-        // $data['kd_penjualan'] = $this->penjualan_model->buat_kode_penjualan();
         $id = $this->penjualan_model->buat_kode_penjualan();
-        $data['bayar'] = $this->penjualan_model->get_bayar($id);
+        $bayar = $this->penjualan_model->get_bayar($id);
         $data['sisa'] = $this->penjualan_model->get_sisa($id);
         $id_pembeli    =  $this->input->post('pembeli');
         $dp_awal    =  $this->input->post('uang_m');
         $tgl_penjualan    =  $this->input->post('tgl_pej');
-        // $kd_produk    = $this->db->get_where('produk', array('kd_produk' => $kd_produk))->row_array();
         $data = array(
-            // 'kd_penjualan' => $id,
+            'kd_penjualan' => $id,
             'id_pembeli' => $id_pembeli,
             'id_user' => $user,
-            'tot_bayar' => $data['bayar'],
+            'tot_bayar' => $bayar,
             'dp_awal' => $dp_awal,
             'sisa' => $data['sisa'],
             'tgl_penjualan' => $tgl_penjualan,
             'status_jual' => '0',
         );
-        // $this->load->library('user_agent');
-        $data1 = $this->penjualan_model->get_bayar($id);
-        $uang = (1 / 2) * $data1;
-        return var_dump($data1);
-
+        $uang = (1 / 2) * $bayar;
         if ($dp_awal < $uang) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Uang muka/pembayaran minimal 50% dari total bayar!!!<button type="button" class="close" data-dismiss="alert" arial-label="Close">
             <span aria-hidden="true">&times;</span></button></div>');
             redirect('admin/penjualan');
-        } else if ($dp_awal > $data1) {
+        } else if ($dp_awal > $bayar) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Uang muka/pembayaran melebihi dari total bayar!!!<button type="button" class="close" data-dismiss="alert" arial-label="Close">
             <span aria-hidden="true">&times;</span></button></div>');
             redirect('admin/penjualan');
         } else {
-            $this->penjualan_model->selesai_hitung($data, $id);
+            $this->penjualan_model->selesai_hitung($data);
             $this->session->set_flashdata('success', ' Data Penjualan berhasil disimpan silahkan lihat pada menu Laporan Penjualan');
             redirect('admin/penjualan/daftar_penjualan');
         }
@@ -91,14 +82,9 @@ class Penjualan extends CI_Controller
 
     public function proses()
     {
-
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['tambah_jual'])) {
-            $kdPenjualan = $post['kode'];
-            $penjualan = $this->db->where('kd_penjualan', $kdPenjualan)->get('penjualan')->row();
-            if (!isset($penjualan)) $this->db->insert('penjualan', [
-                'kd_penjualan' => $kdPenjualan,
-            ]);
+
             $this->penjualan_model->add($post);
             $this->produk_model->update_min_stok($post);
         }
@@ -208,16 +194,17 @@ class Penjualan extends CI_Controller
             $pdf->Cell(180, 7, 'LAPORAN PENJUALAN PER PERIODE', 0, 1, 'C');
             $pdf->SetFont('Arial', 'I', 9);
             $pdf->Cell(10, 7, '', 0, 1, 'C');
-
+            $pdf->SetLeftMargin(38);
             $pdf->Cell(180, 3, 'Dari :' . $tanggal1 . ' s/d ' . $tanggal2, 0, 1, 'L');
             $pdf->SetFont('Arial', 'B', 9);
+
             $pdf->Cell(30, 6, 'No FAKTUR', 1, 0, 'C');
             $pdf->Cell(30, 6, 'Tanggal Penjualan', 1, 0, 'C');
-            $pdf->Cell(25, 6, 'Create by', 1, 0, 'C');
+            $pdf->Cell(25, 6, 'PJ', 1, 0, 'C');
             $pdf->Cell(25, 6, 'Pembeli', 1, 0, 'C');
-            $pdf->Cell(27, 6, 'Total Bayar', 1, 0, 'C');
-            $pdf->Cell(25, 6, 'Uang Muka', 1, 0, 'C');
-            $pdf->Cell(25, 6, 'Sisa', 1, 1, 'C');
+            $pdf->Cell(27, 6, 'Total Bayar', 1, 1, 'C');
+            // $pdf->Cell(25, 6, 'Uang Muka', 1, 0, 'C');
+            // $pdf->Cell(25, 6, 'Sisa', 1, 1, 'C');
 
             $pdf->SetFont('Arial', '', 9);
 
@@ -229,25 +216,26 @@ class Penjualan extends CI_Controller
             WHERE penjualan.tgl_penjualan between '$tanggal1' and '$tanggal2'
             AND status_jual='1' order by tgl_penjualan desc")->result();
             $byr = 0;
-            $awal = 0;
-            $sisa = 0;
+            // $awal = 0;
+            // $sisa = 0;
             foreach ($record as $row) {
                 $pdf->Cell(30, 6, $row->kd_penjualan, 1, 0, 'C');
                 $pdf->Cell(30, 6, $row->tgl_penjualan, 1, 0, 'C');
                 $pdf->Cell(25, 6, $row->nama_user, 1, 0);
                 $pdf->Cell(25, 6, $row->nama_pembeli, 1, 0);
-                $pdf->Cell(27, 6, 'Rp.' . number_format($row->tot_bayar), 1, 0, 'R');
-                $pdf->Cell(25, 6, 'Rp.' . number_format($row->dp_awal), 1, 0, 'R');
-                $pdf->Cell(25, 6, 'Rp.' . number_format($row->sisa), 1, 1, 'R');
+                $pdf->Cell(27, 6, 'Rp.' . number_format($row->tot_bayar), 1, 1, 'R');
+                // $pdf->Cell(25, 6, 'Rp.' . number_format($row->dp_awal), 1, 0, 'R');
+                // $pdf->Cell(25, 6, 'Rp.' . number_format($row->sisa), 1, 1, 'R');
                 $byr = $byr + $row->tot_bayar;
-                $awal = $awal + $row->dp_awal;
-                $sisa = $sisa + $row->sisa;
+                // $awal = $awal + $row->dp_awal;
+                // $sisa = $sisa + $row->sisa;
             }
             $pdf->Cell(110, 6, 'Total', 1, 0, 'C');
             $pdf->Cell(27, 6, 'Rp.' . number_format($byr), 1, 0, 'R');
-            $pdf->Cell(25, 6, 'Rp.' . number_format($awal), 1, 0, 'R');
-            $pdf->Cell(25, 6, 'Rp.' . number_format($sisa), 1, 0, 'R');
+            // $pdf->Cell(25, 6, 'Rp.' . number_format($awal), 1, 0, 'R');
+            // $pdf->Cell(25, 6, 'Rp.' . number_format($sisa), 1, 0, 'R');
             $pdf->Cell(10, 7, '', 0, 1, 'C');
+            $pdf->SetLeftMargin(18);
             $bulan = array(
                 '01' => 'Januari',
                 '02' => 'Februari',
@@ -393,35 +381,37 @@ class Penjualan extends CI_Controller
         $pdf->Cell(180, 7, 'LAPORAN PENJUALAN', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1, 'C');
         $pdf->SetFont('Arial', 'B', 9);
+        $pdf->SetLeftMargin(35);
         $pdf->Cell(30, 6, 'No FAKTUR', 1, 0, 'C');
         $pdf->Cell(30, 6, 'Tanggal Penjualan', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Create by', 1, 0, 'C');
+        $pdf->Cell(25, 6, 'PJ', 1, 0, 'C');
         $pdf->Cell(25, 6, 'Pembeli', 1, 0, 'C');
-        $pdf->Cell(27, 6, 'Total Bayar', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Uang Muka', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Sisa', 1, 1, 'C');
+        $pdf->Cell(27, 6, 'Total Bayar', 1, 1, 'C');
+        // $pdf->Cell(25, 6, 'Uang Muka', 1, 0, 'C');
+        // $pdf->Cell(25, 6, 'Sisa', 1, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
 
         $record = $this->penjualan_model->laporan_default_selesai()->result();
         $byr = 0;
-        $awal = 0;
-        $sisa = 0;
+        // $awal = 0;
+        // $sisa = 0;
         foreach ($record as $row) {
             $pdf->Cell(30, 6, $row->kd_penjualan, 1, 0, 'C');
             $pdf->Cell(30, 6, $row->tgl_penjualan, 1, 0, 'C');
             $pdf->Cell(25, 6, $row->nama_user, 1, 0);
             $pdf->Cell(25, 6, $row->nama_pembeli, 1, 0);
-            $pdf->Cell(27, 6, 'Rp.' . number_format($row->tot_bayar), 1, 0, 'R');
-            $pdf->Cell(25, 6, 'Rp.' . number_format($row->dp_awal), 1, 0, 'R');
-            $pdf->Cell(25, 6, 'Rp.' . number_format($row->sisa), 1, 1, 'R');
+            $pdf->Cell(27, 6, 'Rp.' . number_format($row->tot_bayar), 1, 1, 'R');
+            // $pdf->Cell(25, 6, 'Rp.' . number_format($row->dp_awal), 1, 0, 'R');
+            // $pdf->Cell(25, 6, 'Rp.' . number_format($row->sisa), 1, 1, 'R');
             $byr = $byr + $row->tot_bayar;
-            $awal = $awal + $row->dp_awal;
-            $sisa = $sisa + $row->sisa;
+            // $awal = $awal + $row->dp_awal;
+            // $sisa = $sisa + $row->sisa;
         }
         $pdf->Cell(110, 6, 'Total', 1, 0, 'C');
         $pdf->Cell(27, 6, 'Rp.' . number_format($byr), 1, 0, 'R');
-        $pdf->Cell(25, 6, 'Rp.' . number_format($awal), 1, 0, 'R');
-        $pdf->Cell(25, 6, 'Rp.' . number_format($sisa), 1, 0, 'R');
+        $pdf->SetLeftMargin(15);
+        // $pdf->Cell(25, 6, 'Rp.' . number_format($awal), 1, 0, 'R');
+        // $pdf->Cell(25, 6, 'Rp.' . number_format($sisa), 1, 0, 'R');
         $bulan = array(
             '01' => 'Januari',
             '02' => 'Februari',
@@ -527,9 +517,10 @@ class Penjualan extends CI_Controller
         $pdf->SetLeftMargin(30);
         $info = $this->penjualan_model->ambil($id);
         foreach ($info->result() as $row) {
+
             $pdf->Cell(200, 3, 'Tgl. Transaksi       ' . '  :   ' . $row->tgl_penjualan . '                                               No Faktur           ' . '     :   ' . $row->kd_penjualan, 0, 1, 'L');
             $pdf->Cell(10, 3, '', 0, 1, 'C');
-            $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                      Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
+            $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                        Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
             $pdf->Cell(10, 5, '', 0, 1, 'C');
         }
         $pdf->SetLeftMargin(35);

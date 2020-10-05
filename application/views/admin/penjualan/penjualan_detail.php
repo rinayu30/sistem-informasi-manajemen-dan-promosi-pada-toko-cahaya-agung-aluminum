@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-right">
-                <a href="<?= site_url('admin/penjualan/laporan') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
+                <a href="<?= site_url('admin/penjualan/daftar_penjualan') ?>" class="btn btn-primary btn-sm"><i class="fa fa-undo fa-sm"></i> Kembali</a>
                 <?php
                 foreach ($info->result() as $key => $data) { ?>
                     <a href="<?= site_url('admin/penjualan/cetak_faktur/' . $data->kd_penjualan) ?>" class="btn btn-primary btn-sm"><i class="fa fa-print fa-sm"></i> Cetak Faktur</a>

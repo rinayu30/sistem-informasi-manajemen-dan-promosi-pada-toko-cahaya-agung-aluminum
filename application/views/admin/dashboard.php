@@ -89,7 +89,7 @@
 
                 <?php
                 $db = $this->db->get('penjualan');
-                $query = $this->db->query("select sum(tot_bayar) as total from penjualan")->result();
+                $query = $this->db->query("select sum(tot_bayar) as total from penjualan where status_jual ='1'")->result();
                 foreach ($query as $rw) {
                   echo number_format($rw->total, 0, ',', '.');
                 }

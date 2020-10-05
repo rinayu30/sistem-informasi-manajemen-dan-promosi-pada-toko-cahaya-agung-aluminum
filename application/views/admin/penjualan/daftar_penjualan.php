@@ -20,10 +20,10 @@
                                 <th>Alamat Pengiriman</th>
                                 <th>Tanggal Penjualan</th>
                                 <th>Total Bayar</th>
-                                <th>Uang Muka</th>
-                                <th>Sisa</th>
+                                <!-- <th>Uang Muka</th>
+                                <th>Sisa</th> -->
                                 <th>Status</th>
-
+                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody id="show_data">
@@ -38,8 +38,8 @@
                                     <td width=5% class="text-center"><?= $data->alamat_kirim ?></td>
                                     <td class="text-center" width=10%><?= $data->tgl_penjualan ?></td>
                                     <td class="text-center">Rp. <?= number_format($data->tot_bayar, 0, ',', '.') ?></td>
-                                    <td class="text-center">Rp. <?= number_format($data->dp_awal, 0, ',', '.') ?></td>
-                                    <td class="text-center">Rp. <?= number_format($data->sisa, 0, ',', '.') ?></td>
+                                    <!-- <td class="text-center">Rp. <?= number_format($data->dp_awal, 0, ',', '.') ?></td>
+                                    <td class="text-center">Rp. <?= number_format($data->sisa, 0, ',', '.') ?></td> -->
                                     <!-- <td class="text-center"><?= $data->status_jual ?></td> -->
                                     <td class="text-center" width=3%>
 
@@ -59,6 +59,13 @@
                                             </a>
                                         <?php } ?>
                                         <!-- <a href='' id='btn-edit' class="btn btn-outline btn-circle btn-md purple" data-id='<?php echo $data->kd_penjualan; ?>'><i class="fa fa-edit"></i> </a> -->
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="<?= site_url('admin/penjualan/detail/' . $data->kd_penjualan) ?>" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info"></i> <b>Detail</b> </a>
+
+
+
                                     </td>
 
                                 </tr>

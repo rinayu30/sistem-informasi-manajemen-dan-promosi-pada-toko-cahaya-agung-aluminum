@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <button type="submit" name="tambah_jual" class="btn btn-success btn-sm">Tambah</button>
+                            <button type="submit" name="tambah_jual" onClick="validasi" href="javascript:" data-toggle="modal" id="insert" value="insert" class="btn btn-success btn-sm">Tambah</button>
                             <button type="reset" class="btn btn-danger btn-sm">Reset</button>
 
                         </div>
@@ -229,6 +229,18 @@
             }
         })
     })
+
+    function validasi() {
+        var stok = parseInt(document.getElementById('stok').value);
+        var jumlah = parseInt(document.getElementById('jumlah').value);
+        if (stok < jumlah) {
+            alert("Jumlah yang Anda Inputkan Tidak Sesuai !");
+            return false;
+        } else if (jumlah <= 0) {
+            alert("Jumlah yang Anda Inputkan Tidak Sesuai !");
+            return false;
+        }
+    }
 </script>
 <script>
     $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)

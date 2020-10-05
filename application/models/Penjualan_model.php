@@ -55,16 +55,6 @@ class Penjualan_model extends CI_Model
         }
         $kodemax = str_pad($no, 2, "0", STR_PAD_LEFT);
         $kodejadi  = "PJ" . date('ymd') . $kodemax;
-
-        // $data=$query->row();
-
-        // if($data == NULL) $no = "01";
-        // else $no = sprintf("%'.02d", intval($data->kode) + 1);
-
-        // $kodejadi = $dateKodeNow.$no ;
-
-        // var_dump($dateKodeNow);
-
         return $kodejadi;
     }
 
@@ -103,14 +93,7 @@ class Penjualan_model extends CI_Model
         return false;
     }
 
-    // public function get_bayar()
-    // {
-    //     $jumlah = $this->get_subtotal();
-    //     // $persentase = $this->input->post('persentase');
-    //     // $sub = $persentase / 100 * $jumlah;
-    //     // $sub2 = $jumlah + $sub;
-    //     return $jumlah;
-    // }
+
     public function get_sisa($id)
     {
         $jumlah = $this->get_bayar($id);
@@ -148,7 +131,6 @@ class Penjualan_model extends CI_Model
             'subtotal' => $this->getSub(),
             'status' => '1',
         ];
-        if (isset($post['kode'])) $params['kd_penjualan'] = $post['kode'];
         $this->db->insert('detail_penjualan', $params);
     }
     public function hargaProdukByKd($kdProduk)
@@ -168,34 +150,20 @@ class Penjualan_model extends CI_Model
             'subtotal' => $subtotal,
             'status' => '0',
         ];
-        if (isset($post['kode'])) $params['kd_penjualan'] = $post['kode'];
         $this->db->insert('detail_penjualan', $params);
     }
     function selesai_hitung_ol($data)
     {
         $this->db->insert('penjualan', $data);
     }
-    function selesai_hitung($data, $id)
+    function selesai_hitung($data)
     {
-        $this->db->where('kd_penjualan', $id);
-        $this->db->update('penjualan', $data);
+        $this->db->insert('penjualan', $data);
         $last_id =  $this->db->query("select kd_penjualan from penjualan order by  kd_penjualan desc")->row_array();
         $this->db->query("update detail_penjualan set kd_penjualan='" . $last_id['kd_penjualan'] . "' where status='1' ");
         $this->db->query("update detail_penjualan set status='0' where status='1'");
     }
-    // public function edit($post)
-    // {
-    //     $params = [
-    //         'kd_penjualan' => $post['kode'],
-    //         'nama_penjualan' => $post['nama'],
-    //         'stok' => $post['stok'],
-    //         'kategori' => $post['kategori'],
-    //         'detail' => empty($post['ket']) ? null : $post['ket'],
-    //         'updated' => date('Y-m-d H:i:s')
-    //     ];
-    //     $this->db->where('kd_penjualan', $post['kode']);
-    //     $this->db->update('penjualan', $params);
-    // }
+
     public function hapus_data($id)
     {
         $this->db->where('id_detail', $id);

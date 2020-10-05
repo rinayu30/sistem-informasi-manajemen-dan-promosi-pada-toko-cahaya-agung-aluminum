@@ -170,9 +170,9 @@ class Bahan_masuk extends CI_Controller
 
             $pdf->Cell(180, 3, 'Dari :' . $tanggal1 . ' s/d ' . $tanggal2, 0, 1, 'L');
             $pdf->SetFont('Arial', 'B', 9);
-            $pdf->Cell(30, 6, 'Kode', 1, 0, 'C');
+            $pdf->Cell(20, 6, 'Kode', 1, 0, 'C');
             $pdf->Cell(30, 6, 'Tanggal Beli', 1, 0, 'C');
-            $pdf->Cell(35, 6, 'Pemasok', 1, 0, 'C');
+            $pdf->Cell(45, 6, 'Pemasok', 1, 0, 'C');
             $pdf->Cell(30, 6, 'Nama Bahan', 1, 0, 'C');
             $pdf->Cell(15, 6, 'Jumlah', 1, 0, 'C');
             $pdf->Cell(20, 6, 'Harga', 1, 0, 'C');
@@ -189,9 +189,9 @@ class Bahan_masuk extends CI_Controller
             $tot = 0;
 
             foreach ($bmasuk as $row) {
-                $pdf->Cell(30, 6, $row->id_bmasuk, 1, 0, 'C');
+                $pdf->Cell(20, 6, $row->id_bmasuk, 1, 0, 'C');
                 $pdf->Cell(30, 6, $row->tgl_beli, 1, 0, 'C');
-                $pdf->Cell(35, 6, $row->nama_pemasok, 1, 0);
+                $pdf->Cell(45, 6, $row->nama_pemasok, 1, 0);
                 $pdf->Cell(30, 6, $row->nama_item, 1, 0, 'C');
                 $pdf->Cell(15, 6,  $row->jumlah, 1, 0, 'C');
                 $pdf->Cell(20, 6, 'Rp.' . number_format($row->harga_satuan), 1, 0, 'R');
@@ -250,11 +250,11 @@ class Bahan_masuk extends CI_Controller
         $pdf->Cell(180, 7, 'LAPORAN SELURUH PEMBELIAN', 0, 1, 'C');
         $pdf->SetFont('Arial', 'I', 9);
         $pdf->Cell(10, 7, '', 0, 1, 'C');
-
+        // $pdf->SetLeftMargin(10);
         $pdf->SetFont('Arial', 'B', 9);
-        $pdf->Cell(30, 6, 'Kode', 1, 0, 'C');
+        $pdf->Cell(20, 6, 'Kode', 1, 0, 'C');
         $pdf->Cell(30, 6, 'Tanggal Beli', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'Pemasok', 1, 0, 'C');
+        $pdf->Cell(45, 6, 'Pemasok', 1, 0, 'C');
         $pdf->Cell(30, 6, 'Nama Bahan', 1, 0, 'C');
         $pdf->Cell(15, 6, 'Jumlah', 1, 0, 'C');
         $pdf->Cell(20, 6, 'Harga', 1, 0, 'C');
@@ -262,18 +262,11 @@ class Bahan_masuk extends CI_Controller
 
         $pdf->SetFont('Arial', '', 9);
         $bmasuk = $this->bahan_masuk_model->laporan()->result();
-
-        // $bmasuk = $this->db->query("SELECT bahan_masuk.*,pemasok.*, item.*
-        //     FROM bahan_masuk
-        //     LEFT OUTER JOIN pemasok ON bahan_masuk.id_pemasok=pemasok.id_pemasok
-        //     LEFT OUTER JOIN item ON bahan_masuk.id_item=item.id_item
-        //     WHERE bahan_masuk.tgl_beli
-        //     order by tgl_beli desc")->result();
         $total = 0;
         foreach ($bmasuk as $row) {
-            $pdf->Cell(30, 6, $row->id_bmasuk, 1, 0, 'C');
+            $pdf->Cell(20, 6, $row->id_bmasuk, 1, 0, 'C');
             $pdf->Cell(30, 6, $row->tgl_beli, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->nama_pemasok, 1, 0);
+            $pdf->Cell(45, 6, $row->nama_pemasok, 1, 0);
             $pdf->Cell(30, 6, $row->nama_item, 1, 0, 'C');
             $pdf->Cell(15, 6,  $row->jumlah, 1, 0, 'C');
             $pdf->Cell(20, 6, 'Rp.' . number_format($row->harga_satuan), 1, 0, 'R');
