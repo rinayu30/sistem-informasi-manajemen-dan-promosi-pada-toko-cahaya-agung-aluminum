@@ -7,6 +7,7 @@ class Bahan_masuk extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
         $this->load->model(['bahan_masuk_model', 'pemasok_model', 'item_model']);
         $this->load->library('pdf');
 

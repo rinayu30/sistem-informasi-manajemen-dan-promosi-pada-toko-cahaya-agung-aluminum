@@ -23,7 +23,6 @@
                                     <th class="text-center">Jumlah Bahan</th>
                                     <th class="text-center">Harga/satuan</th>
                                     <th class="text-center" width=15%>Sub Total</th>
-                                    <th class="text-center" width=20%>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,13 +40,7 @@
                                         <td class="text-center"><?= $data->jumlah ?></td>
                                         <td class="text-center"><?= number_format($data->harga_satuan, 0, ',', '.') ?></td>
                                         <td class="text-center"><?= number_format($data->jumlah_harga, 0, ',', '.') ?></td>
-                                        <td class="text-center" width=20%>
-                                            <!-- <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i> Edit</a> -->
-                                            <a href="<?= site_url('admin/kalkulasi/delete/' . $data->id_bahan) ?>" onclick="return confirm('Anda yakin membatalkan data bahan?')" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i> Batal</a>
 
-                                        </td>
                                     </tr>
                                 <?php $no++;
                                     $total = $total + $data->jumlah_harga;
@@ -55,10 +48,10 @@
 
                                 <tr class="gradeA">
                                     <td colspan="8" align="center">T O T A L</td>
-                                    <td>Rp. <?php
+                                    <td width=15%>Rp. <?php
 
-                                            echo number_format($total, 0, ',', '.'); ?></td>
-                                    <td></td>
+                                                        echo number_format($total, 0, ',', '.'); ?></td>
+
                                 </tr>
                             </tbody>
                         </table>

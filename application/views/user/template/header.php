@@ -79,7 +79,10 @@
 							?>
 							<?php echo  anchor('home/detail_keranjang', $keranjang) ?></li>
 						<li> <a href="<?= site_url('home/profile') ?>">My Profile</a></li>
-						<li> <a href="<?= site_url('auth/logout') ?>">Logout</a></li>
+						<li> <a class="dropdown-item" href="<?= site_url('home/logout') ?>" data-toggle="modal" data-target="#logoutModal1">
+								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+								Logout
+							</a></li>
 					<?php } else { ?>
 						<li><a href="<?= site_url('home/login') ?>">Login</a></li>
 					<?php } ?>

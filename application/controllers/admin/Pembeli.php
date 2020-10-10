@@ -7,6 +7,7 @@ class pembeli extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
         $this->load->model('pembeli_model');
         $this->load->library('form_validation');
     }

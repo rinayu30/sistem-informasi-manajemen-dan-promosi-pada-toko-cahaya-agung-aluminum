@@ -6,6 +6,7 @@ class Dashboard_admin extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
         $this->load->model(['penjualan_model', 'produk_model', 'bahan_masuk_model', 'auth_model']);
     }
 

@@ -7,6 +7,7 @@ class Produk extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
         $this->load->model(['produk_model', 'kategori_model', 'bahan_perabot_model', 'kalkulasi_model']);
         $this->load->library('form_validation');
     }
@@ -89,7 +90,7 @@ class Produk extends CI_Controller
         } else if (isset($_POST['edit'])) {
 
             $produk = $this->produk_model->get($post['kode'])->row();
-            if($_FILES['gambar']['size'] > 0) if ($produk->gambar != null) {
+            if ($_FILES['gambar']['size'] > 0) if ($produk->gambar != null) {
                 // $this->produk_model->_deleteImage($post['gambar']);
                 $kdProduk = $post['kode'];
                 $post['gambar'] = $this->produk_model->_uploadImage($kdProduk);

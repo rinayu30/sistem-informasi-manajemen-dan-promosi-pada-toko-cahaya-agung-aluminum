@@ -7,6 +7,7 @@ class Penjualan extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
         $this->load->model(['penjualan_model', 'produk_model']);
         // $this->load->library('form_validation');
         $this->load->library('form_validation');
@@ -313,7 +314,7 @@ class Penjualan extends CI_Controller
 
             $pdf->SetFont('Arial', '', 9);
 
-            $record = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+            $record = $this->db->query("SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.level,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
             FROM penjualan
             LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
             LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
@@ -323,7 +324,7 @@ class Penjualan extends CI_Controller
             foreach ($record as $row) {
                 $pdf->Cell(30, 6, $row->kd_penjualan, 1, 0, 'C');
                 $pdf->Cell(30, 6, $row->tgl_penjualan, 1, 0, 'C');
-                $pdf->Cell(25, 6, $row->nama_user, 1, 0);
+                $pdf->Cell(25, 6, $row->level == '3' ? 'Online' : $row->nama_user, 1, 0);
                 $pdf->Cell(25, 6, $row->nama_pembeli, 1, 0);
                 $pdf->Cell(45, 6, 'Rp.' . number_format($row->dp_awal), 1, 1, 'R');
                 $awal = $awal + $row->dp_awal;
@@ -467,8 +468,8 @@ class Penjualan extends CI_Controller
         foreach ($record as $row) {
             $pdf->Cell(30, 6, $row->kd_penjualan, 1, 0, 'C');
             $pdf->Cell(30, 6, $row->tgl_penjualan, 1, 0, 'C');
-            $pdf->Cell(25, 6, $row->nama_user, 1, 0);
-            $pdf->Cell(25, 6, $row->nama_pembeli, 1, 0);
+            $pdf->Cell(25, 6, $row->level == '3' ? 'Online' : $row->nama_user, 1, 0, 'C');
+            $pdf->Cell(25, 6, $row->nama_pembeli, 1, 0, 'C');
             $pdf->Cell(45, 6, 'Rp.' . number_format($row->dp_awal), 1, 1, 'R');
             $awal = $awal + $row->dp_awal;
         }
@@ -518,9 +519,9 @@ class Penjualan extends CI_Controller
         $info = $this->penjualan_model->ambil($id);
         foreach ($info->result() as $row) {
 
-            $pdf->Cell(200, 3, 'Tgl. Transaksi       ' . '  :   ' . $row->tgl_penjualan . '                                               No Faktur           ' . '     :   ' . $row->kd_penjualan, 0, 1, 'L');
+            $pdf->Cell(200, 3, 'Tgl. Transaksi       ' . '  :   ' . $row->tgl_penjualan . '                                                           No Faktur           ' . '     :   ' . $row->kd_penjualan, 0, 1, 'L');
             $pdf->Cell(10, 3, '', 0, 1, 'C');
-            $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                        Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
+            $pdf->Cell(90, 3, 'Dibuat oleh          ' . '   :   ' . $row->nama_user . '                                                                     Pembeli             ' . '      :   ' . $row->nama_pembeli, 0, 1, 'L');
             $pdf->Cell(10, 5, '', 0, 1, 'C');
         }
         $pdf->SetLeftMargin(35);

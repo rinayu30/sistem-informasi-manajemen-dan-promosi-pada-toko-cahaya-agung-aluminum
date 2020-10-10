@@ -8,6 +8,7 @@ class Pengguna extends CI_Controller
         parent::__construct();
         $this->load->model('auth_model');
         check_not_login();
+        cek_pengunjung();
         cek_admin();
         //$this->load->model('pengguna_m');
         $this->load->library('form_validation');

@@ -7,6 +7,8 @@ class Kategori extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
+        cek_admin();
         $this->load->model('kategori_model');
         // $this->load->library('form_validation');
     }

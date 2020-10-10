@@ -142,11 +142,4 @@ class Auth extends CI_Controller
             }
         }
     }
-
-    // private function _login()
-    // {
-    //     $email = $this->input->post('email');
-    //     $pass = $this->input->post('pass');
-    //     $user = $this->db->get_where('user', ['email' => $email])->row_array();
-    // }
 }

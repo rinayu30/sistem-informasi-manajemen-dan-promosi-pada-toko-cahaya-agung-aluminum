@@ -46,7 +46,7 @@ class Dashboard extends CI_Controller
 
     public function tambah_keranjang($id)
     {
-        check_not_login();
+        check_not_login_pengunjung();
         $produk = $this->produk_model->find($id);
         $data = array(
             'id'      => $produk->kd_produk,
@@ -64,20 +64,20 @@ class Dashboard extends CI_Controller
     }
     public function detail_keranjang()
     {
-        // check_not_login();
+        check_not_login_pengunjung();
         $this->load->view('user/template/header');
         $this->load->view('user/keranjang');
         $this->load->view('user/template/footer');
     }
     public function hapus_keranjang()
     {
-        // check_not_login();
+        check_not_login_pengunjung();
         $this->cart->destroy();
         redirect('dashboard/produk');
     }
     public function pembayaran()
     {
-        // check_not_login();
+        check_not_login_pengunjung();
         $this->load->view('user/template/header');
         $this->load->view('user/pembayaran');
         $this->load->view('user/template/footer');
@@ -98,7 +98,7 @@ class Dashboard extends CI_Controller
 
     public function profil()
     {
-        // check_not_login();
+        check_not_login_pengunjung();
         $showEdit = $this->input->get('show_edit');
         $data = [
             'showEdit' => false,
@@ -111,7 +111,7 @@ class Dashboard extends CI_Controller
     }
     public function proses_pesanan()
     {
-        check_not_login();
+        check_not_login_pengunjung();
         $cartData = $this->cart->contents();
         if (count($cartData) <= 0) {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -139,7 +139,7 @@ class Dashboard extends CI_Controller
 
         if ($user->level != '3') {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-               Login terlebih dahulu sebagai user website !
+               Login terlebih dahulu!
                 <button type="button" class="close" data-dismiss="alert" arial-label="Close">
                 <span aria-hidden="true">&times;</span></button></div>');
             return redirect('home/pemesanan');
@@ -149,14 +149,14 @@ class Dashboard extends CI_Controller
 
         $id_pembeli    =  $this->db->query("SELECT id_pembeli FROM pembeli WHERE id_user='$userId'")->row();
         $id_pembeli = $id_pembeli->id_pembeli;
-        $alamat = $this->input->post('alamat');
+        $alamat1 = $this->input->post('alamat');
         $alamat = $this->db->query("SELECT alamat FROM pembeli WHERE id_user='$userId'")->row();
         $alamat = $alamat->alamat;
 
-        if (empty($alamat)) {
+        if (empty($alamat1)) {
             $ala = $alamat;
         } else {
-            $ala = $alamat;
+            $ala = $alamat1;
         }
         // return $ala;
         // return var_dump($ala);
@@ -187,7 +187,7 @@ class Dashboard extends CI_Controller
 
     public function proses_identitas()
     {
-        check_not_login();
+        check_not_login_pengunjung();
         // $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('notel', 'Nomor WA/HP', 'required');

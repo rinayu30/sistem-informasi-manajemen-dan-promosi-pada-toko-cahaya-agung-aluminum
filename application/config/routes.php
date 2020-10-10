@@ -57,6 +57,7 @@ $route['home'] = 'dashboard';
 $route['home/kontak'] = 'dashboard/kontak';
 $route['home/produk'] = 'dashboard/produk';
 $route['home/login'] = 'dashboard/login_user';
+$route['home/logout'] = 'auth/logout';
 $route['home/register'] = 'dashboard/register';
 $route['home/detail_keranjang'] = 'dashboard/detail_keranjang';
 $route['home/pemesanan'] = 'dashboard/pembayaran';

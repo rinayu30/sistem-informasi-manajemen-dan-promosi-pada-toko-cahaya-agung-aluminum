@@ -221,7 +221,7 @@ class Penjualan_model extends CI_Model
     }
     public function laporan_batal()
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.level,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual,alamat_kirim
         FROM penjualan
         LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
         LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
@@ -232,7 +232,7 @@ class Penjualan_model extends CI_Model
 
     function laporan_periode($tanggal1, $tanggal2)
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.level,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual,alamat_kirim
         FROM penjualan
         LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
         LEFT OUTER JOIN user ON penjualan.id_user=user.id_user
@@ -243,7 +243,7 @@ class Penjualan_model extends CI_Model
     }
     function laporan_batal_periode($tanggal1, $tanggal2)
     {
-        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual
+        $query = "SELECT kd_penjualan,pembeli.id_pembeli,pembeli.nama_pembeli,user.id_user,user.level,user.nama_user,tgl_penjualan,tot_bayar,dp_awal,sisa,status_jual,alamat_kirim
         FROM penjualan
         LEFT OUTER JOIN pembeli ON penjualan.id_pembeli=pembeli.id_pembeli
         LEFT OUTER JOIN user ON penjualan.id_user=user.id_user

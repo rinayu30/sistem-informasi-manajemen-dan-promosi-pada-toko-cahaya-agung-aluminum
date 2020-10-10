@@ -7,6 +7,8 @@ class Bahan_perabot extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        cek_pengunjung();
+        cek_admin();
         $this->load->model(['bahan_perabot_model', 'item_model', 'jenis_model', 'kalkulasi_model']);
         $this->load->library('form_validation');
     }
