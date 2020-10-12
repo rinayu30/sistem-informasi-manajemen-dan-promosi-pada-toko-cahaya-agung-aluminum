@@ -37,7 +37,7 @@
                                         <td><input type='checkbox' class='check-item' name='id_item[]' value="<?= $data->id_item ?>"></td>
                                         <td><?= $data->nama_item ?></td>
                                         <td class="text-center"><?= $data->nama_jenis ?></td>
-                                        <td class="text-center"><?= $data->stok ?></td>
+                                        <td class="text-center"><?= $data->nama_item == 'upah' || $data->nama_item == 'lain-lain' ? '-' : $data->stok ?></td>
                                         <td class="text-center">
                                             <a href="<?= site_url('admin/item/edit/' . $data->id_item) ?>" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-edit"></i> Edit</a>

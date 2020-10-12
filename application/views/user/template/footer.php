@@ -107,6 +107,24 @@
  <script src="<?= base_url() ?>assets_user/copy/js/jquery.slicknav.js"></script>
  <script src="<?= base_url() ?>assets_user/copy/js/owl.carousel.min.js"></script>
  <script src="<?= base_url() ?>assets_user/copy/js/main.js"></script>
+
+ <!-- <script src="<?= base_url() ?>assets_user/js/floating-wpp.js"></script>
+ <script type="text/javascript">
+ 	$(window).load(function() {
+ 		$('.myWhatsapp').floatingWhatsApp({
+ 			phone: '628127774130',
+ 			popupMessage: 'Hi, Apa yang bisa kami bantu?',
+ 			message: 'Halo, saya ingin bertanya',
+ 			showPopup: true,
+ 			showOnIE: false,
+ 			headerTitle: 'Selamat Datang di Toko Cahaya Agung Aluminium',
+ 			headerColor: 'rgb(18, 140, 126)',
+ 			backgroundColor: '',
+ 			buttonImage: '<img src="<?= base_url() ?>assets_user/img/wa.png"/>'
+
+ 		});
+ 	});
+ </script> -->
  </body>
 
  </html>
